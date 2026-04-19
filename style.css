@@ -1,0 +1,496 @@
+/* --- CSS VARIABLES (Consistent Theme) --- */
+:root {
+	--primary-color: #d32f2f; /* Cambodia Flag Red */
+	--secondary-color: #032b82; /* Cambodia Flag Blue */
+	--accent-color: #f9a825; /* Gold/Yellow */
+	--bg-color: #f5f5f5;
+	--text-color: #333333;
+	--white: #ffffff;
+}
+
+/* --- BASE STYLES & BOX MODEL --- */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	line-height: 1.6;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh; /* Keeps footer at bottom */
+}
+
+.container {
+	width: 90%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 40px 0;
+	flex: 1;
+}
+
+/* --- TYPOGRAPHY --- */
+h1,
+h2,
+h3 {
+	color: var(--secondary-color);
+	margin-bottom: 15px;
+}
+p {
+	margin-bottom: 15px;
+}
+
+/* --- NAVIGATION (Flexbox) --- */
+header {
+	background-color: var(--white);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 5%;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.logo {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: var(--primary-color);
+}
+
+.nav-links {
+	list-style: none;
+	display: flex;
+	gap: 20px;
+}
+
+.nav-links a {
+	text-decoration: none;
+	color: var(--text-color);
+	font-weight: 500;
+	transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+	color: var(--primary-color);
+	border-bottom: 2px solid var(--primary-color);
+}
+
+/* --- HERO SECTION --- */
+.hero {
+	background:
+		linear-gradient(rgba(3, 43, 130, 0.7), rgba(3, 43, 130, 0.7)),
+		url("../images/hero-bg.jpg") center / cover;
+	height: 70vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color: var(--white);
+	padding: 0 20px;
+}
+
+.hero h1 {
+	color: var(--white);
+	font-size: 3rem;
+}
+.hero p {
+	font-size: 1.2rem;
+	max-width: 600px;
+	margin: 0 auto 20px;
+}
+
+.btn-primary {
+	display: inline-block;
+	background-color: var(--primary-color);
+	color: var(--white);
+	padding: 12px 25px;
+	text-decoration: none;
+	border-radius: 5px;
+	font-weight: bold;
+	border: none;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+.btn-primary:hover {
+	background-color: #b71c1c;
+}
+
+/* --- GRIDS (Flexbox & CSS Grid) --- */
+.feature-grid {
+	display: flex;
+	gap: 20px;
+	padding: 40px 5%;
+	justify-content: center;
+}
+
+.card {
+	background: var(--white);
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+	flex: 1;
+	text-align: center;
+}
+
+.destination-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 30px;
+	margin-top: 30px;
+}
+
+.dest-card {
+	background: var(--white);
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dest-card img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+
+.dest-card h3,
+.dest-card p {
+	padding: 15px;
+	margin: 0;
+}
+
+/* --- FORMS --- */
+.custom-form {
+	background: var(--white);
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+.form-group label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: bold;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+/* --- TABLES --- */
+.table-section {
+	margin-top: 50px;
+	overflow-x: auto;
+}
+.data-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: var(--white);
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+.data-table th,
+.data-table td {
+	padding: 15px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+.data-table th {
+	background-color: var(--secondary-color);
+	color: var(--white);
+}
+
+/* --- UTILITIES --- */
+.hidden {
+	display: none !important;
+}
+.success-msg {
+	background: #d4edda;
+	color: #155724;
+	padding: 15px;
+	border-radius: 5px;
+	margin-top: 20px;
+	text-align: center;
+}
+#result-container {
+	background: var(--white);
+	padding: 30px;
+	margin-top: 30px;
+	border-radius: 8px;
+	text-align: center;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+#result-container img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+	margin-top: 15px;
+}
+
+footer {
+	background-color: var(--text-color);
+	color: var(--white);
+	text-align: center;
+	padding: 20px 0;
+	margin-top: auto; /* Pushes footer to bottom */
+}
+
+/* --- RESPONSIVE DESIGN (Media Queries) --- */
+/* Breakpoint 1: Tablets [cite: 43] */
+@media (max-width: 768px) {
+	nav {
+		flex-direction: column;
+		gap: 15px;
+	}
+	.feature-grid {
+		flex-direction: column;
+	}
+	.hero h1 {
+		font-size: 2.2rem;
+	}
+}
+
+/* Breakpoint 2: Mobile Phones [cite: 43, 45] */
+@media (max-width: 480px) {
+	.nav-links {
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		gap: 10px;
+	}
+	.hero h1 {
+		font-size: 1.8rem;
+	}
+	.container {
+		padding: 20px 5%;
+	}
+}
+
+/* --- DETAIL PAGE STYLES --- */
+.back-btn {
+	display: inline-block;
+	margin-bottom: 20px;
+	color: var(--secondary-color);
+	text-decoration: none;
+	font-weight: 500;
+}
+.back-btn:hover {
+	color: var(--primary-color);
+}
+
+.detail-header {
+	position: relative;
+	margin-bottom: 30px;
+	border-radius: 8px;
+	overflow: hidden;
+}
+.detail-header img {
+	width: 100%;
+	height: 400px;
+	object-fit: cover;
+}
+.detail-title {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+	padding: 40px 20px 20px;
+	color: var(--white);
+}
+.detail-title h1 {
+	color: var(--white);
+	font-size: 2.5rem;
+	margin-bottom: 5px;
+}
+.detail-title p {
+	font-size: 1.2rem;
+	margin: 0;
+}
+
+.quick-facts {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 15px;
+	margin-bottom: 40px;
+}
+.fact-card {
+	background: var(--white);
+	padding: 15px;
+	border-radius: 8px;
+	text-align: center;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.fact-label {
+	display: block;
+	font-size: 0.85rem;
+	color: #666;
+	margin-bottom: 5px;
+}
+.fact-value {
+	display: block;
+	font-weight: bold;
+	color: var(--secondary-color);
+}
+
+.detail-content {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 40px;
+}
+.detail-main h2 {
+	color: var(--secondary-color);
+	margin: 30px 0 15px;
+	border-bottom: 2px solid var(--primary-color);
+	padding-bottom: 8px;
+}
+.detail-desc {
+	font-size: 1.05rem;
+	line-height: 1.8;
+}
+
+.highlights-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+.highlight-item {
+	background: var(--white);
+	padding: 20px;
+	border-radius: 8px;
+}
+.highlight-item h3 {
+	font-size: 1.1rem;
+	margin-bottom: 10px;
+}
+.highlight-item ul {
+	list-style: disc;
+	padding-left: 20px;
+}
+.highlight-item li {
+	margin-bottom: 8px;
+}
+
+.accommodation-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 15px;
+}
+.accom-card {
+	background: var(--white);
+	padding: 20px;
+	border-radius: 8px;
+	text-align: center;
+}
+.accom-card h4 {
+	color: var(--secondary-color);
+	margin-bottom: 10px;
+}
+
+.getting-there {
+	background: var(--white);
+	padding: 20px;
+	border-radius: 8px;
+	margin: 15px 0;
+}
+.transport-option h4 {
+	margin-bottom: 10px;
+}
+.transport-desc {
+	font-size: 0.9rem;
+	color: #666;
+}
+
+.travel-tips {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 15px;
+}
+.tip-card {
+	background: var(--white);
+	padding: 20px;
+	border-radius: 8px;
+}
+.tip-card h4 {
+	font-size: 1rem;
+	margin-bottom: 8px;
+}
+.tip-card p {
+	font-size: 0.9rem;
+	margin: 0;
+	color: #666;
+}
+
+.detail-sidebar {
+	background: var(--white);
+	padding: 25px;
+	border-radius: 8px;
+	height: fit-content;
+}
+.sidebar-box {
+	margin-bottom: 25px;
+}
+.sidebar-box h3 {
+	font-size: 1.1rem;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 8px;
+}
+.map-placeholder {
+	background: #f0f0f0;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	color: #999;
+}
+.quick-info-list {
+	list-style: none;
+}
+.quick-info-list li {
+	padding: 8px 0;
+	border-bottom: 1px solid #eee;
+}
+.cta-box {
+	background: var(--bg-color);
+	text-align: center;
+}
+.cta-box p {
+	font-size: 0.9rem;
+	margin-bottom: 15px;
+}
+.cta-box .btn-primary {
+	width: 100%;
+}
+
+@media (max-width: 768px) {
+	.detail-content {
+		grid-template-columns: 1fr;
+	}
+	.highlights-grid,
+	.travel-tips,
+	.accommodation-grid {
+		grid-template-columns: 1fr;
+	}
+}

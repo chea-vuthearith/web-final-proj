@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Your Vibe | Wander KH</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Wander KH</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="discover.html" class="active">Discover</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="recommender-section">
+            <h2>Travel Matchmaker</h2>
+            <p>Tell us what you like, and we'll suggest the perfect Cambodian destination for you.</p>
+            
+            <form id="recommendation-form" class="custom-form">
+                <div class="form-group">
+                    <label for="vibe">What is your ideal vibe?</label>
+                    <select id="vibe" required>
+                        <option value="">-- Select a Vibe --</option>
+                        <option value="history">History & Culture</option>
+                        <option value="nature">Nature & Adventure</option>
+                        <option value="beach">Relaxation & Beaches</option>
+                        <option value="city">City Life & Food</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="budget">What is your budget level?</label>
+                    <select id="budget" required>
+                        <option value="">-- Select Budget --</option>
+                        <option value="backpacker">Backpacker ($)</option>
+                        <option value="mid">Mid-Range ($$)</option>
+                        <option value="luxury">Luxury ($$$)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">How many days are you visiting?</label>
+                    <input type="number" id="duration" min="1" max="30" placeholder="e.g. 5" required>
+                </div>
+
+                <button type="submit" class="btn-primary">Get Recommendation</button>
+            </form>
+
+            <div id="result-container" class="hidden">
+                <h3>Your Perfect Match: <span id="match-name"></span></h3>
+                <p id="match-desc"></p>
+                <img id="match-img" src="" alt="Destination Image">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Wander Cambodia. INFO 250 Final Project.</p>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+</html>

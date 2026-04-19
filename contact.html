@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Wander KH</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Wander KH</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="discover.html">Discover</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="contact-section">
+            <h2>Get in Touch</h2>
+            <p>Have questions about traveling in Cambodia? Send us a message!</p>
+            
+            <form id="contact-form" class="custom-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" rows="5" required placeholder="How can we help?"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Send Message</button>
+            </form>
+            <div id="form-success" class="hidden success-msg">Thanks for reaching out! We will reply soon.</div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Wander Cambodia. INFO 250 Final Project.</p>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+</html>

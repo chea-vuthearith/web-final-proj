@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Destination | Wander KH</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<header>
+			<nav>
+				<div class="logo">Wander KH</div>
+				<ul class="nav-links">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="discover.html">Discover</a></li>
+					<li><a href="destinations.html" class="active">Destinations</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main class="container">
+			<a href="destinations.html" class="back-btn"
+				>&larr; Back to Destinations</a
+			>
+
+			<section class="detail-header">
+				<img id="dest-image" src="" alt="">
+				<div class="detail-title">
+					<h1 id="dest-name"></h1>
+					<p id="dest-tagline"></p>
+				</div>
+			</section>
+
+			<section class="quick-facts">
+				<div class="fact-card">
+					<span class="fact-label">Best Time</span>
+					<span id="fact-best-time" class="fact-value"></span>
+				</div>
+				<div class="fact-card">
+					<span class="fact-label">From Phnom Penh</span>
+					<span id="fact-duration" class="fact-value"></span>
+				</div>
+				<div class="fact-card">
+					<span class="fact-label">Transport</span>
+					<span id="fact-transport" class="fact-value"></span>
+				</div>
+				<div class="fact-card">
+					<span class="fact-label">Weather</span>
+					<span id="fact-weather" class="fact-value"></span>
+				</div>
+			</section>
+
+			<section class="detail-content">
+				<div class="detail-main">
+					<h2>About This Destination</h2>
+					<p id="dest-description" class="detail-desc"></p>
+
+					<h2>What to See & Do</h2>
+					<div class="highlights-grid">
+						<div class="highlight-item">
+							<h3>Top Attractions</h3>
+							<ul id="dest-highlights" class="attractions-list"></ul>
+						</div>
+						<div class="highlight-item">
+							<h3>Things to Do</h3>
+							<ul id="dest-activities" class="activities-list"></ul>
+						</div>
+					</div>
+
+					<h2>Where to Stay</h2>
+					<div id="accommodation-section" class="accommodation-section">
+						<p class="accommodation-note">
+							Accommodation options vary by budget. Search for hotels, hostels,
+							or resorts in this area.
+						</p>
+					</div>
+
+					<h2>Getting There</h2>
+					<div class="getting-there">
+						<div class="transport-option">
+							<h4>
+								<span class="transport-icon">&#128648;</span>
+								<span id="transport-method"></span>
+							</h4>
+							<p>Duration: <span id="transport-duration"></span></p>
+							<p class="transport-desc">
+								Most convenient option. Buses depart regularly from Phnom Penh's
+								Olympic Market.
+							</p>
+						</div>
+					</div>
+
+					<h2>Travel Tips</h2>
+					<div class="travel-tips">
+						<div class="tip-card">
+							<h4>&#127959; Dress Code</h4>
+							<p>
+								Wear modest clothing when visiting temples. Shoulders and knees
+								covered.
+							</p>
+						</div>
+						<div class="tip-card">
+							<h4>&#127758; Currency</h4>
+							<p>
+								US Dollars widely accepted. Small riel change given for small
+								amounts.
+							</p>
+						</div>
+						<div class="tip-card">
+							<h4>&#127763; Health</h4>
+							<p>
+								Stay hydrated and use sunscreen. Mosquitos present in some
+								areas.
+							</p>
+						</div>
+						<div class="tip-card">
+							<h4>&#128222; Communication</h4>
+							<p>English spoken in tourist areas. Learn a few Khmer phrases!</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="detail-sidebar">
+					<div class="sidebar-box map-box">
+						<h3>Location</h3>
+						<iframe
+							id="map-frame"
+							width="100%"
+							height="200"
+							style="border:0;border-radius:8px;"
+							allowfullscreen
+							loading="lazy"
+							title="Location Map"
+						></iframe>
+					</div>
+
+					<div class="sidebar-box">
+						<h3>Quick Info</h3>
+						<ul class="quick-info-list">
+							<li><strong>Language:</strong> Khmer</li>
+							<li><strong>Currency:</strong> USD / KHR</li>
+							<li><strong>Time Zone:</strong> GMT+7</li>
+						</ul>
+					</div>
+
+					<div class="sidebar-box cta-box">
+						<h3>Ready to Visit?</h3>
+						<p>Book your trip now and explore this amazing destination!</p>
+						<a href="contact.html" class="btn-primary">Plan Your Trip</a>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer>
+			<p>&copy; 2026 Wander Cambodia. INFO 250 Final Project.</p>
+		</footer>
+		<script src="js/destinations.js"></script>
+		<script src="js/detail.js"></script>
+	</body>
+</html>
