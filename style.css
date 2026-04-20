@@ -291,7 +291,7 @@ footer {
 .back-btn {
 	display: inline-block;
 	margin-bottom: 20px;
-	color: var(--secondary-color);
+	color: var(--primary-color);
 	text-decoration: none;
 	font-weight: 500;
 }
