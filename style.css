@@ -1,9 +1,10 @@
 /* --- CSS VARIABLES (Consistent Theme) --- */
 :root {
-	--primary-color: #d32f2f; /* Cambodia Flag Red */
-	--secondary-color: #032b82; /* Cambodia Flag Blue */
-	--accent-color: #f9a825; /* Gold/Yellow */
-	--bg-color: #f5f5f5;
+	--primary-color: #03695e; /* Deep Jade */
+	--secondary-color: #6da75f; /* Spring Green */
+	--accent-color: #239dca; /* Sky Aqua */
+	--soft-accent: #a5c6db; /* Mist Blue */
+	--bg-color: #e7e9d8; /* Linen White */
 	--text-color: #333333;
 	--white: #ffffff;
 }
@@ -37,7 +38,7 @@ body {
 h1,
 h2,
 h3 {
-	color: var(--secondary-color);
+	color: var(--primary-color);
 	margin-bottom: 15px;
 }
 p {
@@ -90,7 +91,7 @@ nav {
 /* --- HERO SECTION --- */
 .hero {
 	background:
-		linear-gradient(rgba(3, 43, 130, 0.7), rgba(3, 43, 130, 0.7)),
+		linear-gradient(rgba(3, 105, 94, 0.7), rgba(3, 105, 94, 0.7)),
 		url("../images/hero-bg.jpg") center / cover;
 	height: 70vh;
 	display: flex;
@@ -125,7 +126,7 @@ nav {
 }
 
 .btn-primary:hover {
-	background-color: #b71c1c;
+	background-color: #024a44;
 }
 
 /* --- GRIDS (Flexbox & CSS Grid) --- */
@@ -216,7 +217,7 @@ nav {
 	border-bottom: 1px solid #ddd;
 }
 .data-table th {
-	background-color: var(--secondary-color);
+	background-color: var(--primary-color);
 	color: var(--white);
 }
 
@@ -225,8 +226,8 @@ nav {
 	display: none !important;
 }
 .success-msg {
-	background: #d4edda;
-	color: #155724;
+	background: #a5c6db;
+	color: #03695e;
 	padding: 15px;
 	border-radius: 5px;
 	margin-top: 20px;
@@ -350,7 +351,7 @@ footer {
 .fact-value {
 	display: block;
 	font-weight: bold;
-	color: var(--secondary-color);
+	color: var(--accent-color);
 }
 
 .detail-content {
@@ -359,9 +360,9 @@ footer {
 	gap: 40px;
 }
 .detail-main h2 {
-	color: var(--secondary-color);
+	color: var(--primary-color);
 	margin: 30px 0 15px;
-	border-bottom: 2px solid var(--primary-color);
+	border-bottom: 2px solid var(--secondary-color);
 	padding-bottom: 8px;
 }
 .detail-desc {
@@ -403,7 +404,7 @@ footer {
 	text-align: center;
 }
 .accom-card h4 {
-	color: var(--secondary-color);
+	color: var(--primary-color);
 	margin-bottom: 10px;
 }
 
