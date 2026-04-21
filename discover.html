@@ -1,70 +1,490 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discover Your Vibe | Wander KH</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">Wander KH</div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="discover.html" class="active">Discover</a></li>
-                <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+import React, { useState, useEffect } from 'react';
+import { 
+  Coffee, Mountain, Landmark, Music, 
+  Umbrella, Building, Tent, TreePine, 
+  BookOpen, Users, Map, Sun, 
+  Wallet, CreditCard, Diamond, 
+  Calendar, CalendarDays, CheckCircle2, 
+  User, Heart, 
+  Camera, Wind, Aperture, Utensils, 
+  Plane, Bike, Footprints, 
+  BedDouble, Home, Building2, 
+  Zap, Compass, Hourglass, 
+  ArrowRight, ArrowLeft, MapPin, Star, RefreshCcw
+} from 'lucide-react';
 
-    <main class="container">
-        <section class="recommender-section">
-            <h2>Travel Matchmaker</h2>
-            <p>Tell us what you like, and we'll suggest the perfect Cambodian destination for you.</p>
+// --- DATABASE OF 10 CAMBODIA DESTINATIONS ---
+const destinations = [
+  {
+    id: 1,
+    name: "Siem Reap & Angkor Wat",
+    image: "https://images.unsplash.com/photo-1555025000-8fa3f8fa4be1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    description: "The historic crown jewel of Cambodia. Lose yourself in the ancient, sprawling temple complexes, rich Khmer culture, and bustling night markets.",
+    tags: ["cultural", "temple", "explorer", "standard", "4-7", "group", "sightseeing", "tuktuk", "boutique", "balanced"],
+    highlightColor: "#03695e" // Cool Jade
+  },
+  {
+    id: 2,
+    name: "Koh Rong",
+    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    description: "A tropical paradise featuring pristine white sand beaches. Find vibrant nightlife on the main beach or ultimate serene escapes on the quieter sides of the island.",
+    tags: ["party", "relaxed", "beach", "extrovert", "chill", "backpack", "4-7", "solo", "couple", "relaxation", "boat", "hostel", "resort", "slow"],
+    highlightColor: "#239dca" // Sky Aqua
+  },
+  {
+    id: 3,
+    name: "Phnom Penh",
+    image: "https://images.unsplash.com/photo-1581337204873-ef36aa186caa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    description: "The vibrant, bustling capital city where history meets modernity. Dive into incredible street food scenes, profound historical sites, and lively riverside walks.",
+    tags: ["adventurous", "city", "extrovert", "standard", "1-3", "group", "food", "sightseeing", "flight", "boutique", "fast"],
+    highlightColor: "#03695e" // Cool Jade
+  },
+  {
+    id: 4,
+    name: "Kampot",
+    image: "https://images.unsplash.com/photo-1518182170546-076616fdcbdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    description: "A deeply relaxed riverside town famous worldwide for its pepper farms, beautiful French colonial architecture, and mesmerizing sunset river cruises.",
+    tags: ["relaxed", "nature", "chill", "backpack", "standard", "4-7", "couple", "food", "relaxation", "motorbike", "homestay", "slow"],
+    highlightColor: "#6daf5f" // Spring Herb
+  },
+  {
+    id: 5,
+    name: "Mondulkiri",
+    image: "https://images.unsplash.com/photo-1585544314038-a0d376981021?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    description: "The wild east of Cambodia. Experience lush rolling hills, towering waterfalls, and ethical elephant sanctuaries in a cooler climate.",
+    tags: ["adventurous", "jungle", "introvert", "explorer", "standard", "4-7", "group", "photography", "flight", "homestay", "balanced"],
+    highlightColor: "#6daf5f" // Spring Herb
+  },
+  {
+    id: 6,
+    name: "Kep",
+    image: "https://images.unsplash.com/photo-1520315342629-6ea920342047?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    description: "A quiet, charming coastal province known for its famous fresh crab market, national park hiking trails, and peaceful, slow-paced coastal vibe.",
+    tags: ["relaxed", "beach", "chill", "standard", "luxury", "1-3", "couple", "food", "relaxation", "tuktuk", "resort", "slow"],
+    highlightColor: "#a5c6db" // Light Blue
+  },
+  {
+    id: 7,
+    name: "Battambang",
+    image: "https://images.unsplash.com/photo-1583417657208-ded6ddac68d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    description: "Cambodia's creative and arts hub. Ride the famous bamboo train, explore French colonial buildings, and witness the spectacular evening bat flights.",
+    tags: ["cultural", "city", "explorer", "backpack", "1-3", "solo", "sightseeing", "motorbike", "homestay", "balanced"],
+    highlightColor: "#03695e" // Cool Jade
+  },
+  {
+    id: 8,
+    name: "Ratanakiri",
+    image: "https://images.unsplash.com/photo-1511215448103-625dc89025e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    description: "Way off the beaten path. Discover deep jungle treks, refreshing volcanic crater lakes, and rich indigenous cultures for the true adventurer.",
+    tags: ["adventurous", "jungle", "introvert", "explorer", "backpack", "1week", "solo", "photography", "motorbike", "homestay", "fast"],
+    highlightColor: "#239dca" // Sky Aqua
+  },
+  {
+    id: 9,
+    name: "Koh Ta Kiev",
+    image: "https://images.unsplash.com/photo-1536098254070-5b23d917f90e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    description: "A rustic, highly undeveloped island perfect for totally unplugging from the digital world. Sleep in jungle treehouses or simple beach shacks.",
+    tags: ["relaxed", "beach", "introvert", "chill", "backpack", "1-3", "solo", "couple", "relaxation", "boat", "hostel", "slow"],
+    highlightColor: "#a5c6db" // Light Blue
+  },
+  {
+    id: 10,
+    name: "Chi Phat (Cardamom Mountains)",
+    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+    description: "An incredible community-based eco-tourism project. Engage in raw jungle trekking, mountain biking, and sleeping deep within pristine nature.",
+    tags: ["adventurous", "jungle", "nature", "explorer", "backpack", "4-7", "group", "sightseeing", "photography", "walking", "homestay", "fast"],
+    highlightColor: "#6daf5f" // Spring Herb
+  }
+];
+
+// --- 10 SELECTION CRITERIA ---
+const questions = [
+  {
+    id: "vibe",
+    title: "What's the overall vibe you are seeking?",
+    options: [
+      { label: "Relaxed", value: "relaxed", icon: Coffee },
+      { label: "Adventurous", value: "adventurous", icon: Mountain },
+      { label: "Cultural", value: "cultural", icon: Landmark },
+      { label: "Party & Social", value: "party", icon: Music },
+    ]
+  },
+  {
+    id: "type",
+    title: "What type of scenery calls to you?",
+    options: [
+      { label: "Beaches & Coast", value: "beach", icon: Umbrella },
+      { label: "Bustling City", value: "city", icon: Building },
+      { label: "Ancient Temples", value: "temple", icon: Castle },
+      { label: "Jungle & Nature", value: "jungle", icon: TreePine },
+    ]
+  },
+  {
+    id: "personality",
+    title: "How would you describe your travel personality?",
+    options: [
+      { label: "Introvert / Quiet", value: "introvert", icon: BookOpen },
+      { label: "Extrovert / Social", value: "extrovert", icon: Users },
+      { label: "Curious Explorer", value: "explorer", icon: Map },
+      { label: "Chill & Go-with-flow", value: "chill", icon: Sun },
+    ]
+  },
+  {
+    id: "budget",
+    title: "What is your budget range?",
+    options: [
+      { label: "Backpacker ($)", value: "backpack", icon: Wallet },
+      { label: "Standard ($$)", value: "standard", icon: CreditCard },
+      { label: "Luxury ($$$)", value: "luxury", icon: Diamond },
+    ]
+  },
+  {
+    id: "days",
+    title: "How many days are you traveling?",
+    options: [
+      { label: "1-3 Days", value: "1-3", icon: Calendar },
+      { label: "4-7 Days", value: "4-7", icon: CalendarDays },
+      { label: "1 Week+", value: "1week", icon: CheckCircle2 },
+    ]
+  },
+  {
+    id: "people",
+    title: "Who are you traveling with?",
+    options: [
+      { label: "Going Solo", value: "solo", icon: User },
+      { label: "With a Partner", value: "couple", icon: Heart },
+      { label: "Group or Family", value: "group", icon: Users },
+    ]
+  },
+  {
+    id: "purpose",
+    title: "What is the main purpose of this trip?",
+    options: [
+      { label: "Sightseeing", value: "sightseeing", icon: Camera },
+      { label: "Pure Relaxation", value: "relaxation", icon: Wind },
+      { label: "Photography & Art", value: "photography", icon: Aperture },
+      { label: "Food & Culinary", value: "food", icon: Utensils },
+    ]
+  },
+  {
+    id: "transport",
+    title: "Preferred mode of local transport?",
+    options: [
+      { label: "Flight / Private Car", value: "flight", icon: Plane },
+      { label: "Motorbike / TukTuk", value: "motorbike", icon: Bike },
+      { label: "Walking / Boat", value: "boat", icon: Footprints },
+    ]
+  },
+  {
+    id: "accommodation",
+    title: "Where do you prefer to sleep?",
+    options: [
+      { label: "Social Hostel", value: "hostel", icon: BedDouble },
+      { label: "Boutique Hotel", value: "boutique", icon: Home },
+      { label: "High-end Resort", value: "resort", icon: Building2 },
+      { label: "Local Homestay", value: "homestay", icon: Tent },
+    ]
+  },
+  {
+    id: "pace",
+    title: "Finally, what's your preferred travel pace?",
+    options: [
+      { label: "Fast (See it all)", value: "fast", icon: Zap },
+      { label: "Balanced", value: "balanced", icon: Compass },
+      { label: "Slow & Immersive", value: "slow", icon: Hourglass },
+    ]
+  }
+];
+
+// Fallback Castle Icon since lucide doesn't have standard Castle exported always
+function Castle(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M22 20v-6h-2v6h-4v-4H8v4H4v-6H2v6h20z" />
+      <path d="M2 14v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4" />
+      <path d="M6 8V4h2v4" />
+      <path d="M16 8V4h2v4" />
+      <path d="M10 8v-2h4v2" />
+    </svg>
+  );
+}
+
+export default function App() {
+  const [appState, setAppState] = useState('landing'); // landing, quiz, loading, results
+  const [currentStep, setCurrentStep] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [topMatches, setTopMatches] = useState([]);
+
+  // Handle option selection
+  const handleSelect = (questionId, value) => {
+    setAnswers(prev => ({ ...prev, [questionId]: value }));
+    
+    // Auto advance after short delay
+    setTimeout(() => {
+      if (currentStep < questions.length - 1) {
+        setCurrentStep(prev => prev + 1);
+      } else {
+        calculateResults();
+      }
+    }, 400);
+  };
+
+  // Algorithm to calculate best destinations
+  const calculateResults = () => {
+    setAppState('loading');
+    
+    setTimeout(() => {
+      const selectedTags = Object.values(answers);
+      
+      const scoredDestinations = destinations.map(dest => {
+        let score = 0;
+        selectedTags.forEach(tag => {
+          // If the destination has the tag, increase score
+          if (dest.tags.includes(tag)) {
+            score += 1;
+          }
+        });
+        return { ...dest, score };
+      });
+
+      // Sort by highest score first
+      scoredDestinations.sort((a, b) => b.score - a.score);
+      setTopMatches(scoredDestinations.slice(0, 3));
+      setAppState('results');
+    }, 2500); // Fake loading for dramatic effect
+  };
+
+  const resetApp = () => {
+    setAnswers({});
+    setCurrentStep(0);
+    setAppState('landing');
+    setTopMatches([]);
+  };
+
+  return (
+    <div className="relative min-h-screen font-sans overflow-hidden bg-[#e7e9d8] text-[#03695e] selection:bg-[#239dca] selection:text-white z-0">
+      
+      {/* Abstract Fluid Background matching "Wind Unties Blue" theme */}
+      <div className="fixed inset-0 pointer-events-none -z-10">
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#239dca]/10 blur-[120px]"></div>
+        <div className="absolute top-[20%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-[#6daf5f]/10 blur-[100px]"></div>
+        <div className="absolute bottom-[-20%] left-[20%] w-[60vw] h-[60vw] rounded-full bg-[#a5c6db]/20 blur-[120px]"></div>
+        <div className="absolute bottom-[10%] right-[10%] w-[30vw] h-[30vw] rounded-full bg-[#e7e9d8]/50 blur-[80px]"></div>
+      </div>
+
+      {/* 1. LANDING PAGE */}
+      {appState === 'landing' && (
+        <div className="flex flex-col items-center justify-center min-h-screen px-6 py-12 text-center animate-fade-in z-10 relative">
+          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-white/30 p-8 md:p-16 rounded-[3rem] shadow-2xl border border-white/50">
+            <h3 className="text-[#239dca] font-medium tracking-widest uppercase mb-4 text-sm md:text-base">
+              Discover Your Perfect Match
+            </h3>
+            <h1 className="text-5xl md:text-7xl font-bold text-[#03695e] mb-6 leading-tight">
+              Cambodia <br/> 
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#239dca] to-[#6daf5f]">
+                Travel Compass
+              </span>
+            </h1>
+            <p className="text-[#03695e]/80 text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed">
+              Answer 10 intuitive questions and let the wind guide you to your ultimate Cambodian destination tailored to your soul, budget, and vibe.
+            </p>
+            <button 
+              onClick={() => setAppState('quiz')}
+              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-in-out bg-[#03695e] rounded-full hover:bg-[#239dca] hover:shadow-[0_0_40px_rgba(35,157,202,0.4)] hover:-translate-y-1"
+            >
+              Start the Journey
+              <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 2. QUIZ SECTION */}
+      {appState === 'quiz' && (
+        <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12 animate-fade-in z-10 relative">
+          <div className="w-full max-w-2xl">
             
-            <form id="recommendation-form" class="custom-form">
-                <div class="form-group">
-                    <label for="vibe">What is your ideal vibe?</label>
-                    <select id="vibe" required>
-                        <option value="">-- Select a Vibe --</option>
-                        <option value="history">History & Culture</option>
-                        <option value="nature">Nature & Adventure</option>
-                        <option value="beach">Relaxation & Beaches</option>
-                        <option value="city">City Life & Food</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="budget">What is your budget level?</label>
-                    <select id="budget" required>
-                        <option value="">-- Select Budget --</option>
-                        <option value="backpacker">Backpacker ($)</option>
-                        <option value="mid">Mid-Range ($$)</option>
-                        <option value="luxury">Luxury ($$$)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="duration">How many days are you visiting?</label>
-                    <input type="number" id="duration" min="1" max="30" placeholder="e.g. 5" required>
-                </div>
-
-                <button type="submit" class="btn-primary">Get Recommendation</button>
-            </form>
-
-            <div id="result-container" class="hidden">
-                <h3>Your Perfect Match: <span id="match-name"></span></h3>
-                <p id="match-desc"></p>
-                <img id="match-img" src="" alt="Destination Image">
+            {/* Progress Bar */}
+            <div className="mb-12">
+              <div className="flex justify-between text-sm font-medium text-[#03695e]/60 mb-2 px-1">
+                <span>Step {currentStep + 1} of {questions.length}</span>
+                <span>{Math.round(((currentStep + 1) / questions.length) * 100)}%</span>
+              </div>
+              <div className="w-full h-2 bg-white/50 rounded-full overflow-hidden backdrop-blur-md">
+                <div 
+                  className="h-full bg-gradient-to-r from-[#6daf5f] to-[#239dca] transition-all duration-500 ease-out rounded-full"
+                  style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
+                ></div>
+              </div>
             </div>
-        </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Wander Cambodia. INFO 250 Final Project.</p>
-    </footer>
-    <script src="js/script.js"></script>
-</body>
-</html>
+            {/* Question Card */}
+            <div className="bg-white/60 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-white/60 min-h-[400px] flex flex-col justify-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-center text-[#03695e] mb-10 leading-tight">
+                {questions[currentStep].title}
+              </h2>
+              
+              <div className="grid grid-cols-2 gap-4 md:gap-6">
+                {questions[currentStep].options.map((option) => {
+                  const Icon = option.icon;
+                  const isSelected = answers[questions[currentStep].id] === option.value;
+                  
+                  return (
+                    <button
+                      key={option.value}
+                      onClick={() => handleSelect(questions[currentStep].id, option.value)}
+                      className={`relative flex flex-col items-center justify-center p-6 rounded-3xl border-2 transition-all duration-300 ease-in-out group
+                        ${isSelected 
+                          ? 'border-[#239dca] bg-[#a5c6db]/20 shadow-[0_8px_30px_rgba(35,157,202,0.2)] scale-[1.02]' 
+                          : 'border-white/40 bg-white/40 hover:bg-white hover:border-[#6daf5f]/50 hover:-translate-y-1 hover:shadow-lg'
+                        }
+                      `}
+                    >
+                      <Icon className={`w-10 h-10 mb-4 transition-colors duration-300 ${isSelected ? 'text-[#239dca]' : 'text-[#03695e]/70 group-hover:text-[#6daf5f]'}`} />
+                      <span className={`font-semibold text-center transition-colors duration-300 ${isSelected ? 'text-[#03695e]' : 'text-[#03695e]/80'}`}>
+                        {option.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Navigation Controls */}
+            <div className="flex justify-between mt-8 px-4">
+              <button 
+                onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
+                disabled={currentStep === 0}
+                className={`flex items-center px-4 py-2 font-medium rounded-full transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : 'text-[#03695e] hover:bg-white/40'}`}
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" /> Back
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      )}
+
+      {/* 3. LOADING / PROCESSING SECTION */}
+      {appState === 'loading' && (
+        <div className="flex flex-col items-center justify-center min-h-screen text-center animate-fade-in z-10 relative">
+          <div className="relative w-32 h-32 mb-8">
+            {/* Spinning colorful rings */}
+            <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#03695e] animate-spin"></div>
+            <div className="absolute inset-2 rounded-full border-4 border-transparent border-t-[#239dca] animate-spin animation-delay-150"></div>
+            <div className="absolute inset-4 rounded-full border-4 border-transparent border-t-[#6daf5f] animate-spin animation-delay-300"></div>
+            <Compass className="absolute inset-0 m-auto w-10 h-10 text-[#03695e] animate-pulse" />
+          </div>
+          <h2 className="text-3xl font-bold text-[#03695e] mb-2">Analyzing your vibe...</h2>
+          <p className="text-[#03695e]/70 text-lg">Finding the perfect breeze for you.</p>
+        </div>
+      )}
+
+      {/* 4. RESULTS SECTION */}
+      {appState === 'results' && (
+        <div className="min-h-screen py-16 px-4 md:px-8 animate-fade-in z-10 relative">
+          <div className="max-w-6xl mx-auto">
+            
+            <div className="text-center mb-16">
+              <h3 className="text-[#6daf5f] font-bold tracking-widest uppercase mb-3">Your Journey Awaits</h3>
+              <h1 className="text-4xl md:text-6xl font-bold text-[#03695e] mb-6">Your Perfect Destinations</h1>
+              <button 
+                onClick={resetApp}
+                className="inline-flex items-center text-sm font-semibold text-[#239dca] hover:text-[#03695e] transition-colors bg-white/50 px-4 py-2 rounded-full backdrop-blur-md"
+              >
+                <RefreshCcw className="w-4 h-4 mr-2" /> Start Over
+              </button>
+            </div>
+
+            {/* Top Match - Large Card */}
+            {topMatches.length > 0 && (
+              <div className="mb-12 bg-white rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/50 flex flex-col lg:flex-row transform transition-all hover:shadow-[0_20px_50px_rgba(3,105,94,0.15)]">
+                <div className="lg:w-3/5 h-80 lg:h-auto relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+                  <img 
+                    src={topMatches[0].image} 
+                    alt={topMatches[0].name} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute bottom-6 left-6 z-20">
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#6daf5f] text-white text-sm font-bold shadow-lg mb-3">
+                      <Star className="w-4 h-4 mr-1 fill-white" /> #1 Top Match
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-white drop-shadow-md">
+                      {topMatches[0].name}
+                    </h2>
+                  </div>
+                </div>
+                
+                <div className="lg:w-2/5 p-8 md:p-12 flex flex-col justify-center bg-gradient-to-br from-white to-[#e7e9d8]/30">
+                  <div className="flex items-center text-[#239dca] mb-4 font-semibold">
+                    <MapPin className="w-5 h-5 mr-2" /> Cambodia
+                  </div>
+                  <p className="text-lg text-[#03695e]/80 mb-8 leading-relaxed">
+                    {topMatches[0].description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    {topMatches[0].tags.slice(0, 5).map(tag => (
+                      <span key={tag} className="px-3 py-1 bg-[#a5c6db]/20 text-[#03695e] text-xs font-semibold uppercase tracking-wider rounded-full border border-[#a5c6db]/50">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <button className="mt-8 w-full py-4 bg-[#03695e] text-white rounded-2xl font-bold hover:bg-[#239dca] transition-colors shadow-lg">
+                    Plan this Trip
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Runners Up - Grid */}
+            <div className="grid md:grid-cols-2 gap-8">
+              {topMatches.slice(1, 3).map((match, index) => (
+                <div key={match.id} className="bg-white/80 backdrop-blur-md rounded-[2rem] overflow-hidden shadow-xl border border-white/50 group hover:-translate-y-2 transition-all duration-300">
+                  <div className="h-56 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10"></div>
+                    <img 
+                      src={match.image} 
+                      alt={match.name} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute top-4 left-4 z-20">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-[#03695e] text-xs font-bold shadow-sm">
+                        Match #{index + 2}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-8">
+                    <h3 className="text-2xl font-bold text-[#03695e] mb-3">{match.name}</h3>
+                    <p className="text-[#03695e]/70 mb-6 line-clamp-2">{match.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {match.tags.slice(0, 3).map(tag => (
+                        <span key={tag} className="px-2 py-1 bg-[#e7e9d8] text-[#6daf5f] text-[10px] font-bold uppercase tracking-wider rounded-md">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* Basic Custom CSS for animations that Tailwind doesn't have by default */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .animation-delay-150 { animation-delay: 150ms; }
+        .animation-delay-300 { animation-delay: 300ms; }
+      `}} />
+    </div>
+  );
+}
