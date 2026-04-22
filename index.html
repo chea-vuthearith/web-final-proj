@@ -3,13 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wander Cambodia | Home</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Wander KH | Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2f7d32;
+            --accent: #66bb6a;
+            --accent-hover: #43a047;
+
+            --light-bg: #f1f8f4;
+            --soft-bg: #e8f5e9;
+
+            --text: #2e2e2e;
+            --white: #ffffff;
+
+            --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            --radius: 14px;
+            --max-width: 1200px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 14px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-size: 16px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+
+        main {
+            width: 100%;
+        }
+
+        .hero-slider {
+            max-width: var(--max-width);
+            margin: 18px auto 0;
+            padding: 0 20px;
+        }
+
+        .slider-box {
+            position: relative;
+            height: 78vh;
+            min-height: 460px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .overlay {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.42);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 20px;
+        }
+
+        .hero-content {
+            max-width: 760px;
+        }
+
+        .hero-content h1 {
+            font-size: 54px;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 21px;
+            margin-bottom: 24px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            text-decoration: none;
+            background: var(--accent);
+            color: var(--white);
+            padding: 13px 26px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .content-section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 28px;
+            color: var(--primary);
+            font-size: 34px;
+        }
+
+        .intro-text,
+        .recommendation p {
+            max-width: 950px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-top: 28px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 26px 22px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card h3 {
+            color: var(--accent-hover);
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+
+        .facts-wrapper {
+            background-color: var(--soft-bg);
+        }
+
+        .facts ul {
+            max-width: 860px;
+            margin: 0 auto;
+            padding-left: 24px;
+            font-size: 18px;
+        }
+
+        .facts li {
+            margin-bottom: 14px;
+        }
+
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 22px 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-content h1 {
+                font-size: 40px;
+            }
+
+            .hero-content p {
+                font-size: 18px;
+            }
+
+            .slider-box {
+                height: 65vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-slider {
+                padding: 0 14px;
+            }
+
+            .slider-box {
+                height: 58vh;
+                min-height: 400px;
+            }
+
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .content-section {
+                padding: 50px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 26px;
+            }
+
+            .nav-links a {
+                font-size: 15px;
+                padding: 7px 12px;
+            }
+
+            .slider-box {
+                height: 52vh;
+                min-height: 340px;
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
+            }
+
+            .btn-primary {
+                font-size: 16px;
+                padding: 11px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+
     <header>
         <nav>
-            <div class="logo">Wander KH</div>
+            <a href="#" class="logo" onclick="location.reload(); return false;">Wander KH</a>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="discover.html">Discover</a></li>
@@ -20,36 +315,119 @@
     </header>
 
     <main>
-        <section class="hero" id="home-hero">
-            <div class="hero-content">
-                <h1>Find Your Perfect Cambodian Adventure</h1>
-                <p>Experience the magic of the Kingdom of Wonder tailored exactly to your vibe.</p>
-                <a href="discover.html" class="btn-primary">Find My Destination</a>
+        <section class="hero-slider">
+            <div class="slider-box">
+                <div class="slide active" style="background-image: url('images/AngkorWat.jpg');">
+                    <div class="overlay">
+                        <div class="hero-content">
+                            <h1>Discover the Beauty of Cambodia</h1>
+                            <p>Find exciting destinations, compare routes, and plan your next journey.</p>
+                            <a href="discover.html" class="btn-primary">Explore Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide" style="background-image: url('images/NationalMuseum.jpg');">
+                    <div class="overlay">
+                        <div class="hero-content">
+                            <h1>From Temples to Tropical Islands</h1>
+                            <p>Experience Cambodia’s rich culture, history, and natural beauty.</p>
+                            <a href="destinations.html" class="btn-primary">View Destinations</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide" style="background-image: url('images/KohKongBeach.jpg');">
+                    <div class="overlay">
+                        <div class="hero-content">
+                            <h1>Your Adventure Starts Here</h1>
+                            <p>Compare places, find distances, and choose the perfect travel destination.</p>
+                            <a href="contact.html" class="btn-primary">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-        
-        <section class="features">
-            <h2>Why Visit Cambodia?</h2>
+
+        <section class="content-section intro">
+            <h2>Welcome to Wander KH</h2>
+            <p class="intro-text">
+                Wander KH is a tourism website designed to help travelers discover amazing places in Cambodia.
+                Explore destinations, compare routes, and choose the best location for your next trip. Cambodia
+                offers beautiful landscapes, famous temples, unique culture, and warm hospitality that make every
+                journey unforgettable.
+            </p>
+        </section>
+
+        <section class="content-section features">
+            <h2>Why Choose Cambodia?</h2>
             <div class="feature-grid">
                 <div class="card">
-                    <h3>Ancient History</h3>
-                    <p>Explore the majestic temples of Angkor, a UNESCO World Heritage site.</p>
+                    <h3>Ancient Temples</h3>
+                    <p>Cambodia is home to Angkor Wat, one of the most famous and breathtaking temple complexes in the world.</p>
                 </div>
+
                 <div class="card">
-                    <h3>Pristine Beaches</h3>
-                    <p>Relax on the white sands of Koh Rong and the southern islands.</p>
+                    <h3>Beautiful Nature</h3>
+                    <p>From the beaches of Koh Rong to the mountains of Mondulkiri, Cambodia offers many natural attractions.</p>
                 </div>
+
                 <div class="card">
-                    <h3>Lush Nature</h3>
-                    <p>Trek through the dense jungles and waterfalls of Mondulkiri.</p>
+                    <h3>Rich Culture</h3>
+                    <p>Visitors can enjoy Khmer traditional dances, local festivals, art, and delicious Cambodian food.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Friendly People</h3>
+                    <p>Cambodian people are known for being welcoming, kind, and friendly to visitors from around the world.</p>
                 </div>
             </div>
+        </section>
+
+        <section class="facts-wrapper">
+            <div class="content-section facts">
+                <h2>Interesting Facts About Cambodia</h2>
+                <ul>
+                    <li>Angkor Wat is the largest religious monument in the world.</li>
+                    <li>Cambodia has both ancient historical sites and modern city attractions.</li>
+                    <li>The country is famous for traditional Khmer food such as amok and nom banh chok.</li>
+                    <li>The Mekong River and Tonle Sap Lake are important natural treasures in Cambodia.</li>
+                    <li>Cambodia offers many travel experiences including cultural tourism, eco-tourism, and beach tourism.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section recommendation">
+            <h2>Why Tourists Should Visit Cambodia</h2>
+            <p>
+                Cambodia is a wonderful destination because it offers a mix of history, nature, culture, and adventure.
+                Travelers can visit world-famous temples, relax on beautiful beaches, explore forests and waterfalls,
+                and learn about rich Khmer heritage. Whether you enjoy photography, sightseeing, food, or cultural
+                experiences, Cambodia has something special for everyone.
+            </p>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Wander Cambodia. INFO 250 Final Project.</p>
+        <p>&copy; 2026 Wander KH | Final Project</p>
     </footer>
-    <script src="js/script.js"></script>
+
+    <script>
+        const slides = document.querySelectorAll(".slide");
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove("active"));
+            slides[index].classList.add("active");
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 3000);
+    </script>
+
 </body>
 </html>
