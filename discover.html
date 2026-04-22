@@ -1,490 +1,768 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Coffee, Mountain, Landmark, Music, 
-  Umbrella, Building, Tent, TreePine, 
-  BookOpen, Users, Map, Sun, 
-  Wallet, CreditCard, Diamond, 
-  Calendar, CalendarDays, CheckCircle2, 
-  User, Heart, 
-  Camera, Wind, Aperture, Utensils, 
-  Plane, Bike, Footprints, 
-  BedDouble, Home, Building2, 
-  Zap, Compass, Hourglass, 
-  ArrowRight, ArrowLeft, MapPin, Star, RefreshCcw
-} from 'lucide-react';
-
-// --- DATABASE OF 10 CAMBODIA DESTINATIONS ---
-const destinations = [
-  {
-    id: 1,
-    name: "Siem Reap & Angkor Wat",
-    image: "https://images.unsplash.com/photo-1555025000-8fa3f8fa4be1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    description: "The historic crown jewel of Cambodia. Lose yourself in the ancient, sprawling temple complexes, rich Khmer culture, and bustling night markets.",
-    tags: ["cultural", "temple", "explorer", "standard", "4-7", "group", "sightseeing", "tuktuk", "boutique", "balanced"],
-    highlightColor: "#03695e" // Cool Jade
-  },
-  {
-    id: 2,
-    name: "Koh Rong",
-    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    description: "A tropical paradise featuring pristine white sand beaches. Find vibrant nightlife on the main beach or ultimate serene escapes on the quieter sides of the island.",
-    tags: ["party", "relaxed", "beach", "extrovert", "chill", "backpack", "4-7", "solo", "couple", "relaxation", "boat", "hostel", "resort", "slow"],
-    highlightColor: "#239dca" // Sky Aqua
-  },
-  {
-    id: 3,
-    name: "Phnom Penh",
-    image: "https://images.unsplash.com/photo-1581337204873-ef36aa186caa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    description: "The vibrant, bustling capital city where history meets modernity. Dive into incredible street food scenes, profound historical sites, and lively riverside walks.",
-    tags: ["adventurous", "city", "extrovert", "standard", "1-3", "group", "food", "sightseeing", "flight", "boutique", "fast"],
-    highlightColor: "#03695e" // Cool Jade
-  },
-  {
-    id: 4,
-    name: "Kampot",
-    image: "https://images.unsplash.com/photo-1518182170546-076616fdcbdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    description: "A deeply relaxed riverside town famous worldwide for its pepper farms, beautiful French colonial architecture, and mesmerizing sunset river cruises.",
-    tags: ["relaxed", "nature", "chill", "backpack", "standard", "4-7", "couple", "food", "relaxation", "motorbike", "homestay", "slow"],
-    highlightColor: "#6daf5f" // Spring Herb
-  },
-  {
-    id: 5,
-    name: "Mondulkiri",
-    image: "https://images.unsplash.com/photo-1585544314038-a0d376981021?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    description: "The wild east of Cambodia. Experience lush rolling hills, towering waterfalls, and ethical elephant sanctuaries in a cooler climate.",
-    tags: ["adventurous", "jungle", "introvert", "explorer", "standard", "4-7", "group", "photography", "flight", "homestay", "balanced"],
-    highlightColor: "#6daf5f" // Spring Herb
-  },
-  {
-    id: 6,
-    name: "Kep",
-    image: "https://images.unsplash.com/photo-1520315342629-6ea920342047?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    description: "A quiet, charming coastal province known for its famous fresh crab market, national park hiking trails, and peaceful, slow-paced coastal vibe.",
-    tags: ["relaxed", "beach", "chill", "standard", "luxury", "1-3", "couple", "food", "relaxation", "tuktuk", "resort", "slow"],
-    highlightColor: "#a5c6db" // Light Blue
-  },
-  {
-    id: 7,
-    name: "Battambang",
-    image: "https://images.unsplash.com/photo-1583417657208-ded6ddac68d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    description: "Cambodia's creative and arts hub. Ride the famous bamboo train, explore French colonial buildings, and witness the spectacular evening bat flights.",
-    tags: ["cultural", "city", "explorer", "backpack", "1-3", "solo", "sightseeing", "motorbike", "homestay", "balanced"],
-    highlightColor: "#03695e" // Cool Jade
-  },
-  {
-    id: 8,
-    name: "Ratanakiri",
-    image: "https://images.unsplash.com/photo-1511215448103-625dc89025e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    description: "Way off the beaten path. Discover deep jungle treks, refreshing volcanic crater lakes, and rich indigenous cultures for the true adventurer.",
-    tags: ["adventurous", "jungle", "introvert", "explorer", "backpack", "1week", "solo", "photography", "motorbike", "homestay", "fast"],
-    highlightColor: "#239dca" // Sky Aqua
-  },
-  {
-    id: 9,
-    name: "Koh Ta Kiev",
-    image: "https://images.unsplash.com/photo-1536098254070-5b23d917f90e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    description: "A rustic, highly undeveloped island perfect for totally unplugging from the digital world. Sleep in jungle treehouses or simple beach shacks.",
-    tags: ["relaxed", "beach", "introvert", "chill", "backpack", "1-3", "solo", "couple", "relaxation", "boat", "hostel", "slow"],
-    highlightColor: "#a5c6db" // Light Blue
-  },
-  {
-    id: 10,
-    name: "Chi Phat (Cardamom Mountains)",
-    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-    description: "An incredible community-based eco-tourism project. Engage in raw jungle trekking, mountain biking, and sleeping deep within pristine nature.",
-    tags: ["adventurous", "jungle", "nature", "explorer", "backpack", "4-7", "group", "sightseeing", "photography", "walking", "homestay", "fast"],
-    highlightColor: "#6daf5f" // Spring Herb
-  }
-];
-
-// --- 10 SELECTION CRITERIA ---
-const questions = [
-  {
-    id: "vibe",
-    title: "What's the overall vibe you are seeking?",
-    options: [
-      { label: "Relaxed", value: "relaxed", icon: Coffee },
-      { label: "Adventurous", value: "adventurous", icon: Mountain },
-      { label: "Cultural", value: "cultural", icon: Landmark },
-      { label: "Party & Social", value: "party", icon: Music },
-    ]
-  },
-  {
-    id: "type",
-    title: "What type of scenery calls to you?",
-    options: [
-      { label: "Beaches & Coast", value: "beach", icon: Umbrella },
-      { label: "Bustling City", value: "city", icon: Building },
-      { label: "Ancient Temples", value: "temple", icon: Castle },
-      { label: "Jungle & Nature", value: "jungle", icon: TreePine },
-    ]
-  },
-  {
-    id: "personality",
-    title: "How would you describe your travel personality?",
-    options: [
-      { label: "Introvert / Quiet", value: "introvert", icon: BookOpen },
-      { label: "Extrovert / Social", value: "extrovert", icon: Users },
-      { label: "Curious Explorer", value: "explorer", icon: Map },
-      { label: "Chill & Go-with-flow", value: "chill", icon: Sun },
-    ]
-  },
-  {
-    id: "budget",
-    title: "What is your budget range?",
-    options: [
-      { label: "Backpacker ($)", value: "backpack", icon: Wallet },
-      { label: "Standard ($$)", value: "standard", icon: CreditCard },
-      { label: "Luxury ($$$)", value: "luxury", icon: Diamond },
-    ]
-  },
-  {
-    id: "days",
-    title: "How many days are you traveling?",
-    options: [
-      { label: "1-3 Days", value: "1-3", icon: Calendar },
-      { label: "4-7 Days", value: "4-7", icon: CalendarDays },
-      { label: "1 Week+", value: "1week", icon: CheckCircle2 },
-    ]
-  },
-  {
-    id: "people",
-    title: "Who are you traveling with?",
-    options: [
-      { label: "Going Solo", value: "solo", icon: User },
-      { label: "With a Partner", value: "couple", icon: Heart },
-      { label: "Group or Family", value: "group", icon: Users },
-    ]
-  },
-  {
-    id: "purpose",
-    title: "What is the main purpose of this trip?",
-    options: [
-      { label: "Sightseeing", value: "sightseeing", icon: Camera },
-      { label: "Pure Relaxation", value: "relaxation", icon: Wind },
-      { label: "Photography & Art", value: "photography", icon: Aperture },
-      { label: "Food & Culinary", value: "food", icon: Utensils },
-    ]
-  },
-  {
-    id: "transport",
-    title: "Preferred mode of local transport?",
-    options: [
-      { label: "Flight / Private Car", value: "flight", icon: Plane },
-      { label: "Motorbike / TukTuk", value: "motorbike", icon: Bike },
-      { label: "Walking / Boat", value: "boat", icon: Footprints },
-    ]
-  },
-  {
-    id: "accommodation",
-    title: "Where do you prefer to sleep?",
-    options: [
-      { label: "Social Hostel", value: "hostel", icon: BedDouble },
-      { label: "Boutique Hotel", value: "boutique", icon: Home },
-      { label: "High-end Resort", value: "resort", icon: Building2 },
-      { label: "Local Homestay", value: "homestay", icon: Tent },
-    ]
-  },
-  {
-    id: "pace",
-    title: "Finally, what's your preferred travel pace?",
-    options: [
-      { label: "Fast (See it all)", value: "fast", icon: Zap },
-      { label: "Balanced", value: "balanced", icon: Compass },
-      { label: "Slow & Immersive", value: "slow", icon: Hourglass },
-    ]
-  }
-];
-
-// Fallback Castle Icon since lucide doesn't have standard Castle exported always
-function Castle(props) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="M22 20v-6h-2v6h-4v-4H8v4H4v-6H2v6h20z" />
-      <path d="M2 14v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4" />
-      <path d="M6 8V4h2v4" />
-      <path d="M16 8V4h2v4" />
-      <path d="M10 8v-2h4v2" />
-    </svg>
-  );
-}
-
-export default function App() {
-  const [appState, setAppState] = useState('landing'); // landing, quiz, loading, results
-  const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState({});
-  const [topMatches, setTopMatches] = useState([]);
-
-  // Handle option selection
-  const handleSelect = (questionId, value) => {
-    setAnswers(prev => ({ ...prev, [questionId]: value }));
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambodia Travel Compass</title>
     
-    // Auto advance after short delay
-    setTimeout(() => {
-      if (currentStep < questions.length - 1) {
-        setCurrentStep(prev => prev + 1);
-      } else {
-        calculateResults();
-      }
-    }, 400);
-  };
-
-  // Algorithm to calculate best destinations
-  const calculateResults = () => {
-    setAppState('loading');
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    setTimeout(() => {
-      const selectedTags = Object.values(answers);
-      
-      const scoredDestinations = destinations.map(dest => {
-        let score = 0;
-        selectedTags.forEach(tag => {
-          // If the destination has the tag, increase score
-          if (dest.tags.includes(tag)) {
-            score += 1;
-          }
-        });
-        return { ...dest, score };
-      });
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-      // Sort by highest score first
-      scoredDestinations.sort((a, b) => b.score - a.score);
-      setTopMatches(scoredDestinations.slice(0, 3));
-      setAppState('results');
-    }, 2500); // Fake loading for dramatic effect
-  };
-
-  const resetApp = () => {
-    setAnswers({});
-    setCurrentStep(0);
-    setAppState('landing');
-    setTopMatches([]);
-  };
-
-  return (
-    <div className="relative min-h-screen font-sans overflow-hidden bg-[#e7e9d8] text-[#03695e] selection:bg-[#239dca] selection:text-white z-0">
-      
-      {/* Abstract Fluid Background matching "Wind Unties Blue" theme */}
-      <div className="fixed inset-0 pointer-events-none -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#239dca]/10 blur-[120px]"></div>
-        <div className="absolute top-[20%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-[#6daf5f]/10 blur-[100px]"></div>
-        <div className="absolute bottom-[-20%] left-[20%] w-[60vw] h-[60vw] rounded-full bg-[#a5c6db]/20 blur-[120px]"></div>
-        <div className="absolute bottom-[10%] right-[10%] w-[30vw] h-[30vw] rounded-full bg-[#e7e9d8]/50 blur-[80px]"></div>
-      </div>
-
-      {/* 1. LANDING PAGE */}
-      {appState === 'landing' && (
-        <div className="flex flex-col items-center justify-center min-h-screen px-6 py-12 text-center animate-fade-in z-10 relative">
-          <div className="max-w-3xl mx-auto backdrop-blur-sm bg-white/30 p-8 md:p-16 rounded-[3rem] shadow-2xl border border-white/50">
-            <h3 className="text-[#239dca] font-medium tracking-widest uppercase mb-4 text-sm md:text-base">
-              Discover Your Perfect Match
-            </h3>
-            <h1 className="text-5xl md:text-7xl font-bold text-[#03695e] mb-6 leading-tight">
-              Cambodia <br/> 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#239dca] to-[#6daf5f]">
-                Travel Compass
-              </span>
-            </h1>
-            <p className="text-[#03695e]/80 text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed">
-              Answer 10 intuitive questions and let the wind guide you to your ultimate Cambodian destination tailored to your soul, budget, and vibe.
-            </p>
-            <button 
-              onClick={() => setAppState('quiz')}
-              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-in-out bg-[#03695e] rounded-full hover:bg-[#239dca] hover:shadow-[0_0_40px_rgba(35,157,202,0.4)] hover:-translate-y-1"
-            >
-              Start the Journey
-              <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* 2. QUIZ SECTION */}
-      {appState === 'quiz' && (
-        <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12 animate-fade-in z-10 relative">
-          <div className="w-full max-w-2xl">
-            
-            {/* Progress Bar */}
-            <div className="mb-12">
-              <div className="flex justify-between text-sm font-medium text-[#03695e]/60 mb-2 px-1">
-                <span>Step {currentStep + 1} of {questions.length}</span>
-                <span>{Math.round(((currentStep + 1) / questions.length) * 100)}%</span>
-              </div>
-              <div className="w-full h-2 bg-white/50 rounded-full overflow-hidden backdrop-blur-md">
-                <div 
-                  className="h-full bg-gradient-to-r from-[#6daf5f] to-[#239dca] transition-all duration-500 ease-out rounded-full"
-                  style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
-                ></div>
-              </div>
-            </div>
-
-            {/* Question Card */}
-            <div className="bg-white/60 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-white/60 min-h-[400px] flex flex-col justify-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-center text-[#03695e] mb-10 leading-tight">
-                {questions[currentStep].title}
-              </h2>
-              
-              <div className="grid grid-cols-2 gap-4 md:gap-6">
-                {questions[currentStep].options.map((option) => {
-                  const Icon = option.icon;
-                  const isSelected = answers[questions[currentStep].id] === option.value;
-                  
-                  return (
-                    <button
-                      key={option.value}
-                      onClick={() => handleSelect(questions[currentStep].id, option.value)}
-                      className={`relative flex flex-col items-center justify-center p-6 rounded-3xl border-2 transition-all duration-300 ease-in-out group
-                        ${isSelected 
-                          ? 'border-[#239dca] bg-[#a5c6db]/20 shadow-[0_8px_30px_rgba(35,157,202,0.2)] scale-[1.02]' 
-                          : 'border-white/40 bg-white/40 hover:bg-white hover:border-[#6daf5f]/50 hover:-translate-y-1 hover:shadow-lg'
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            jade: '#03695e',
+                            aqua: '#239dca',
+                            herb: '#6daf5f',
+                            light: '#a5c6db',
+                            bg: '#e7e9d8',
+                            gold: '#f59e0b'
                         }
-                      `}
-                    >
-                      <Icon className={`w-10 h-10 mb-4 transition-colors duration-300 ${isSelected ? 'text-[#239dca]' : 'text-[#03695e]/70 group-hover:text-[#6daf5f]'}`} />
-                      <span className={`font-semibold text-center transition-colors duration-300 ${isSelected ? 'text-[#03695e]' : 'text-[#03695e]/80'}`}>
-                        {option.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Navigation Controls */}
-            <div className="flex justify-between mt-8 px-4">
-              <button 
-                onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
-                disabled={currentStep === 0}
-                className={`flex items-center px-4 py-2 font-medium rounded-full transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : 'text-[#03695e] hover:bg-white/40'}`}
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" /> Back
-              </button>
-            </div>
-            
-          </div>
-        </div>
-      )}
-
-      {/* 3. LOADING / PROCESSING SECTION */}
-      {appState === 'loading' && (
-        <div className="flex flex-col items-center justify-center min-h-screen text-center animate-fade-in z-10 relative">
-          <div className="relative w-32 h-32 mb-8">
-            {/* Spinning colorful rings */}
-            <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#03695e] animate-spin"></div>
-            <div className="absolute inset-2 rounded-full border-4 border-transparent border-t-[#239dca] animate-spin animation-delay-150"></div>
-            <div className="absolute inset-4 rounded-full border-4 border-transparent border-t-[#6daf5f] animate-spin animation-delay-300"></div>
-            <Compass className="absolute inset-0 m-auto w-10 h-10 text-[#03695e] animate-pulse" />
-          </div>
-          <h2 className="text-3xl font-bold text-[#03695e] mb-2">Analyzing your vibe...</h2>
-          <p className="text-[#03695e]/70 text-lg">Finding the perfect breeze for you.</p>
-        </div>
-      )}
-
-      {/* 4. RESULTS SECTION */}
-      {appState === 'results' && (
-        <div className="min-h-screen py-16 px-4 md:px-8 animate-fade-in z-10 relative">
-          <div className="max-w-6xl mx-auto">
-            
-            <div className="text-center mb-16">
-              <h3 className="text-[#6daf5f] font-bold tracking-widest uppercase mb-3">Your Journey Awaits</h3>
-              <h1 className="text-4xl md:text-6xl font-bold text-[#03695e] mb-6">Your Perfect Destinations</h1>
-              <button 
-                onClick={resetApp}
-                className="inline-flex items-center text-sm font-semibold text-[#239dca] hover:text-[#03695e] transition-colors bg-white/50 px-4 py-2 rounded-full backdrop-blur-md"
-              >
-                <RefreshCcw className="w-4 h-4 mr-2" /> Start Over
-              </button>
-            </div>
-
-            {/* Top Match - Large Card */}
-            {topMatches.length > 0 && (
-              <div className="mb-12 bg-white rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/50 flex flex-col lg:flex-row transform transition-all hover:shadow-[0_20px_50px_rgba(3,105,94,0.15)]">
-                <div className="lg:w-3/5 h-80 lg:h-auto relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
-                  <img 
-                    src={topMatches[0].image} 
-                    alt={topMatches[0].name} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute bottom-6 left-6 z-20">
-                    <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#6daf5f] text-white text-sm font-bold shadow-lg mb-3">
-                      <Star className="w-4 h-4 mr-1 fill-white" /> #1 Top Match
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white drop-shadow-md">
-                      {topMatches[0].name}
-                    </h2>
-                  </div>
-                </div>
-                
-                <div className="lg:w-2/5 p-8 md:p-12 flex flex-col justify-center bg-gradient-to-br from-white to-[#e7e9d8]/30">
-                  <div className="flex items-center text-[#239dca] mb-4 font-semibold">
-                    <MapPin className="w-5 h-5 mr-2" /> Cambodia
-                  </div>
-                  <p className="text-lg text-[#03695e]/80 mb-8 leading-relaxed">
-                    {topMatches[0].description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {topMatches[0].tags.slice(0, 5).map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-[#a5c6db]/20 text-[#03695e] text-xs font-semibold uppercase tracking-wider rounded-full border border-[#a5c6db]/50">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <button className="mt-8 w-full py-4 bg-[#03695e] text-white rounded-2xl font-bold hover:bg-[#239dca] transition-colors shadow-lg">
-                    Plan this Trip
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Runners Up - Grid */}
-            <div className="grid md:grid-cols-2 gap-8">
-              {topMatches.slice(1, 3).map((match, index) => (
-                <div key={match.id} className="bg-white/80 backdrop-blur-md rounded-[2rem] overflow-hidden shadow-xl border border-white/50 group hover:-translate-y-2 transition-all duration-300">
-                  <div className="h-56 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10"></div>
-                    <img 
-                      src={match.image} 
-                      alt={match.name} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute top-4 left-4 z-20">
-                      <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-[#03695e] text-xs font-bold shadow-sm">
-                        Match #{index + 2}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-8">
-                    <h3 className="text-2xl font-bold text-[#03695e] mb-3">{match.name}</h3>
-                    <p className="text-[#03695e]/70 mb-6 line-clamp-2">{match.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {match.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="px-2 py-1 bg-[#e7e9d8] text-[#6daf5f] text-[10px] font-bold uppercase tracking-wider rounded-md">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </div>
-      )}
-
-      {/* Basic Custom CSS for animations that Tailwind doesn't have by default */}
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
+                    },
+                    animation: {
+                        'float-slow': 'float 20s ease-in-out infinite',
+                        'float-medium': 'float 15s ease-in-out infinite reverse',
+                        'float-fast': 'float 10s ease-in-out infinite',
+                        'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'wobble': 'wobble 12s ease-in-out infinite',
+                        'spin-very-slow': 'spin 30s linear infinite',
+                    }
+                }
+            }
         }
-        .animate-fade-in {
-          animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    </script>
+
+    <style>
+        body {
+            background-color: #e7e9d8;
+            color: #03695e;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
-        .animation-delay-150 { animation-delay: 150ms; }
-        .animation-delay-300 { animation-delay: 300ms; }
-      `}} />
+
+        .bg-pattern {
+            background-image: 
+                radial-gradient(#03695e 1px, transparent 1px),
+                url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 400C50 350 100 380 150 320C200 260 250 300 300 240C350 180 400 210 400 150' fill='none' stroke='%2303695e' stroke-opacity='0.03' stroke-width='1'/%3E%3Cpath d='M0 300C60 250 120 280 180 200C240 120 300 150 400 80' fill='none' stroke='%2303695e' stroke-opacity='0.03' stroke-width='1'/%3E%3C/svg%3E");
+            background-size: 32px 32px, 800px 800px;
+            opacity: 1;
+        }
+
+        .travel-sticker {
+            filter: drop-shadow(0 15px 25px rgba(3, 105, 94, 0.15)) drop-shadow(0 5px 10px rgba(3, 105, 94, 0.1));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-25px) rotate(3deg); }
+            66% { transform: translateY(15px) rotate(-2deg); }
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: translateX(0) rotate(-5deg); }
+            50% { transform: translateX(20px) rotate(5deg); }
+        }
+
+        .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-slide-up { opacity: 0; animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-slide-in-right { opacity: 0; animation: slideInRight 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .animate-slide-out-left { animation: slideOutLeft 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideOutLeft { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-50px); } }
+
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(40px, -60px) scale(1.15); }
+            66% { transform: translate(-30px, 30px) scale(0.95); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        
+        .animate-blob { animation: blob 15s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
+        .animation-delay-1000 { animation-delay: 1s; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-3000 { animation-delay: 3s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+
+        @keyframes spin-slow { to { transform: rotate(360deg); } }
+        @keyframes spin-reverse { to { transform: rotate(-360deg); } }
+        .animate-spin-slow { animation: spin-slow 3s linear infinite; }
+        .animate-spin-reverse { animation: spin-reverse 4s linear infinite; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e7e9d8; }
+        ::-webkit-scrollbar-thumb { background: #a5c6db; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #239dca; }
+    </style>
+</head>
+<body class="selection:bg-brand-aqua selection:text-white relative min-h-screen">
+
+    <!-- BACKGROUND EFFECTS -->
+    <div class="fixed inset-0 pointer-events-none -z-40 bg-pattern opacity-40"></div>
+    <div id="bg-elements" class="fixed inset-0 pointer-events-none -z-30 transition-transform duration-1000 ease-out">
+        <div id="blob-1" class="absolute top-[-10%] left-[-10%] w-[55vw] h-[55vw] rounded-full bg-brand-aqua/15 blur-[120px] animate-blob"></div>
+        <div id="blob-2" class="absolute top-[15%] right-[-10%] w-[45vw] h-[45vw] rounded-full bg-brand-herb/15 blur-[100px] animate-blob animation-delay-2000"></div>
+        <div id="blob-3" class="absolute bottom-[-15%] left-[10%] w-[65vw] h-[65vw] rounded-full bg-brand-light/20 blur-[120px] animate-blob animation-delay-4000"></div>
     </div>
-  );
-}
+
+    <!-- STICKER LAYER -->
+    <div id="sticker-layer" class="fixed inset-0 pointer-events-none -z-20 overflow-hidden transition-transform duration-700 ease-out">
+        <div class="absolute top-[12%] left-[8%] animate-float-slow travel-sticker hidden md:block">
+            <svg width="140" height="140" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-[-12deg]">
+                <circle cx="100" cy="100" r="95" fill="white"/>
+                <circle cx="100" cy="100" r="85" fill="#f59e0b"/>
+                <circle cx="100" cy="100" r="75" stroke="white" stroke-width="2" stroke-dasharray="4 4"/>
+                <path d="M40 140 L160 140 L160 150 L40 150 Z" fill="white"/>
+                <path d="M50 140 L70 90 L90 140 Z" fill="white"/>
+                <path d="M80 140 L100 60 L120 140 Z" fill="white"/>
+                <path d="M110 140 L130 90 L150 140 Z" fill="white"/>
+                <text x="50%" y="175" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="900" font-size="20" fill="white" letter-spacing="2">ANGKOR WAT</text>
+            </svg>
+        </div>
+
+        <div class="absolute top-[25%] right-[5%] animate-wobble travel-sticker hidden lg:block animation-delay-1000">
+            <svg width="120" height="200" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-[15deg]">
+                <path d="M10 10 L110 10 L110 170 L60 195 L10 170 Z" fill="white" stroke="#e5e7eb" stroke-width="2"/>
+                <circle cx="60" cy="30" r="8" fill="#e7e9d8" stroke="#d1d5db" stroke-width="2"/>
+                <rect x="20" y="55" width="80" height="15" fill="#03695e" rx="2"/>
+                <text x="50%" y="110" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="900" font-size="42" fill="#03695e">PNH</text>
+                <text x="50%" y="130" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="600" font-size="12" fill="#6daf5f">PHNOM PENH</text>
+                <path d="M25 150 v20 m10 -20 v20 m5 -20 v20 m15 -20 v20 m5 -20 v20 m10 -20 v20" stroke="#03695e" stroke-width="3"/>
+            </svg>
+        </div>
+
+        <div class="absolute bottom-[15%] left-[5%] animate-float-medium travel-sticker animation-delay-2000">
+            <svg width="150" height="130" viewBox="0 0 150 130" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-[8deg]">
+                <rect x="5" y="5" width="140" height="120" rx="15" fill="white"/>
+                <rect x="15" y="15" width="120" height="100" rx="10" fill="#239dca"/>
+                <path d="M30 60 L120 60 L110 40 L40 40 Z" fill="#03695e"/>
+                <rect x="40" y="60" width="70" height="30" fill="#f59e0b"/>
+                <circle cx="50" cy="95" r="12" fill="#333"/>
+                <circle cx="100" cy="95" r="12" fill="#333"/>
+                <circle cx="50" cy="95" r="4" fill="white"/>
+                <circle cx="100" cy="95" r="4" fill="white"/>
+                <path d="M40 40 L30 60" stroke="white" stroke-width="3"/>
+                <path d="M110 40 L120 60" stroke="white" stroke-width="3"/>
+                <text x="50%" y="32" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="14" fill="white">LET'S GO</text>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-root" class="relative z-10 w-full min-h-screen"></div>
+
+    <script>
+        // =========================================================================
+        // ⬇️ FOR GITHUB: COPY THIS ENTIRE ARRAY INTO YOUR js/destinations.js FILE ⬇️
+        // =========================================================================
+        // Note: I have added the 'tags' array to your exact data so the quiz logic works!
+        const destinations = [
+            {
+                id: "siem-reap",
+                name: "Siem Reap",
+                tagline: "The gateway to the ruins of Angkor",
+                image: "https://angkorwildlife.com/wp-content/uploads/2024/08/12-must-visit-places-to-visit-in-siem-reap-cambodia-1.jpg",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d250185.3941440069!2d103.8564!3d13.3633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310e046537e92b1d%3A0x4c1c2c1c1c1c1c1c!2sKrong%20Siem%20Reap!5e1!3m2!1sen!2skh!4v1",
+                description: "Siem Reap is the gateway to the magnificent Angkor archaeological park, home to the world-famous Angkor Wat temple.",
+                highlights: ["Angkor Wat", "Bayon Temple", "Ta Prohm", "Pub Street"],
+                activities: ["Temple Tours", "Apsara Shows", "Cooking Classes"],
+                bestTime: "Nov-Mar",
+                weather: "Hot (25-35°C)",
+                transport: { method: "Giant Ibis Bus", duration: "6 Hours" },
+                tips: ["Buy Angkor Pass early", "Start at sunrise"],
+                hotels: { budget: "Hostels", mid: "La Butterfly", luxury: "Belmond" },
+                tags: ["cultural", "temple", "explorer", "standard", "4-7", "group", "sightseeing", "motorbike", "boutique", "balanced"]
+            },
+            {
+                id: "phnom-penh",
+                name: "Phnom Penh",
+                tagline: "The vibrant capital city",
+                image: "https://images.travelandleisureasia.com/wp-content/uploads/sites/5/2025/01/28131632/phnom-penh-fi.jpeg?tr=w-1200,q-60",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d250189.674!2d104.9282!3d11.5564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951f54e01d07d%3A0x1c1c1c1c1c1c1c1c!2sPhnom%20Penh!5e1!3m2!1sen!2skh!4v1",
+                description: "Cambodia's bustling capital at the confluence of the Mekong and Tonle Sap rivers.",
+                highlights: ["Royal Palace", "Tuol Sleng Museum", "Central Market"],
+                activities: ["City Tours", "River Cruises", "Street Food"],
+                bestTime: "Nov-Mar",
+                weather: "Hot (26-36°C)",
+                transport: { method: "N/A", duration: "0 Hours" },
+                tips: ["Visit museums", "Stay riverside"],
+                hotels: { budget: "Happy Guesthouse", mid: "The Bluefrog", luxury: "Raffles" },
+                tags: ["adventurous", "city", "extrovert", "standard", "1-3", "group", "food", "sightseeing", "flight", "boutique", "fast"]
+            },
+            {
+                id: "battambang",
+                name: "Battambang",
+                tagline: "Colonial architecture and countryside",
+                image: "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=375,height=375,dpr=2/tour_img/2abd49cb7c63a049d72bba69423afd9f1adebc8bc1c892da3b44e66100244ac0.jpg",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.15602055!3d13.093932849999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31054996eaddd7e5%3A0x9c55ce955ce9e393!2sKrong%20Battambang!5e1!3m2!1sen!2skh!4v1776623050065!5m2!1sen!2skh",
+                description: "Cambodia's second-largest city with the best colonial architecture.",
+                highlights: ["Colonial Buildings", "Phnom Banan", "Bamboo Train"],
+                activities: ["Bike Tours", "Bamboo Train", "Cooking Classes"],
+                bestTime: "Nov-Mar",
+                weather: "Warm (24-32°C)",
+                transport: { method: "Bus", duration: "3 Hours" },
+                tips: ["Rent a bike", "Watch bats at sunset"],
+                hotels: { budget: "Seng Hout", mid: "Battambang Resort", luxury: "La Villa" },
+                tags: ["cultural", "city", "explorer", "backpack", "1-3", "solo", "sightseeing", "motorbike", "homestay", "balanced"]
+            },
+            {
+                id: "kampot",
+                name: "Kampot",
+                tagline: "Fresh pepper and river views",
+                image: "https://d34vm3j4h7f97z.cloudfront.net/original/4X/8/1/e/81e31f6817402c4a711d09891d53515e0ada2571.jpeg",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.2907!3d10.4865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKampot!5e1!3m2!1sen!2skh!4v1",
+                description: "Quiet riverside town famous for world-class Kampot pepper.",
+                highlights: ["Kampot River", "Pepper Farms", "Bokit Waterfall"],
+                activities: ["Kayaking", "Farm Tours", "Cave Exploration"],
+                bestTime: "Nov-May",
+                weather: "Warm (25-34°C)",
+                transport: { method: "Bus", duration: "3 Hours" },
+                tips: ["Tour pepper farms", "Try fresh pepper"],
+                hotels: { budget: "Rattana", mid: "River Resort", luxury: "Boutique" },
+                tags: ["relaxed", "nature", "chill", "backpack", "standard", "4-7", "couple", "food", "relaxation", "motorbike", "homestay", "slow"]
+            },
+            {
+                id: "kep",
+                name: "Kep",
+                tagline: "Crab markets and quiet beaches",
+                image: "https://www.asiakingtravel.com/cuploads/files/Kep_Crab_Statue_.jpg",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.2909!3d10.4832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKep!5e1!3m2!1sen!2skh!4v1",
+                description: "Coastal town renowned for fresh crab and relaxed beaches.",
+                highlights: ["Crab Market", "Kep Beach", "Rabbit Island"],
+                activities: ["Beach Hopping", "Snorkeling", "Crab Cooking"],
+                bestTime: "Nov-May",
+                weather: "Warm (26-34°C)",
+                transport: { method: "Bus", duration: "3.5 Hours" },
+                tips: ["Try crab morning", "Visit island by boat"],
+                hotels: { budget: "Vanna Hotel", mid: "Knai Bang Chatt", luxury: "Keplux" },
+                tags: ["relaxed", "beach", "chill", "standard", "luxury", "1-3", "couple", "food", "relaxation", "motorbike", "resort", "slow"]
+            },
+            {
+                id: "sihanoukville",
+                name: "Sihanoukville",
+                tagline: "Beach resorts and island hopping",
+                image: "https://d3pa5s1toq8zys.cloudfront.net/explore/wp-content/uploads/2024/07/Sihanoukville-campuchia-4.jpg",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.5237!3d10.6278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKrong%20Sihanoukville!5e1!3m2!1sen!2skh!4v1",
+                description: "Cambodia's premier beach destination with resorts and islands.",
+                highlights: ["Ochheuteal Beach", "Koh Rong", "Ream Park"],
+                activities: ["Island Hopping", "Snorkeling", "Beach Parties"],
+                bestTime: "Nov-May",
+                weather: "Hot (27-35°C)",
+                transport: { method: "Expressway Bus", duration: "4 Hours" },
+                tips: ["Book island trips", "Stay hydrated"],
+                hotels: { budget: "Happy Guesthouse", mid: "Sea Flower", luxury: "Sihanoukville Resort" },
+                tags: ["party", "beach", "extrovert", "standard", "1-3", "group", "relaxation", "flight", "resort", "fast"]
+            },
+            {
+                id: "koh-rong",
+                name: "Koh Rong",
+                tagline: "Island paradise with glowing plankton",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsf7ILMU3iU48iLBZL0XNR_ucqjEcU3Lblxw&s",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.36!3d10.548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKoh%20Rong!5e1!3m2!1sen!2skh!4v1",
+                description: "Pristine island famous for bioluminescent plankton at night.",
+                highlights: ["Long Set Beach", "Glowing Plankton", "Koh Touch"],
+                activities: ["Night Swimming", "Snorkeling", "Jungle Treks"],
+                bestTime: "Nov-May",
+                weather: "Hot (27-35°C)",
+                transport: { method: "Speedboat", duration: "45 Min" },
+                tips: ["Bring cash", "Swim at night"],
+                hotels: { budget: "Monkey Republic", mid: "Beach House", luxury: "Royal Sands" },
+                tags: ["party", "relaxed", "beach", "extrovert", "chill", "backpack", "4-7", "solo", "couple", "relaxation", "boat", "hostel", "resort", "slow"]
+            },
+            {
+                id: "koh-trong",
+                name: "Koh Trong",
+                tagline: "Traditional stilt villages",
+                image: "https://focus-cambodia.com/wp-content/uploads/2020/08/koh-trong-09.jpg",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.0297!3d12.4778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKoh%20Trong!5e1!3m2!1sen!2skh!4v1",
+                description: "Peaceful Mekong island with stilt houses and homestays.",
+                highlights: ["Stilt Houses", "Wat Sopah", "Mekong Views"],
+                activities: ["Cycling", "Boat Tours", "Homestay"],
+                bestTime: "Nov-Feb",
+                weather: "Warm (22-30°C)",
+                transport: { method: "Boat", duration: "15 Min" },
+                tips: ["Stay overnight", "Rent a bike"],
+                hotels: { budget: "Homestay", mid: "Mekong Resort", luxury: "N/A" },
+                tags: ["cultural", "nature", "introvert", "backpack", "1-3", "solo", "sightseeing", "boat", "homestay", "slow"]
+            },
+            {
+                id: "mondulkiri",
+                name: "Mondulkiri",
+                tagline: "Rolling hills and elephant sanctuaries",
+                image: "https://www.tourismcambodia.com/img/travelguides/bou_sra_waterfall.jpg",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d107.002!3d12.454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sMondulkiri!5e1!3m2!1sen!2skh!4v1",
+                description: "Remote province with hills, forests, and ethical elephant sanctuaries.",
+                highlights: ["Elephant Sanctuary", "Bousra Waterfall", "Bunong Villages"],
+                activities: ["Elephant Care", "Jungle Treks", "Waterfall Visits"],
+                bestTime: "Nov-Mar",
+                weather: "Cool (18-28°C)",
+                transport: { method: "Minivan", duration: "7 Hours" },
+                tips: ["Ethical sanctuaries only", "Bring layers"],
+                hotels: { budget: "Nature Tree", mid: "Mondulkiri Resort", luxury: "Elephants Crossing" },
+                tags: ["adventurous", "jungle", "introvert", "explorer", "standard", "4-7", "group", "photography", "flight", "homestay", "balanced"]
+            },
+            {
+                id: "banlung",
+                name: "Banlung (Ratanakiri)",
+                tagline: "Volcanic lakes and jungle treks",
+                image: "https://autourasia.com/uploads/Travel-Guide-Cambodia/rattanakiri/useful-infos-ratanakiri/700-lac-volcanique-Yeak-Lom%20-%20Copy.png",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.9513!3d13.7276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sBanlung!5e1!3m2!1sen!2skh!4v1",
+                description: "Remote adventure destination with crater lakes and rainforests.",
+                highlights: ["Yeak Laom Lake", "Virachey Park", "Ka Tien Falls"],
+                activities: ["Jungle Treks", "Lake Swimming", "Homestays"],
+                bestTime: "Nov-Mar",
+                weather: "Warm (24-32°C)",
+                transport: { method: "Minivan", duration: "9 Hours" },
+                tips: ["Hire local guide", "Bring hiking shoes"],
+                hotels: { budget: "Lake Hotel", mid: "Yaklom Lodge", luxury: "N/A" },
+                tags: ["adventurous", "jungle", "introvert", "explorer", "backpack", "1week", "solo", "photography", "motorbike", "homestay", "fast"]
+            },
+            {
+                id: "kampong-thom",
+                name: "Kampong Thom",
+                tagline: "Ancient temples and green jungles",
+                image: "https://www.vivutravel.com/images/des-cambodia3/kampong-thom-travel-guide.jpg",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.9812!3d12.7119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKampong%20Thom!5e1!3m2!1sen!2skh!4v1",
+                description: "Home to pre-Angkorian Sambor Prei Kuk temples.",
+                highlights: ["Sambor Prei Kuk", "Phnom Santuk", "Stung Proah Falls"],
+                activities: ["Temple Tours", "Trekking", "Waterfall Visits"],
+                bestTime: "Nov-Mar",
+                weather: "Warm (24-32°C)",
+                transport: { method: "Bus", duration: "3 Hours" },
+                tips: ["Start early", "Hire guide"],
+                hotels: { budget: "Sambor Hotel", mid: "Garden Resort", luxury: "N/A" },
+                tags: ["cultural", "temple", "explorer", "standard", "1-3", "group", "sightseeing", "motorbike", "homestay", "balanced"]
+            },
+            {
+                id: "preah-vihear",
+                name: "Preah Vihear",
+                tagline: "Majestic cliffside temple",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHZxscAu7vBobMB11EZv9cIk3xZrHaqUi_rg&s",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.5287!3d14.4129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sPreah%20Vihear!5e1!3m2!1sen!2skh!4v1",
+                description: "Spectacular temple perched on a 525m cliff.",
+                highlights: ["Preah Vihear Temple", "Mountain Views"],
+                activities: ["Temple Tours", "Sunrise Views", "Photography"],
+                bestTime: "Nov-Mar",
+                weather: "Cool (18-28°C)",
+                transport: { method: "Bus", duration: "6 Hours" },
+                tips: ["Go for sunrise", "Allow full day"],
+                hotels: { budget: "Guesthouse", mid: "Mountain Resort", luxury: "N/A" },
+                tags: ["adventurous", "temple", "explorer", "standard", "1-3", "solo", "photography", "motorbike", "boutique", "fast"]
+            },
+            {
+                id: "kratie",
+                name: "Kratie",
+                tagline: "Irrawaddy dolphins and river cruises",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTliKHWytHm636srYnSrVirr6437WoBme7wjg&s",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.0298!3d12.4881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKratie!5e1!3m2!1sen!2skh!4v1",
+                description: "Riverside town famous for Irrawaddy dolphin watching.",
+                highlights: ["Dolphin Sanctuary", "Koh Trong Island"],
+                activities: ["Dolphin Watching", "River Cruises", "Cycling"],
+                bestTime: "Nov-Mar",
+                weather: "Warm (24-32°C)",
+                transport: { method: "Bus", duration: "5 Hours" },
+                tips: ["Visit at dawn", "Book boat"],
+                hotels: { budget: "Sambor Hotel", mid: "Mekong Resort", luxury: "OlyMee" },
+                tags: ["relaxed", "nature", "introvert", "backpack", "1-3", "couple", "sightseeing", "boat", "homestay", "slow"]
+            }
+        ];
+
+        // This is from your JS file to load the grid if a container exists!
+        document.addEventListener("DOMContentLoaded", () => {
+            const grid = document.getElementById("destination-grid");
+            if (!grid) return;
+
+            destinations.forEach((dest) => {
+                const card = document.createElement("a");
+                card.href = `destination-detail.html?id=${dest.id}`;
+                card.className = "dest-card";
+                card.innerHTML = `
+                <img src="${dest.image}" alt="${dest.name}">
+                <h3>${dest.name}</h3>
+                <p>${dest.tagline}</p>
+                `;
+                grid.appendChild(card);
+            });
+        });
+        // =========================================================================
+        // ⬆️ END OF CODE TO COPY INTO js/destinations.js ⬆️
+        // =========================================================================
+
+        const questions = [
+            { id: "vibe", title: "What's the overall vibe you are seeking?", options: [{ label: "Relaxed", value: "relaxed", icon: "coffee" }, { label: "Adventurous", value: "adventurous", icon: "mountain" }, { label: "Cultural", value: "cultural", icon: "landmark" }, { label: "Party & Social", value: "party", icon: "music" }] },
+            { id: "type", title: "What type of scenery calls to you?", options: [{ label: "Beaches & Coast", value: "beach", icon: "umbrella" }, { label: "Bustling City", value: "city", icon: "building" }, { label: "Ancient Temples", value: "temple", icon: "castle" }, { label: "Jungle & Nature", value: "jungle", icon: "tree-pine" }] },
+            { id: "personality", title: "How would you describe your travel personality?", options: [{ label: "Introvert / Quiet", value: "introvert", icon: "book-open" }, { label: "Extrovert / Social", value: "extrovert", icon: "users" }, { label: "Curious Explorer", value: "explorer", icon: "map" }, { label: "Chill & Go-with-flow", value: "chill", icon: "sun" }] },
+            { id: "budget", title: "What is your budget range?", options: [{ label: "Backpacker ($)", value: "backpack", icon: "wallet" }, { label: "Standard ($$)", value: "standard", icon: "credit-card" }, { label: "Luxury ($$$)", value: "luxury", icon: "diamond" }] },
+            { id: "days", title: "How many days are you traveling?", options: [{ label: "1-3 Days", value: "1-3", icon: "calendar" }, { label: "4-7 Days", value: "4-7", icon: "calendar-days" }, { label: "1 Week+", value: "1week", icon: "check-circle-2" }] },
+            { id: "people", title: "Who are you traveling with?", options: [{ label: "Going Solo", value: "solo", icon: "user" }, { label: "With a Partner", value: "couple", icon: "heart" }, { label: "Group / Family", value: "group", icon: "users" }] },
+            { id: "purpose", title: "What is the main purpose of this trip?", options: [{ label: "Sightseeing", value: "sightseeing", icon: "camera" }, { label: "Pure Relaxation", value: "relaxation", icon: "wind" }, { label: "Photography", value: "photography", icon: "aperture" }, { label: "Food & Culinary", value: "food", icon: "utensils" }] },
+            { id: "transport", title: "Preferred mode of local transport?", options: [{ label: "Flight / Car", value: "flight", icon: "plane" }, { label: "Motorbike / TukTuk", value: "motorbike", icon: "bike" }, { label: "Walking / Boat", value: "boat", icon: "footprints" }] },
+            { id: "accommodation", title: "Where do you prefer to sleep?", options: [{ label: "Social Hostel", value: "hostel", icon: "bed-double" }, { label: "Boutique Hotel", value: "boutique", icon: "home" }, { label: "High-end Resort", value: "resort", icon: "building-2" }, { label: "Local Homestay", value: "homestay", icon: "tent" }] },
+            { id: "pace", title: "Finally, what's your preferred travel pace?", options: [{ label: "Fast (See it all)", value: "fast", icon: "zap" }, { label: "Balanced", value: "balanced", icon: "compass" }, { label: "Slow & Immersive", value: "slow", icon: "hourglass" }] }
+        ];
+
+        let appState = 'landing'; 
+        let currentStep = 0;
+        let answers = {};
+        let topMatches = [];
+        const root = document.getElementById('app-root');
+
+        // Dynamic Parallax Effect on Mouse Move
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            const bgContainer = document.getElementById('bg-elements');
+            if (bgContainer) bgContainer.style.transform = `translate(-${x * 40}px, -${y * 40}px)`;
+
+            const stickerLayer = document.getElementById('sticker-layer');
+            if (stickerLayer) stickerLayer.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+        });
+
+        function updateBackgroundColors() {
+            const blob1 = document.getElementById('blob-1');
+            const blob2 = document.getElementById('blob-2');
+            if (!blob1 || !blob2) return;
+
+            if (appState === 'quiz') {
+                const progress = currentStep / questions.length;
+                if (progress > 0.5) {
+                    blob1.style.backgroundColor = 'rgba(245, 158, 11, 0.2)'; 
+                    blob2.style.backgroundColor = 'rgba(35, 157, 202, 0.2)'; 
+                } else {
+                    blob1.style.backgroundColor = 'rgba(35, 157, 202, 0.15)';
+                    blob2.style.backgroundColor = 'rgba(109, 175, 95, 0.15)';
+                }
+            } else if (appState === 'results') {
+                blob1.style.backgroundColor = 'rgba(3, 105, 94, 0.2)'; 
+                blob2.style.backgroundColor = 'rgba(245, 158, 11, 0.2)'; 
+            }
+        }
+
+        function render() {
+            updateBackgroundColors();
+            if (appState === 'landing') renderLanding();
+            else if (appState === 'quiz') renderQuizWrapper();
+            else if (appState === 'loading') renderLoading();
+            else if (appState === 'results') renderResults();
+            lucide.createIcons();
+        }
+        
+
+        function renderLanding() {
+            root.innerHTML = `
+                <div class="flex flex-col items-center justify-center min-h-screen px-6 py-12 text-center animate-fade-in">
+                    <div class="animate-slide-up max-w-4xl mx-auto backdrop-blur-3xl bg-white/50 p-10 md:p-20 rounded-[4rem] shadow-[0_32px_64px_rgba(3,105,94,0.1)] border border-white/80 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-brand-aqua via-brand-jade to-brand-herb"></div>
+                        
+                        <div class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/90 text-brand-aqua font-bold text-xs md:text-sm tracking-[0.2em] uppercase mb-8 shadow-sm">
+                            <i data-lucide="compass" class="w-4 h-4"></i> Kingdom of Wonder
+                        </div>
+                        
+                        <h1 class="text-6xl md:text-9xl font-black text-brand-jade mb-8 leading-[1] tracking-tighter drop-shadow-sm">
+                            Cambodia <br/> 
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-aqua via-brand-jade to-brand-herb">
+                                Travel Compass
+                            </span>
+                        </h1>
+                        <p class="text-brand-jade/80 text-lg md:text-2xl mb-14 max-w-2xl mx-auto leading-relaxed font-medium">
+                            Step into the mist of ancient temples and emerald jungles. Let our intuition-driven guide reveal the destination meant for your soul.
+                        </p>
+                        <button 
+                            onclick="startQuiz()"
+                            class="group relative inline-flex items-center justify-center px-12 py-6 text-2xl font-black text-white transition-all duration-500 ease-out bg-brand-jade rounded-2xl hover:bg-brand-aqua hover:shadow-[0_20px_50px_rgba(35,157,202,0.4)] hover:-translate-y-2 overflow-hidden"
+                        >
+                            <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+                            <span class="relative flex items-center">
+                                Begin Expedition
+                                <i data-lucide="arrow-right" class="w-7 h-7 ml-4 transition-transform duration-500 group-hover:translate-x-3"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderQuizWrapper() {
+            if (!document.getElementById('quiz-shell')) {
+                root.innerHTML = `
+                    <div id="quiz-shell" class="flex flex-col items-center justify-center min-h-screen px-4 py-12 animate-fade-in">
+                        <div class="w-full max-w-2xl flex flex-col h-full justify-center">
+                            <div class="mb-12 animate-slide-up" style="animation-delay: 0.1s;">
+                                <div class="flex justify-between text-xs font-black text-brand-jade/60 mb-4 px-2 uppercase tracking-[0.3em]">
+                                    <span id="step-text">Step 1 of ${questions.length}</span>
+                                    <span id="progress-text">10%</span>
+                                </div>
+                                <div class="w-full h-4 bg-white/40 rounded-full overflow-hidden backdrop-blur-md shadow-inner border border-white/50 p-1">
+                                    <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-herb via-brand-aqua to-brand-jade transition-all duration-1000 ease-out rounded-full relative" style="width: 10%">
+                                        <div class="absolute inset-0 bg-white/30 animate-pulse"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="question-container" class="relative min-h-[500px]"></div>
+                            <div class="flex justify-between mt-10 px-4 animate-slide-up" style="animation-delay: 0.3s;">
+                                <button id="back-btn" onclick="prevStep()" class="flex items-center px-8 py-4 font-bold text-brand-jade bg-white/30 rounded-xl backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none hover:bg-white/60 hover:shadow-lg border border-white/40">
+                                    <i data-lucide="chevron-left" class="w-6 h-6 mr-1"></i> Back
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            updateQuizContent();
+        }
+
+        function updateQuizContent(slideDirection = 'right') {
+            const q = questions[currentStep];
+            const progress = ((currentStep + 1) / questions.length) * 100;
+
+            document.getElementById('step-text').innerText = `Step ${currentStep + 1} of ${questions.length}`;
+            document.getElementById('progress-text').innerText = `${Math.round(progress)}%`;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            
+            const backBtn = document.getElementById('back-btn');
+            if(currentStep === 0) backBtn.classList.add('opacity-0', 'pointer-events-none');
+            else backBtn.classList.remove('opacity-0', 'pointer-events-none');
+
+            const optionsHtml = q.options.map((opt, idx) => `
+                <button onclick="handleSelect(this, '${q.id}', '${opt.value}')" 
+                    class="quiz-option relative flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 border-white/50 bg-white/50 hover:bg-white/90 hover:border-brand-herb/50 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 ease-out group overflow-hidden"
+                    style="animation-delay: ${0.08 * idx}s">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-brand-herb/10 rounded-full -mr-8 -mt-8 transition-transform group-hover:scale-[3]"></div>
+                    <i data-lucide="${opt.icon}" class="w-14 h-14 mb-5 text-brand-jade/40 group-hover:text-brand-herb group-hover:rotate-12 transition-all duration-500"></i>
+                    <span class="font-extrabold text-center text-brand-jade/70 group-hover:text-brand-jade transition-colors duration-500 text-xl">${opt.label}</span>
+                </button>
+            `).join('');
+
+            const animationClass = slideDirection === 'right' ? 'animate-slide-in-right' : 'animate-fade-in';
+
+            document.getElementById('question-container').innerHTML = `
+                <div id="quiz-card" class="${animationClass} absolute inset-0 w-full bg-white/70 backdrop-blur-3xl rounded-[4rem] p-10 md:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white flex flex-col justify-center">
+                    <h2 class="text-3xl md:text-5xl font-black text-center text-brand-jade mb-16 leading-tight tracking-tight">
+                        ${q.title}
+                    </h2>
+                    <div class="grid grid-cols-2 gap-5 md:gap-8">
+                        ${optionsHtml}
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function handleSelect(btnElement, questionId, value) {
+            const card = btnElement.closest('#quiz-card');
+            if(card.classList.contains('is-transitioning')) return;
+            card.classList.add('is-transitioning');
+
+            answers[questionId] = value;
+
+            document.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.classList.add('opacity-30', 'scale-90', 'grayscale-[0.5]');
+                btn.classList.remove('hover:-translate-y-2', 'hover:shadow-2xl', 'hover:bg-white/90');
+            });
+
+            btnElement.classList.remove('opacity-30', 'scale-90', 'grayscale-[0.5]', 'border-white/50', 'bg-white/50');
+            btnElement.classList.add('border-brand-aqua', 'bg-brand-light/30', 'scale-[1.08]', 'shadow-[0_15px_40px_rgba(35,157,202,0.3)]', 'z-20');
+            
+            setTimeout(() => {
+                card.classList.remove('animate-slide-in-right', 'animate-fade-in');
+                card.classList.add('animate-slide-out-left');
+                setTimeout(() => {
+                    if (currentStep < questions.length - 1) {
+                        currentStep++;
+                        updateQuizContent('right');
+                    } else {
+                        calculateResults();
+                    }
+                }, 400); 
+            }, 600); 
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                const card = document.getElementById('quiz-card');
+                card.style.animation = 'slideOutRight 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
+                setTimeout(() => {
+                    currentStep--;
+                    updateQuizContent('left'); 
+                    document.getElementById('quiz-card').style.animation = 'slideInLeft 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
+                }, 350);
+            }
+        }
+
+        function renderLoading() {
+            root.innerHTML = `
+                <div class="flex flex-col items-center justify-center min-h-screen text-center animate-fade-in">
+                    <div class="relative w-48 h-48 mb-12">
+                        <div class="absolute inset-0 rounded-full border-[6px] border-transparent border-t-brand-jade animate-spin-slow opacity-80"></div>
+                        <div class="absolute inset-4 rounded-full border-[6px] border-transparent border-t-brand-aqua animate-spin-reverse opacity-80"></div>
+                        <div class="absolute inset-8 rounded-full border-[6px] border-transparent border-t-brand-gold animate-spin-slow opacity-80" style="animation-duration: 2.5s;"></div>
+                        <i data-lucide="compass" class="absolute inset-0 m-auto w-16 h-16 text-brand-jade animate-pulse"></i>
+                    </div>
+                    <h3 class="text-brand-gold font-black tracking-[0.3em] uppercase mb-4 animate-slide-up">Plotting Coordinates</h3>
+                    <h2 class="text-5xl font-black text-brand-jade mb-4 animate-slide-up" style="animation-delay: 0.1s;">Crafting your journey...</h2>
+                    <p class="text-brand-jade/60 text-2xl font-medium animate-slide-up" style="animation-delay: 0.2s;">The Khmer spirits are whispering the way.</p>
+                </div>
+            `;
+            
+            if(!document.getElementById('dynamic-keyframes')) {
+                const style = document.createElement('style');
+                style.id = 'dynamic-keyframes';
+                style.innerHTML = `
+                    @keyframes slideOutRight { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(50px); } }
+                    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        function renderResults() {
+            const top = topMatches[0];
+            const runnersUp = topMatches.slice(1, 3);
+            const calculatePercentage = (score) => Math.min(99, Math.max(78, Math.round((score / questions.length) * 100 + (Math.random() * 12))));
+
+            root.innerHTML = `
+                <div class="min-h-screen py-24 px-4 md:px-8 animate-fade-in pb-40">
+                    <div class="max-w-7xl mx-auto">
+                        <div class="text-center mb-24 animate-slide-up">
+                            <h3 class="text-brand-gold font-black tracking-[0.4em] uppercase mb-6 flex items-center justify-center gap-3">
+                                <i data-lucide="map" class="w-6 h-6"></i> Expedition Map Unveiled
+                            </h3>
+                            <h1 class="text-6xl md:text-8xl font-black text-brand-jade mb-10 tracking-tighter">Your Soul's Destination</h1>
+                            <button onclick="resetApp()" class="group inline-flex items-center text-sm font-black text-brand-aqua hover:text-white hover:bg-brand-aqua transition-all duration-500 bg-white/80 px-10 py-5 rounded-2xl backdrop-blur-md shadow-lg border border-white hover:shadow-2xl hover:-translate-y-2">
+                                <i data-lucide="refresh-cw" class="w-5 h-5 mr-3 transition-transform group-hover:rotate-180 duration-700"></i> New Expedition
+                            </button>
+                        </div>
+
+                        <!-- Top Match -->
+                        <div class="mb-20 bg-white/90 backdrop-blur-3xl rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(3,105,94,0.2)] border border-white flex flex-col lg:flex-row transform transition-all duration-700 hover:shadow-[0_60px_120px_rgba(3,105,94,0.25)] animate-slide-up" style="animation-delay: 0.2s">
+                            <div class="lg:w-3/5 h-[500px] lg:h-auto relative overflow-hidden group">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
+                                <img src="${top.image}" alt="${top.name}" class="w-full h-full object-cover transition-transform duration-2000 group-hover:scale-110" />
+                                <div class="absolute top-10 right-10 z-20">
+                                    <div class="w-28 h-28 bg-brand-jade/95 backdrop-blur-xl rounded-full flex flex-col items-center justify-center border-4 border-brand-herb/40 shadow-2xl transform rotate-12 hover:rotate-0 transition-all duration-500">
+                                        <span class="text-3xl font-black text-white leading-none">${calculatePercentage(top.score + 1)}%</span>
+                                        <span class="text-[10px] uppercase font-black text-brand-light tracking-widest mt-1">Match</span>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-12 left-12 z-20 pr-12">
+                                    <div class="inline-flex items-center px-6 py-2.5 rounded-full bg-brand-herb text-white text-xs font-black shadow-xl mb-6 tracking-widest uppercase">
+                                        <i data-lucide="crown" class="w-4 h-4 mr-2"></i> Prime Selection
+                                    </div>
+                                    <h2 class="text-6xl md:text-8xl font-black text-white drop-shadow-2xl leading-[0.9] tracking-tighter">
+                                        ${top.name}
+                                    </h2>
+                                </div>
+                            </div>
+                            
+                            <div class="lg:w-2/5 p-10 md:p-14 flex flex-col justify-center bg-gradient-to-br from-white/90 to-brand-bg/80 relative">
+                                <div class="flex items-center text-brand-aqua mb-4 font-black tracking-[0.3em] uppercase text-sm">
+                                    <i data-lucide="map-pin" class="w-6 h-6 mr-3"></i> Exploration Point
+                                </div>
+                                <h4 class="text-xl font-bold text-brand-jade mb-4">${top.tagline}</h4>
+                                <p class="text-lg text-brand-jade/80 mb-8 leading-relaxed font-medium">
+                                    ${top.description}
+                                </p>
+
+                                <div class="grid grid-cols-2 gap-4 mb-8">
+                                    <div class="bg-brand-light/20 p-4 rounded-2xl border border-brand-light/30">
+                                        <div class="text-[10px] uppercase font-black tracking-widest text-brand-jade mb-1">Highlights</div>
+                                        <div class="font-bold text-sm text-brand-jade/80">${top.highlights.slice(0, 3).join(', ')}</div>
+                                    </div>
+                                    <div class="bg-brand-light/20 p-4 rounded-2xl border border-brand-light/30">
+                                        <div class="text-[10px] uppercase font-black tracking-widest text-brand-jade mb-1">Weather</div>
+                                        <div class="font-bold text-sm text-brand-jade/80">${top.weather}<br/>${top.bestTime}</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-wrap gap-2 mt-auto">
+                                    ${top.tags.slice(0,4).map(tag => `<span class="px-4 py-1.5 bg-brand-light/30 text-brand-jade text-[10px] font-black uppercase tracking-widest rounded-full border border-brand-light/60 backdrop-blur-md">${tag}</span>`).join('')}
+                                </div>
+                                
+                                <!-- LINK TO THE DETAIL PAGE FROM YOUR GITHUB REPO -->
+                                <a href="destination-detail.html?id=${top.id}" class="mt-8 w-full py-6 bg-brand-jade text-white rounded-2xl font-black text-lg hover:bg-brand-aqua transition-all duration-500 shadow-2xl hover:shadow-[0_20px_60px_rgba(35,157,202,0.4)] hover:-translate-y-2 flex justify-center items-center group">
+                                    Explore Full Guide <i data-lucide="chevron-right" class="w-5 h-5 ml-2 transition-transform duration-500 group-hover:translate-x-2"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Grid -->
+                        <div class="grid md:grid-cols-2 gap-12">
+                            ${runnersUp.map((match, i) => `
+                                <!-- LINKS TO THE DETAIL PAGE FROM YOUR GITHUB REPO -->
+                                <a href="destination-detail.html?id=${match.id}" class="bg-white/80 backdrop-blur-2xl rounded-[4rem] overflow-hidden shadow-2xl border border-white/80 group hover:-translate-y-4 transition-all duration-700 animate-slide-up flex flex-col block" style="animation-delay: ${0.4 + (i * 0.2)}s">
+                                    <div class="h-80 relative overflow-hidden">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
+                                        <img src="${match.image}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                                        <div class="absolute top-6 left-6 z-20 flex gap-2">
+                                            <span class="px-4 py-2 rounded-xl bg-white/90 text-brand-jade text-[10px] font-black uppercase tracking-widest shadow-lg">Alternative #${i+2}</span>
+                                            <span class="px-4 py-2 rounded-xl bg-brand-aqua text-white text-[10px] font-black uppercase tracking-widest shadow-lg">${calculatePercentage(match.score)}% Match</span>
+                                        </div>
+                                        <div class="absolute bottom-8 left-8 right-8 z-20">
+                                            <h3 class="text-4xl font-black text-white leading-none tracking-tight mb-2">${match.name}</h3>
+                                            <p class="text-brand-gold font-bold text-sm tracking-wide uppercase">${match.tagline}</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-12 flex-grow flex flex-col">
+                                        <p class="text-brand-jade/80 mb-10 line-clamp-3 text-xl font-bold leading-relaxed">${match.description}</p>
+                                        <div class="flex flex-wrap gap-2 mt-auto">
+                                            ${match.tags.slice(0, 3).map(tag => `<span class="px-4 py-1.5 bg-brand-bg/90 text-brand-herb text-[10px] font-black uppercase tracking-tighter rounded-lg">${tag}</span>`).join('')}
+                                        </div>
+                                    </div>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function startQuiz() {
+            appState = 'quiz';
+            currentStep = 0;
+            answers = {};
+            render();
+        }
+
+        function calculateResults() {
+            appState = 'loading';
+            render();
+            setTimeout(() => {
+                const selectedTags = Object.values(answers);
+                const scoredDestinations = destinations.map(dest => ({ ...dest, score: selectedTags.filter(tag => dest.tags.includes(tag)).length }));
+                scoredDestinations.sort((a, b) => b.score - a.score || 0.5 - Math.random());
+                topMatches = scoredDestinations.slice(0, 3);
+                appState = 'results';
+                render();
+            }, 3000); 
+        }
+
+        function resetApp() {
+            appState = 'landing';
+            currentStep = 0;
+            answers = {};
+            topMatches = [];
+            render();
+        }
+ 
+        render();
+
+    </script>
+</body>
+</html>
