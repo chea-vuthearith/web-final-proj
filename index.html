@@ -3,48 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wander KH | Home</title>
+    <title>Wander KH | Discover Cambodia</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        /* --- Color Palette from Image --- */
+        :root {
+            --cool-jade: #03695e;
+            --spring-herb: #6daf5f;
+            --sky-aqua: #239dca;
+            --light-blue: #a5c6db;
+            --linen-white: #e7e9d8;
+            
+            /* UI Colors derived from palette */
+            --text-dark: #1a2e2c;
+            --text-light: #556b69;
+            --bg-light: #fbfbfa; 
+            --bg-soft: #f2f4ec; 
+            --white: #ffffff;
+            
+            --shadow-sm: 0 4px 6px rgba(3, 105, 94, 0.08);
+            --shadow-md: 0 10px 25px rgba(3, 105, 94, 0.12);
+            --shadow-hover: 0 15px 35px rgba(3, 105, 94, 0.2);
+            --radius: 16px;
+            --max-width: 1280px;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #2f7d32;
-            --accent: #66bb6a;
-            --accent-hover: #43a047;
-
-            --light-bg: #f1f8f4;
-            --soft-bg: #e8f5e9;
-
-            --text: #2e2e2e;
-            --white: #ffffff;
-
-            --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-            --radius: 14px;
-            --max-width: 1200px;
-        }
-
         body {
-            font-family: Arial, sans-serif;
-            background-color: var(--light-bg);
-            color: var(--text);
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
         }
 
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* --- Header & Navigation --- */
         header {
-            background: var(--primary);
-            position: sticky;
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
+            transition: all 0.4s ease;
+            background: transparent;
+            padding: 15px 0;
+        }
+
+        header.scrolled {
+            background: var(--cool-jade);
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         nav {
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 16px 20px;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -52,49 +82,60 @@
 
         .logo {
             color: var(--white);
-            font-size: 30px;
-            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--spring-herb);
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 14px;
+            gap: 8px;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--white);
-            font-size: 16px;
-            padding: 8px 14px;
-            border-radius: 8px;
-            transition: 0.3s;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 10px 18px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            background-color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.15);
             color: var(--white);
         }
 
-        main {
-            width: 100%;
+        /* Mobile Menu Toggle */
+        .mobile-menu-btn {
+            display: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
         }
 
-        .hero-slider {
-            max-width: var(--max-width);
-            margin: 18px auto 0;
-            padding: 0 20px;
-        }
-
-        .slider-box {
+        /* --- Hero Slider --- */
+        .hero-section {
             position: relative;
-            height: 78vh;
-            min-height: 460px;
-            border-radius: 18px;
+            height: 100vh;
+            min-height: 600px;
+            width: 100%;
             overflow: hidden;
-            box-shadow: var(--shadow);
+            background-color: var(--cool-jade);
         }
 
         .slide {
@@ -103,331 +144,1012 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 0.8s ease-in-out;
+            transform: scale(1.05);
+            transition: opacity 1s ease-in-out, transform 4s ease-out;
+            z-index: 1;
         }
 
         .slide.active {
             opacity: 1;
+            transform: scale(1);
+            z-index: 2;
         }
 
         .overlay {
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.42);
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(3, 105, 94, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: var(--white);
-            padding: 20px;
+            padding: 0 24px;
         }
 
         .hero-content {
-            max-width: 760px;
+            max-width: 800px;
+            color: var(--white);
+            margin-top: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.3s;
+        }
+
+        .slide.active .hero-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--spring-herb);
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: block;
         }
 
         .hero-content h1 {
-            font-size: 54px;
-            margin-bottom: 16px;
-            line-height: 1.2;
+            font-size: 64px;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         .hero-content p {
-            font-size: 21px;
-            margin-bottom: 24px;
+            font-size: 20px;
+            margin-bottom: 40px;
+            font-weight: 300;
+            color: var(--linen-white);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-primary {
-            display: inline-block;
-            text-decoration: none;
-            background: var(--accent);
+            background: var(--spring-herb);
             color: var(--white);
-            padding: 13px 26px;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(109, 175, 95, 0.4);
         }
 
         .btn-primary:hover {
-            background: var(--accent-hover);
+            background: #5a9e4d;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(109, 175, 95, 0.6);
         }
 
-        .content-section {
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--cool-jade);
+            transform: translateY(-3px);
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: var(--spring-herb);
+            transform: scale(1.3);
+        }
+
+        /* --- Sections Common --- */
+        section {
+            padding: 100px 24px;
+        }
+
+        .container {
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 60px 20px;
         }
 
-        h2 {
+        .section-header {
             text-align: center;
-            margin-bottom: 28px;
-            color: var(--primary);
-            font-size: 34px;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .intro-text,
-        .recommendation p {
-            max-width: 950px;
-            margin: 0 auto;
-            text-align: center;
+        .section-tag {
+            color: var(--sky-aqua);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-size: 42px;
+            color: var(--cool-jade);
+            margin-bottom: 20px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
             font-size: 18px;
+        }
+
+        /* --- Discover / About Hero Section --- */
+        .about-hero-section {
+            background: linear-gradient(135deg, #71ae9c 0%, #90c7b3 50%, #9bcbb8 100%);
+            padding: 140px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Full Background Faint Layer with gradient to white at bottom */
+        .bg-faint-full {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-faint-full img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.12;
+            mix-blend-mode: multiply;
+            filter: grayscale(100%);
+            animation: slowFloat 20s infinite alternate ease-in-out;
+        }
+
+        /* Bottom whiteness gradient */
+        .bg-faint-full::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.4), var(--bg-soft));
+        }
+
+        @keyframes slowFloat {
+            0% { transform: scale(1) translateY(0); }
+            100% { transform: scale(1.1) translateY(-30px); }
+        }
+
+        .about-hero-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-hero-content {
+            flex: 1.1;
+            min-width: 320px;
+        }
+
+        .about-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .about-title {
+            font-size: 68px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            color: var(--cool-jade);
+            line-height: 1.05;
+            margin-bottom: 24px;
+            letter-spacing: -1.5px;
+        }
+
+        .about-title .italic-white {
+            color: #ffffff;
+            font-style: italic;
+            font-weight: 800;
+        }
+
+        .about-desc {
+            font-size: 18px;
+            color: var(--cool-jade);
+            max-width: 480px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .about-hero-images {
+            flex: 1;
+            position: relative;
+            min-width: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 480px;
+        }
+
+        .tilted-frame-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 95%;
+            max-width: 580px;
+            aspect-ratio: 1.5 / 1; 
+            transform: rotate(6deg);
+            border: 8px solid #c2e0d3; 
+            border-radius: 32px;
+            box-shadow: 0 25px 45px rgba(3, 105, 94, 0.25);
+            overflow: hidden;
+            background: #90c7b3;
+            animation: floatFrame 8s ease-in-out infinite;
+        }
+
+        .frame-inner-slides {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .anim-slide {
+            position: absolute;
+            inset: -10%; 
+            width: 120%;
+            height: 120%;
+            object-fit: cover;
+            opacity: 0;
+            animation: crossFadeZoom 15s infinite;
+        }
+
+        /* Timing the 3 specific images provided */
+        .anim-slide:nth-child(1) { animation-delay: 0s; }
+        .anim-slide:nth-child(2) { animation-delay: 5s; }
+        .anim-slide:nth-child(3) { animation-delay: 10s; }
+
+        @keyframes crossFadeZoom {
+            0% { opacity: 0; transform: scale(1); }
+            5% { opacity: 1; }
+            33% { opacity: 1; transform: scale(1.05); }
+            38% { opacity: 0; transform: scale(1.08); }
+            100% { opacity: 0; transform: scale(1.1); }
+        }
+
+        @keyframes floatFrame {
+            0%, 100% { transform: rotate(6deg) translateY(0); }
+            50% { transform: rotate(6deg) translateY(-20px); }
+        }
+
+        /* --- Features Grid --- */
+        .features-section {
+            background-color: var(--bg-soft);
         }
 
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-            margin-top: 28px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
         }
 
-        .card {
+        .feature-card {
             background: var(--white);
-            padding: 26px 22px;
+            padding: 40px 30px;
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-sm);
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--sky-aqua);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+            z-index: -1;
         }
 
-        .card h3 {
-            color: var(--accent-hover);
-            margin-bottom: 12px;
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-card:nth-child(1)::before { background: var(--cool-jade); }
+        .feature-card:nth-child(2)::before { background: var(--spring-herb); }
+        .feature-card:nth-child(3)::before { background: var(--sky-aqua); }
+        .feature-card:nth-child(4)::before { background: var(--light-blue); }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--bg-soft);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 28px;
+            color: var(--cool-jade);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--cool-jade);
+            color: var(--white);
+        }
+
+        .feature-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 16px;
             font-size: 22px;
         }
 
-        .facts-wrapper {
-            background-color: var(--soft-bg);
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 15px;
         }
 
-        .facts ul {
-            max-width: 860px;
-            margin: 0 auto;
-            padding-left: 24px;
-            font-size: 18px;
+        /* --- Destinations Preview --- */
+        .destinations-section {
+            background-color: var(--white);
         }
 
-        .facts li {
-            margin-bottom: 14px;
+        .dest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
-        footer {
-            background: var(--primary);
+        .dest-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .dest-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .dest-img {
+            height: 260px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .dest-card:hover .dest-img {
+            transform: scale(1.1);
+        }
+
+        .dest-info {
+            padding: 24px;
+            background: var(--white);
+            position: relative;
+            z-index: 2;
+        }
+
+        .dest-info h3 {
+            font-size: 22px;
+            color: var(--cool-jade);
+            margin-bottom: 10px;
+        }
+
+        .dest-info p {
+            color: var(--text-light);
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .dest-link {
+            color: var(--sky-aqua);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .dest-link:hover {
+            color: var(--cool-jade);
+            gap: 12px;
+        }
+
+        /* --- CTA / Banner Section --- */
+        .cta-section {
+            background: linear-gradient(135deg, var(--cool-jade) 0%, #024a42 100%);
             color: var(--white);
             text-align: center;
-            padding: 22px 20px;
-            margin-top: 20px;
+            padding: 80px 24px;
         }
 
-        @media (max-width: 900px) {
-            .hero-content h1 {
-                font-size: 40px;
-            }
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
 
-            .hero-content p {
-                font-size: 18px;
-            }
+        .cta-content h2 {
+            font-size: 38px;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
 
-            .slider-box {
-                height: 65vh;
+        .cta-content p {
+            font-size: 18px;
+            color: var(--light-blue);
+            margin-bottom: 35px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--linen-white);
+            padding: 80px 24px 30px;
+        }
+
+        .footer-grid {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: #a0b2b0;
+            font-size: 15px;
+            max-width: 300px;
+            margin-bottom: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--spring-herb);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            color: var(--white);
+            font-size: 18px;
+            margin-bottom: 24px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--sky-aqua);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #a0b2b0;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .footer-links a:hover {
+            color: var(--spring-herb);
+            padding-left: 5px;
+        }
+
+        .contact-info li {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            color: #a0b2b0;
+            font-size: 15px;
+        }
+
+        .contact-info i {
+            color: var(--sky-aqua);
+            margin-top: 4px;
+        }
+
+        .footer-bottom {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px;
+            text-align: center;
+            color: #a0b2b0;
+            font-size: 14px;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .hero-content h1 { font-size: 52px; }
+            .section-header h2 { font-size: 36px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            
+            .about-hero-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 50px;
             }
+            .about-hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-desc {
+                text-align: center;
+            }
+            .about-title { font-size: 56px; }
         }
 
         @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 14px;
-            }
-
+            .mobile-menu-btn { display: block; }
+            
+            nav { padding: 0 16px; }
+            
             .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: var(--cool-jade);
+                flex-direction: column;
+                padding: 100px 30px 30px;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+                transition: 0.4s ease-in-out;
             }
 
-            .hero-slider {
-                padding: 0 14px;
-            }
-
-            .slider-box {
-                height: 58vh;
-                min-height: 400px;
-            }
-
-            .hero-content h1 {
-                font-size: 32px;
-            }
-
-            .hero-content p {
-                font-size: 16px;
-            }
-
-            h2 {
-                font-size: 28px;
-            }
-
-            .content-section {
-                padding: 50px 14px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 26px;
-            }
-
+            .nav-links.active { right: 0; }
+            
             .nav-links a {
-                font-size: 15px;
-                padding: 7px 12px;
+                font-size: 18px;
+                padding: 12px 0;
+                display: block;
+                border-radius: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
             }
 
-            .slider-box {
-                height: 52vh;
-                min-height: 340px;
-            }
+            .hero-content h1 { font-size: 40px; }
+            .hero-content p { font-size: 16px; }
+            .btn-group { flex-direction: column; }
+            
+            section { padding: 70px 20px; }
+            .section-header h2 { font-size: 32px; }
+            
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
 
-            .hero-content h1 {
-                font-size: 28px;
-            }
-
-            .btn-primary {
-                font-size: 16px;
-                padding: 11px 20px;
-            }
+            .about-title { font-size: 44px; }
+            .about-hero-images { min-height: 380px; }
+            .tilted-frame-wrapper { width: 100%; border-width: 6px;}
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <!-- Header Navigation -->
+    <header id="header">
         <nav>
-            <a href="#" class="logo" onclick="location.reload(); return false;">Wander KH</a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="discover.html">Discover</a></li>
-                <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="contact.html">Contact</a></li>
+            <a href="#" class="logo" onclick="location.reload(); return false;">
+                <i class="fa-solid fa-leaf"></i> Wander KH
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#discover">Discover</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero-slider">
-            <div class="slider-box">
-                <div class="slide active" style="background-image: url('images/AngkorWat.jpg');">
-                    <div class="overlay">
-                        <div class="hero-content">
-                            <h1>Discover the Beauty of Cambodia</h1>
-                            <p>Find exciting destinations, compare routes, and plan your next journey.</p>
-                            <a href="discover.html" class="btn-primary">Explore Now</a>
+        <!-- Hero Section with Slider -->
+        <section id="home" class="hero-section">
+            <div class="slide active" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-KpvJUO1y-D0NI-MgIVJghCwUGzYEPkRXJQ&s');">
+                <div class="overlay">
+                    <div class="hero-content">
+                        <span class="hero-subtitle">Welcome to the Kingdom of Wonder</span>
+                        <h1>Discover the Ancient Beauty of Cambodia</h1>
+                        <p>Explore majestic temples, breathtaking landscapes, and vibrant culture. Plan your unforgettable journey with Wander KH today.</p>
+                        <div class="btn-group">
+                            <a href="#discover" class="btn btn-primary">Start Exploring</a>
+                            <a href="#destinations" class="btn btn-secondary">View Destinations</a>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="slide" style="background-image: url('images/NationalMuseum.jpg');">
-                    <div class="overlay">
-                        <div class="hero-content">
-                            <h1>From Temples to Tropical Islands</h1>
-                            <p>Experience Cambodia’s rich culture, history, and natural beauty.</p>
-                            <a href="destinations.html" class="btn-primary">View Destinations</a>
+            <div class="slide" style="background-image: url('https://cdn.sanity.io/images/nxpteyfv/goguides/d5fd8947f76661bb90b807bfb95bdb1750abe02e-1600x1066.jpg');">
+                <div class="overlay">
+                    <div class="hero-content">
+                        <span class="hero-subtitle">Tropical Paradise</span>
+                        <h1>From Temples to Pristine Islands</h1>
+                        <p>Relax on the white sandy beaches of Koh Rong or dive into crystal clear waters. Experience nature untouched.</p>
+                        <div class="btn-group">
+                            <a href="#destinations" class="btn btn-primary">Find Your Beach</a>
+                            <a href="#contact" class="btn btn-secondary">Contact Us</a>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="slide" style="background-image: url('images/KohKongBeach.jpg');">
-                    <div class="overlay">
-                        <div class="hero-content">
-                            <h1>Your Adventure Starts Here</h1>
-                            <p>Compare places, find distances, and choose the perfect travel destination.</p>
-                            <a href="contact.html" class="btn-primary">Contact Us</a>
+            <div class="slide" style="background-image: url('https://images.travelandleisureasia.com/wp-content/uploads/sites/5/2025/01/28131632/phnom-penh-fi.jpeg?tr=w-1200,q-60');">
+                <div class="overlay">
+                    <div class="hero-content">
+                        <span class="hero-subtitle">Vibrant Culture</span>
+                        <h1>Your Cambodian Adventure Starts Here</h1>
+                        <p>Compare routes, uncover hidden gems, and experience the warm hospitality of the Khmer people.</p>
+                        <div class="btn-group">
+                            <a href="#discover" class="btn btn-primary">Discover More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slider-controls">
+                <div class="dot active" onclick="goToSlide(0)"></div>
+                <div class="dot" onclick="goToSlide(1)"></div>
+                <div class="dot" onclick="goToSlide(2)"></div>
+            </div>
+        </section>
+
+        <!-- Discover / About Hero Section -->
+        <section id="discover" class="about-hero-section">
+            <!-- New Immersive Background Layer -->
+            <div class="bg-faint-full">
+                <img src="https://kxn3vdktxmez55pl.public.blob.vercel-storage.com/Hero-AngkorWat-Cambodia-GettyImages-865119770-MatthewDigati-14.jpg" alt="Angkor Wat Background">
+            </div>
+
+            <div class="container about-hero-container">
+                <div class="about-hero-content">
+                    <div class="about-badge">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Explore the Kingdom of Wonder
+                    </div>
+                    <h2 class="about-title">
+                        FIND YOUR<br>
+                        <span class="italic-white">SOUL IN</span><br>
+                        CAMBODIA
+                    </h2>
+                    <p class="about-desc">
+                        From the majestic spires of Angkor Wat to the hidden white-sand islands of the south. We help you map your perfect journey.
+                    </p>
+                </div>
+                
+                <div class="about-hero-images">
+                    <div class="tilted-frame-wrapper">
+                        <div class="frame-inner-slides">
+                            <!-- Image 1: Royal Palace / Silver Pagoda -->
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Palsovanna48.png?_=20260423134503" alt="Royal Palace" class="anim-slide">
+                            
+                            <!-- Image 2: Angkor Wat -->
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/2palsovanna.png?_=20260423140515" alt="Angkor Wat" class="anim-slide">
+                            
+                            <!-- Image 3: National Museum -->
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Ghygyjghjujuu.png?_=20260423140515" alt="National Museum" class="anim-slide">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="content-section intro">
-            <h2>Welcome to Wander KH</h2>
-            <p class="intro-text">
-                Wander KH is a tourism website designed to help travelers discover amazing places in Cambodia.
-                Explore destinations, compare routes, and choose the best location for your next trip. Cambodia
-                offers beautiful landscapes, famous temples, unique culture, and warm hospitality that make every
-                journey unforgettable.
-            </p>
-        </section>
-
-        <section class="content-section features">
-            <h2>Why Choose Cambodia?</h2>
-            <div class="feature-grid">
-                <div class="card">
-                    <h3>Ancient Temples</h3>
-                    <p>Cambodia is home to Angkor Wat, one of the most famous and breathtaking temple complexes in the world.</p>
+        <!-- Features Grid -->
+        <section class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Why Visit</span>
+                    <h2>Why Choose Cambodia?</h2>
+                    <p>Experience a perfect blend of ancient history, lush nature, and incredibly welcoming people.</p>
                 </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-vihara"></i></div>
+                        <h3>Ancient Temples</h3>
+                        <p>Home to Angkor Wat, a UNESCO World Heritage site and the largest religious monument in the world.</p>
+                    </div>
 
-                <div class="card">
-                    <h3>Beautiful Nature</h3>
-                    <p>From the beaches of Koh Rong to the mountains of Mondulkiri, Cambodia offers many natural attractions.</p>
-                </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-leaf"></i></div>
+                        <h3>Beautiful Nature</h3>
+                        <p>From the pristine beaches of Koh Rong to the lush mountains and waterfalls of Mondulkiri.</p>
+                    </div>
 
-                <div class="card">
-                    <h3>Rich Culture</h3>
-                    <p>Visitors can enjoy Khmer traditional dances, local festivals, art, and delicious Cambodian food.</p>
-                </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-masks-theater"></i></div>
+                        <h3>Rich Culture</h3>
+                        <p>Immerse yourself in traditional Apsara dances, vibrant local festivals, and delicious Khmer cuisine.</p>
+                    </div>
 
-                <div class="card">
-                    <h3>Friendly People</h3>
-                    <p>Cambodian people are known for being welcoming, kind, and friendly to visitors from around the world.</p>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-face-smile"></i></div>
+                        <h3>Friendly People</h3>
+                        <p>Cambodians are renowned globally for their warm hospitality, genuine smiles, and kind nature.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="facts-wrapper">
-            <div class="content-section facts">
-                <h2>Interesting Facts About Cambodia</h2>
-                <ul>
-                    <li>Angkor Wat is the largest religious monument in the world.</li>
-                    <li>Cambodia has both ancient historical sites and modern city attractions.</li>
-                    <li>The country is famous for traditional Khmer food such as amok and nom banh chok.</li>
-                    <li>The Mekong River and Tonle Sap Lake are important natural treasures in Cambodia.</li>
-                    <li>Cambodia offers many travel experiences including cultural tourism, eco-tourism, and beach tourism.</li>
-                </ul>
+        <!-- Top Destinations Preview -->
+        <section id="destinations" class="destinations-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Explore</span>
+                    <h2>Popular Destinations</h2>
+                    <p>Discover the most loved places by our travelers. Find your perfect escape.</p>
+                </div>
+
+                <div class="dest-grid">
+                    <div class="dest-card">
+                        <div class="img-wrapper" style="overflow:hidden;">
+                            <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcStMcX-n1_f5xwRpSjzb7ou8s5a693m6jV4-0NBJBrTowjA3Ckz9XR3VXgswxz8vw27Yn9eLanGlKopQaaKH0NuIQc&s=19" alt="Siem Reap" class="dest-img">
+                        </div>
+                        <div class="dest-info">
+                            <h3>Siem Reap</h3>
+                            <p>The gateway to the ruins of Angkor, featuring colonial architecture and vibrant night markets.</p>
+                            <a href="#" class="dest-link">Explore Siem Reap <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="dest-card">
+                        <div class="img-wrapper" style="overflow:hidden;">
+                            <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcTmGtywztj2Qu9Z4piDFn3fZ77ukZENSPb-yZ5Qjml-uvhCsCVmX0Pb3h_eW_FAi3aA0A9O5v33NMZUkZGhvQeVWl9z&s=19" alt="Phnom Penh" class="dest-img">
+                        </div>
+                        <div class="dest-info">
+                            <h3>Phnom Penh</h3>
+                            <p>The bustling capital city, where ancient history meets modern cafes along the Mekong river.</p>
+                            <a href="#" class="dest-link">Explore Phnom Penh <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="dest-card">
+                        <div class="img-wrapper" style="overflow:hidden;">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsf7ILMU3iU48iLBZL0XNR_ucqjEcU3Lblxw&s" alt="Koh Rong" class="dest-img">
+                        </div>
+                        <div class="dest-info">
+                            <h3>Koh Rong</h3>
+                            <p>A true island paradise boasting bioluminescent plankton, white sands, and crystal-clear waters.</p>
+                            <a href="#" class="dest-link">Explore Koh Rong <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="content-section recommendation">
-            <h2>Why Tourists Should Visit Cambodia</h2>
-            <p>
-                Cambodia is a wonderful destination because it offers a mix of history, nature, culture, and adventure.
-                Travelers can visit world-famous temples, relax on beautiful beaches, explore forests and waterfalls,
-                and learn about rich Khmer heritage. Whether you enjoy photography, sightseeing, food, or cultural
-                experiences, Cambodia has something special for everyone.
-            </p>
+        <!-- Call to Action -->
+        <section id="contact" class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready for an Unforgettable Journey?</h2>
+                    <p>Contact our travel experts today to tailor your perfect Cambodian itinerary. Whether you seek adventure, relaxation, or culture, we have you covered.</p>
+                    <a href="#" class="btn btn-primary" style="background-color: var(--sky-aqua);">Contact Us Now</a>
+                </div>
+            </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Wander KH | Final Project</p>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <i class="fa-solid fa-leaf"></i> Wander KH
+                </a>
+                <p>Your ultimate guide to exploring the Kingdom of Wonder. We help you discover the hidden gems and famous landmarks of Cambodia.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-widget">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#discover">Discover</a></li>
+                    <li><a href="#destinations">Destinations</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-widget">
+                <h4 class="footer-title">Travel Info</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Visa Information</a></li>
+                    <li><a href="#">Travel Insurance</a></li>
+                    <li><a href="#">Best Time to Visit</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-widget">
+                <h4 class="footer-title">Contact Us</h4>
+                <ul class="contact-info list-none">
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Phnom Penh, Cambodia</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+855 12 345 678</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>hello@wanderkh.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Wander KH | Designed with passion for Cambodia.</p>
+        </div>
     </footer>
 
     <script>
+        // Sticky Header
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileBtn.querySelector('i');
+            if(navLinks.classList.contains('active')){
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
+
+        // Hero Slider
         const slides = document.querySelectorAll(".slide");
+        const dots = document.querySelectorAll(".dot");
         let currentSlide = 0;
+        let slideInterval;
 
         function showSlide(index) {
             slides.forEach(slide => slide.classList.remove("active"));
+            dots.forEach(dot => dot.classList.remove("active"));
             slides[index].classList.add("active");
+            dots[index].classList.add("active");
+            currentSlide = index;
         }
 
         function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
+            let nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex);
         }
 
-        setInterval(nextSlide, 3000);
-    </script>
+        function goToSlide(index) {
+            clearInterval(slideInterval);
+            showSlide(index);
+            startSlider();
+        }
 
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        startSlider();
+    </script>
 </body>
 </html>
