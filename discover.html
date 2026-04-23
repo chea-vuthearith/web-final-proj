@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cambodia Travel Compass</title>
-    <link rel="stylesheet" href="./stylenew.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Outfit -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800&family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="./stylenew.css">
-    <!-- Tailwind CSS -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -38,7 +39,7 @@
                     animation: {
                         'float-slow': 'float 20s ease-in-out infinite',
                         'float-medium': 'float 15s ease-in-out infinite reverse',
-                        'float-fast': 'float 10s ease-in-out infinite',
+                        'float-fast': 'float 8s ease-in-out infinite',
                         'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'wobble': 'wobble 12s ease-in-out infinite',
                         'spin-very-slow': 'spin 30s linear infinite',
@@ -56,6 +57,10 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        #header {
+            z-index: 1000;
+        }
+
         .bg-pattern {
             background-image: 
                 radial-gradient(#03695e 1px, transparent 1px),
@@ -70,8 +75,8 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            33% { transform: translateY(-25px) rotate(3deg); }
-            66% { transform: translateY(15px) rotate(-2deg); }
+            33% { transform: translateY(-20px) rotate(3deg); }
+            66% { transform: translateY(10px) rotate(-2deg); }
         }
 
         @keyframes wobble {
@@ -114,7 +119,6 @@
     </style>
 </head>
 <body class="selection:bg-brand-aqua selection:text-white relative min-h-screen">
-<body class="selection:bg-brand-aqua selection:text-white relative min-h-screen">
 
     <header id="header">
         <nav>
@@ -134,19 +138,15 @@
     </header>
 
     <div class="fixed inset-0 pointer-events-none -z-40 bg-pattern opacity-40"></div>
-    ...
-    <!-- BACKGROUND EFFECTS -->
-    <div class="fixed inset-0 pointer-events-none -z-40 bg-pattern opacity-40"></div>
     <div id="bg-elements" class="fixed inset-0 pointer-events-none -z-30 transition-transform duration-1000 ease-out">
         <div id="blob-1" class="absolute top-[-10%] left-[-10%] w-[55vw] h-[55vw] rounded-full bg-brand-aqua/15 blur-[120px] animate-blob"></div>
         <div id="blob-2" class="absolute top-[15%] right-[-10%] w-[45vw] h-[45vw] rounded-full bg-brand-herb/15 blur-[100px] animate-blob animation-delay-2000"></div>
         <div id="blob-3" class="absolute bottom-[-15%] left-[10%] w-[65vw] h-[65vw] rounded-full bg-brand-light/20 blur-[120px] animate-blob animation-delay-4000"></div>
     </div>
 
-    <!-- STICKER LAYER -->
     <div id="sticker-layer" class="fixed inset-0 pointer-events-none -z-20 overflow-hidden transition-transform duration-700 ease-out">
         <div class="absolute top-[12%] left-[8%] animate-float-slow travel-sticker hidden md:block">
-            <svg width="140" height="140" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-[-12deg]">
+            <svg width="120" height="120" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-[-12deg]">
                 <circle cx="100" cy="100" r="95" fill="white"/>
                 <circle cx="100" cy="100" r="85" fill="#f59e0b"/>
                 <circle cx="100" cy="100" r="75" stroke="white" stroke-width="2" stroke-dasharray="4 4"/>
@@ -159,7 +159,7 @@
         </div>
 
         <div class="absolute top-[25%] right-[5%] animate-wobble travel-sticker hidden lg:block animation-delay-1000">
-            <svg width="120" height="200" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-[15deg]">
+            <svg width="100" height="170" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-[15deg]">
                 <path d="M10 10 L110 10 L110 170 L60 195 L10 170 Z" fill="white" stroke="#e5e7eb" stroke-width="2"/>
                 <circle cx="60" cy="30" r="8" fill="#e7e9d8" stroke="#d1d5db" stroke-width="2"/>
                 <rect x="20" y="55" width="80" height="15" fill="#03695e" rx="2"/>
@@ -170,7 +170,7 @@
         </div>
 
         <div class="absolute bottom-[15%] left-[5%] animate-float-medium travel-sticker animation-delay-2000">
-            <svg width="150" height="130" viewBox="0 0 150 130" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-[8deg]">
+            <svg width="130" height="110" viewBox="0 0 150 130" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotate-[8deg]">
                 <rect x="5" y="5" width="140" height="120" rx="15" fill="white"/>
                 <rect x="15" y="15" width="120" height="100" rx="10" fill="#239dca"/>
                 <path d="M30 60 L120 60 L110 40 L40 40 Z" fill="#03695e"/>
@@ -184,247 +184,162 @@
                 <text x="50%" y="32" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="14" fill="white">LET'S GO</text>
             </svg>
         </div>
+        
+        <div id="dynamic-compass" class="absolute top-[40%] left-[80%] animate-float-fast travel-sticker hidden lg:block drop-shadow-2xl opacity-80">
+            <div class="relative w-32 h-32 flex items-center justify-center">
+                <i data-lucide="map" class="w-24 h-24 text-brand-aqua absolute opacity-90 transform -rotate-12"></i>
+                <div class="absolute bg-white rounded-full p-2 shadow-xl -bottom-2 -left-4">
+                    <i data-lucide="compass" class="w-12 h-12 text-brand-gold animate-spin-very-slow"></i>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Main App Container -->
-    <div id="app-root" class="relative z-10 w-full min-h-screen"></div>
-    <div id="app-root" class="relative z-10 w-full min-h-screen pt-24"></div>
+    <div id="app-root" class="relative z-10 w-full min-h-screen pt-20"></div>
+
     <script>
         // =========================================================================
-        // ⬇️ FOR GITHUB: COPY THIS ENTIRE ARRAY INTO YOUR js/destinations.js FILE ⬇️
+        // Navigation Header JavaScript
         // =========================================================================
-        // Note: I have added the 'tags' array to your exact data so the quiz logic works!
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileBtn.querySelector('i');
+            if(navLinks.classList.contains('active')){
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
+
+        // =========================================================================
+        // Destination Data Array
+        // =========================================================================
         const destinations = [
             {
-                id: "siem-reap",
-                name: "Siem Reap",
-                tagline: "The gateway to the ruins of Angkor",
+                id: "siem-reap", name: "Siem Reap", tagline: "The gateway to the ruins of Angkor",
                 image: "https://angkorwildlife.com/wp-content/uploads/2024/08/12-must-visit-places-to-visit-in-siem-reap-cambodia-1.jpg",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d250185.3941440069!2d103.8564!3d13.3633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310e046537e92b1d%3A0x4c1c2c1c1c1c1c1c!2sKrong%20Siem%20Reap!5e1!3m2!1sen!2skh!4v1",
                 description: "Siem Reap is the gateway to the magnificent Angkor archaeological park, home to the world-famous Angkor Wat temple.",
-                highlights: ["Angkor Wat", "Bayon Temple", "Ta Prohm", "Pub Street"],
-                activities: ["Temple Tours", "Apsara Shows", "Cooking Classes"],
-                bestTime: "Nov-Mar",
-                weather: "Hot (25-35°C)",
-                transport: { method: "Giant Ibis Bus", duration: "6 Hours" },
-                tips: ["Buy Angkor Pass early", "Start at sunrise"],
-                hotels: { budget: "Hostels", mid: "La Butterfly", luxury: "Belmond" },
+                highlights: ["Angkor Wat", "Bayon Temple", "Ta Prohm"],
+                weather: "Hot (25-35°C)", bestTime: "Nov-Mar",
                 tags: ["cultural", "temple", "explorer", "standard", "4-7", "group", "sightseeing", "motorbike", "boutique", "balanced"]
             },
             {
-                id: "phnom-penh",
-                name: "Phnom Penh",
-                tagline: "The vibrant capital city",
+                id: "phnom-penh", name: "Phnom Penh", tagline: "The vibrant capital city",
                 image: "https://images.travelandleisureasia.com/wp-content/uploads/sites/5/2025/01/28131632/phnom-penh-fi.jpeg?tr=w-1200,q-60",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d250189.674!2d104.9282!3d11.5564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951f54e01d07d%3A0x1c1c1c1c1c1c1c1c!2sPhnom%20Penh!5e1!3m2!1sen!2skh!4v1",
                 description: "Cambodia's bustling capital at the confluence of the Mekong and Tonle Sap rivers.",
-                highlights: ["Royal Palace", "Tuol Sleng Museum", "Central Market"],
-                activities: ["City Tours", "River Cruises", "Street Food"],
-                bestTime: "Nov-Mar",
-                weather: "Hot (26-36°C)",
-                transport: { method: "N/A", duration: "0 Hours" },
-                tips: ["Visit museums", "Stay riverside"],
-                hotels: { budget: "Happy Guesthouse", mid: "The Bluefrog", luxury: "Raffles" },
+                highlights: ["Royal Palace", "Tuol Sleng", "Central Market"],
+                weather: "Hot (26-36°C)", bestTime: "Nov-Mar",
                 tags: ["adventurous", "city", "extrovert", "standard", "1-3", "group", "food", "sightseeing", "flight", "boutique", "fast"]
             },
             {
-                id: "battambang",
-                name: "Battambang",
-                tagline: "Colonial architecture and countryside",
+                id: "battambang", name: "Battambang", tagline: "Colonial architecture and countryside",
                 image: "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=375,height=375,dpr=2/tour_img/2abd49cb7c63a049d72bba69423afd9f1adebc8bc1c892da3b44e66100244ac0.jpg",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.15602055!3d13.093932849999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31054996eaddd7e5%3A0x9c55ce955ce9e393!2sKrong%20Battambang!5e1!3m2!1sen!2skh!4v1776623050065!5m2!1sen!2skh",
                 description: "Cambodia's second-largest city with the best colonial architecture.",
                 highlights: ["Colonial Buildings", "Phnom Banan", "Bamboo Train"],
-                activities: ["Bike Tours", "Bamboo Train", "Cooking Classes"],
-                bestTime: "Nov-Mar",
-                weather: "Warm (24-32°C)",
-                transport: { method: "Bus", duration: "3 Hours" },
-                tips: ["Rent a bike", "Watch bats at sunset"],
-                hotels: { budget: "Seng Hout", mid: "Battambang Resort", luxury: "La Villa" },
+                weather: "Warm (24-32°C)", bestTime: "Nov-Mar",
                 tags: ["cultural", "city", "explorer", "backpack", "1-3", "solo", "sightseeing", "motorbike", "homestay", "balanced"]
             },
             {
-                id: "kampot",
-                name: "Kampot",
-                tagline: "Fresh pepper and river views",
+                id: "kampot", name: "Kampot", tagline: "Fresh pepper and river views",
                 image: "https://d34vm3j4h7f97z.cloudfront.net/original/4X/8/1/e/81e31f6817402c4a711d09891d53515e0ada2571.jpeg",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.2907!3d10.4865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKampot!5e1!3m2!1sen!2skh!4v1",
                 description: "Quiet riverside town famous for world-class Kampot pepper.",
                 highlights: ["Kampot River", "Pepper Farms", "Bokit Waterfall"],
-                activities: ["Kayaking", "Farm Tours", "Cave Exploration"],
-                bestTime: "Nov-May",
-                weather: "Warm (25-34°C)",
-                transport: { method: "Bus", duration: "3 Hours" },
-                tips: ["Tour pepper farms", "Try fresh pepper"],
-                hotels: { budget: "Rattana", mid: "River Resort", luxury: "Boutique" },
+                weather: "Warm (25-34°C)", bestTime: "Nov-May",
                 tags: ["relaxed", "nature", "chill", "backpack", "standard", "4-7", "couple", "food", "relaxation", "motorbike", "homestay", "slow"]
             },
             {
-                id: "kep",
-                name: "Kep",
-                tagline: "Crab markets and quiet beaches",
+                id: "kep", name: "Kep", tagline: "Crab markets and quiet beaches",
                 image: "https://www.asiakingtravel.com/cuploads/files/Kep_Crab_Statue_.jpg",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.2909!3d10.4832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKep!5e1!3m2!1sen!2skh!4v1",
                 description: "Coastal town renowned for fresh crab and relaxed beaches.",
                 highlights: ["Crab Market", "Kep Beach", "Rabbit Island"],
-                activities: ["Beach Hopping", "Snorkeling", "Crab Cooking"],
-                bestTime: "Nov-May",
-                weather: "Warm (26-34°C)",
-                transport: { method: "Bus", duration: "3.5 Hours" },
-                tips: ["Try crab morning", "Visit island by boat"],
-                hotels: { budget: "Vanna Hotel", mid: "Knai Bang Chatt", luxury: "Keplux" },
+                weather: "Warm (26-34°C)", bestTime: "Nov-May",
                 tags: ["relaxed", "beach", "chill", "standard", "luxury", "1-3", "couple", "food", "relaxation", "motorbike", "resort", "slow"]
             },
             {
-                id: "sihanoukville",
-                name: "Sihanoukville",
-                tagline: "Beach resorts and island hopping",
+                id: "sihanoukville", name: "Sihanoukville", tagline: "Beach resorts and island hopping",
                 image: "https://d3pa5s1toq8zys.cloudfront.net/explore/wp-content/uploads/2024/07/Sihanoukville-campuchia-4.jpg",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.5237!3d10.6278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKrong%20Sihanoukville!5e1!3m2!1sen!2skh!4v1",
                 description: "Cambodia's premier beach destination with resorts and islands.",
                 highlights: ["Ochheuteal Beach", "Koh Rong", "Ream Park"],
-                activities: ["Island Hopping", "Snorkeling", "Beach Parties"],
-                bestTime: "Nov-May",
-                weather: "Hot (27-35°C)",
-                transport: { method: "Expressway Bus", duration: "4 Hours" },
-                tips: ["Book island trips", "Stay hydrated"],
-                hotels: { budget: "Happy Guesthouse", mid: "Sea Flower", luxury: "Sihanoukville Resort" },
+                weather: "Hot (27-35°C)", bestTime: "Nov-May",
                 tags: ["party", "beach", "extrovert", "standard", "1-3", "group", "relaxation", "flight", "resort", "fast"]
             },
             {
-                id: "koh-rong",
-                name: "Koh Rong",
-                tagline: "Island paradise with glowing plankton",
+                id: "koh-rong", name: "Koh Rong", tagline: "Island paradise with glowing plankton",
                 image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsf7ILMU3iU48iLBZL0XNR_ucqjEcU3Lblxw&s",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.36!3d10.548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKoh%20Rong!5e1!3m2!1sen!2skh!4v1",
                 description: "Pristine island famous for bioluminescent plankton at night.",
                 highlights: ["Long Set Beach", "Glowing Plankton", "Koh Touch"],
-                activities: ["Night Swimming", "Snorkeling", "Jungle Treks"],
-                bestTime: "Nov-May",
-                weather: "Hot (27-35°C)",
-                transport: { method: "Speedboat", duration: "45 Min" },
-                tips: ["Bring cash", "Swim at night"],
-                hotels: { budget: "Monkey Republic", mid: "Beach House", luxury: "Royal Sands" },
+                weather: "Hot (27-35°C)", bestTime: "Nov-May",
                 tags: ["party", "relaxed", "beach", "extrovert", "chill", "backpack", "4-7", "solo", "couple", "relaxation", "boat", "hostel", "resort", "slow"]
             },
             {
-                id: "koh-trong",
-                name: "Koh Trong",
-                tagline: "Traditional stilt villages",
+                id: "koh-trong", name: "Koh Trong", tagline: "Traditional stilt villages",
                 image: "https://focus-cambodia.com/wp-content/uploads/2020/08/koh-trong-09.jpg",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.0297!3d12.4778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKoh%20Trong!5e1!3m2!1sen!2skh!4v1",
                 description: "Peaceful Mekong island with stilt houses and homestays.",
                 highlights: ["Stilt Houses", "Wat Sopah", "Mekong Views"],
-                activities: ["Cycling", "Boat Tours", "Homestay"],
-                bestTime: "Nov-Feb",
-                weather: "Warm (22-30°C)",
-                transport: { method: "Boat", duration: "15 Min" },
-                tips: ["Stay overnight", "Rent a bike"],
-                hotels: { budget: "Homestay", mid: "Mekong Resort", luxury: "N/A" },
+                weather: "Warm (22-30°C)", bestTime: "Nov-Feb",
                 tags: ["cultural", "nature", "introvert", "backpack", "1-3", "solo", "sightseeing", "boat", "homestay", "slow"]
             },
             {
-                id: "mondulkiri",
-                name: "Mondulkiri",
-                tagline: "Rolling hills and elephant sanctuaries",
+                id: "mondulkiri", name: "Mondulkiri", tagline: "Rolling hills and elephant sanctuaries",
                 image: "https://www.tourismcambodia.com/img/travelguides/bou_sra_waterfall.jpg",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d107.002!3d12.454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sMondulkiri!5e1!3m2!1sen!2skh!4v1",
                 description: "Remote province with hills, forests, and ethical elephant sanctuaries.",
-                highlights: ["Elephant Sanctuary", "Bousra Waterfall", "Bunong Villages"],
-                activities: ["Elephant Care", "Jungle Treks", "Waterfall Visits"],
-                bestTime: "Nov-Mar",
-                weather: "Cool (18-28°C)",
-                transport: { method: "Minivan", duration: "7 Hours" },
-                tips: ["Ethical sanctuaries only", "Bring layers"],
-                hotels: { budget: "Nature Tree", mid: "Mondulkiri Resort", luxury: "Elephants Crossing" },
+                highlights: ["Elephant Sanctuary", "Bousra Waterfall"],
+                weather: "Cool (18-28°C)", bestTime: "Nov-Mar",
                 tags: ["adventurous", "jungle", "introvert", "explorer", "standard", "4-7", "group", "photography", "flight", "homestay", "balanced"]
             },
             {
-                id: "banlung",
-                name: "Banlung (Ratanakiri)",
-                tagline: "Volcanic lakes and jungle treks",
+                id: "banlung", name: "Banlung", tagline: "Volcanic lakes and jungle treks",
                 image: "https://autourasia.com/uploads/Travel-Guide-Cambodia/rattanakiri/useful-infos-ratanakiri/700-lac-volcanique-Yeak-Lom%20-%20Copy.png",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.9513!3d13.7276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sBanlung!5e1!3m2!1sen!2skh!4v1",
                 description: "Remote adventure destination with crater lakes and rainforests.",
                 highlights: ["Yeak Laom Lake", "Virachey Park", "Ka Tien Falls"],
-                activities: ["Jungle Treks", "Lake Swimming", "Homestays"],
-                bestTime: "Nov-Mar",
-                weather: "Warm (24-32°C)",
-                transport: { method: "Minivan", duration: "9 Hours" },
-                tips: ["Hire local guide", "Bring hiking shoes"],
-                hotels: { budget: "Lake Hotel", mid: "Yaklom Lodge", luxury: "N/A" },
+                weather: "Warm (24-32°C)", bestTime: "Nov-Mar",
                 tags: ["adventurous", "jungle", "introvert", "explorer", "backpack", "1week", "solo", "photography", "motorbike", "homestay", "fast"]
             },
             {
-                id: "kampong-thom",
-                name: "Kampong Thom",
-                tagline: "Ancient temples and green jungles",
+                id: "kampong-thom", name: "Kampong Thom", tagline: "Ancient temples and green jungles",
                 image: "https://www.vivutravel.com/images/des-cambodia3/kampong-thom-travel-guide.jpg",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.9812!3d12.7119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKampong%20Thom!5e1!3m2!1sen!2skh!4v1",
                 description: "Home to pre-Angkorian Sambor Prei Kuk temples.",
-                highlights: ["Sambor Prei Kuk", "Phnom Santuk", "Stung Proah Falls"],
-                activities: ["Temple Tours", "Trekking", "Waterfall Visits"],
-                bestTime: "Nov-Mar",
-                weather: "Warm (24-32°C)",
-                transport: { method: "Bus", duration: "3 Hours" },
-                tips: ["Start early", "Hire guide"],
-                hotels: { budget: "Sambor Hotel", mid: "Garden Resort", luxury: "N/A" },
+                highlights: ["Sambor Prei Kuk", "Phnom Santuk"],
+                weather: "Warm (24-32°C)", bestTime: "Nov-Mar",
                 tags: ["cultural", "temple", "explorer", "standard", "1-3", "group", "sightseeing", "motorbike", "homestay", "balanced"]
             },
             {
-                id: "preah-vihear",
-                name: "Preah Vihear",
-                tagline: "Majestic cliffside temple",
+                id: "preah-vihear", name: "Preah Vihear", tagline: "Majestic cliffside temple",
                 image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHZxscAu7vBobMB11EZv9cIk3xZrHaqUi_rg&s",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.5287!3d14.4129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sPreah%20Vihear!5e1!3m2!1sen!2skh!4v1",
                 description: "Spectacular temple perched on a 525m cliff.",
                 highlights: ["Preah Vihear Temple", "Mountain Views"],
-                activities: ["Temple Tours", "Sunrise Views", "Photography"],
-                bestTime: "Nov-Mar",
-                weather: "Cool (18-28°C)",
-                transport: { method: "Bus", duration: "6 Hours" },
-                tips: ["Go for sunrise", "Allow full day"],
-                hotels: { budget: "Guesthouse", mid: "Mountain Resort", luxury: "N/A" },
+                weather: "Cool (18-28°C)", bestTime: "Nov-Mar",
                 tags: ["adventurous", "temple", "explorer", "standard", "1-3", "solo", "photography", "motorbike", "boutique", "fast"]
             },
             {
-                id: "kratie",
-                name: "Kratie",
-                tagline: "Irrawaddy dolphins and river cruises",
+                id: "kratie", name: "Kratie", tagline: "Irrawaddy dolphins and river cruises",
                 image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTliKHWytHm636srYnSrVirr6437WoBme7wjg&s",
-                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.0298!3d12.4881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKratie!5e1!3m2!1sen!2skh!4v1",
                 description: "Riverside town famous for Irrawaddy dolphin watching.",
                 highlights: ["Dolphin Sanctuary", "Koh Trong Island"],
-                activities: ["Dolphin Watching", "River Cruises", "Cycling"],
-                bestTime: "Nov-Mar",
-                weather: "Warm (24-32°C)",
-                transport: { method: "Bus", duration: "5 Hours" },
-                tips: ["Visit at dawn", "Book boat"],
-                hotels: { budget: "Sambor Hotel", mid: "Mekong Resort", luxury: "OlyMee" },
+                weather: "Warm (24-32°C)", bestTime: "Nov-Mar",
                 tags: ["relaxed", "nature", "introvert", "backpack", "1-3", "couple", "sightseeing", "boat", "homestay", "slow"]
             }
         ];
-
-        // This is from your JS file to load the grid if a container exists!
-        document.addEventListener("DOMContentLoaded", () => {
-            const grid = document.getElementById("destination-grid");
-            if (!grid) return;
-
-            destinations.forEach((dest) => {
-                const card = document.createElement("a");
-                card.href = `destination-detail.html?id=${dest.id}`;
-                card.className = "dest-card";
-                card.innerHTML = `
-                <img src="${dest.image}" alt="${dest.name}">
-                <h3>${dest.name}</h3>
-                <p>${dest.tagline}</p>
-                `;
-                grid.appendChild(card);
-            });
-        });
-        // =========================================================================
-        // ⬆️ END OF CODE TO COPY INTO js/destinations.js ⬆️
-        // =========================================================================
 
         const questions = [
             { id: "vibe", title: "What's the overall vibe you are seeking?", options: [{ label: "Relaxed", value: "relaxed", icon: "coffee" }, { label: "Adventurous", value: "adventurous", icon: "mountain" }, { label: "Cultural", value: "cultural", icon: "landmark" }, { label: "Party & Social", value: "party", icon: "music" }] },
@@ -489,31 +404,31 @@
 
         function renderLanding() {
             root.innerHTML = `
-                <div class="flex flex-col items-center justify-center min-h-screen px-6 py-12 text-center animate-fade-in">
-                    <div class="animate-slide-up max-w-4xl mx-auto backdrop-blur-3xl bg-white/50 p-10 md:p-20 rounded-[4rem] shadow-[0_32px_64px_rgba(3,105,94,0.1)] border border-white/80 relative overflow-hidden">
+                <div class="flex flex-col items-center justify-center min-h-[calc(100vh-5rem)] px-4 py-8 text-center animate-fade-in">
+                    <div class="animate-slide-up max-w-3xl mx-auto backdrop-blur-3xl bg-white/50 p-8 md:p-14 rounded-[3rem] shadow-[0_32px_64px_rgba(3,105,94,0.1)] border border-white/80 relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-brand-aqua via-brand-jade to-brand-herb"></div>
                         
-                        <div class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/90 text-brand-aqua font-bold text-xs md:text-sm tracking-[0.2em] uppercase mb-8 shadow-sm">
+                        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/90 text-brand-aqua font-bold text-xs tracking-[0.2em] uppercase mb-6 shadow-sm">
                             <i data-lucide="compass" class="w-4 h-4"></i> Kingdom of Wonder
                         </div>
                         
-                        <h1 class="text-6xl md:text-9xl font-black text-brand-jade mb-8 leading-[1] tracking-tighter drop-shadow-sm">
+                        <h1 class="text-5xl md:text-8xl font-black text-brand-jade mb-6 leading-[1.05] tracking-tight drop-shadow-sm">
                             Cambodia <br/> 
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-aqua via-brand-jade to-brand-herb">
                                 Travel Compass
                             </span>
                         </h1>
-                        <p class="text-brand-jade/80 text-lg md:text-2xl mb-14 max-w-2xl mx-auto leading-relaxed font-medium">
+                        <p class="text-brand-jade/80 text-base md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
                             Step into the mist of ancient temples and emerald jungles. Let our intuition-driven guide reveal the destination meant for your soul.
                         </p>
                         <button 
                             onclick="startQuiz()"
-                            class="group relative inline-flex items-center justify-center px-12 py-6 text-2xl font-black text-white transition-all duration-500 ease-out bg-brand-jade rounded-2xl hover:bg-brand-aqua hover:shadow-[0_20px_50px_rgba(35,157,202,0.4)] hover:-translate-y-2 overflow-hidden"
+                            class="group relative inline-flex items-center justify-center px-10 py-5 text-xl font-black text-white transition-all duration-500 ease-out bg-brand-jade rounded-2xl hover:bg-brand-aqua hover:shadow-[0_20px_50px_rgba(35,157,202,0.4)] hover:-translate-y-2 overflow-hidden"
                         >
                             <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
                             <span class="relative flex items-center">
                                 Begin Expedition
-                                <i data-lucide="arrow-right" class="w-7 h-7 ml-4 transition-transform duration-500 group-hover:translate-x-3"></i>
+                                <i data-lucide="arrow-right" class="w-6 h-6 ml-3 transition-transform duration-500 group-hover:translate-x-3"></i>
                             </span>
                         </button>
                     </div>
@@ -524,23 +439,25 @@
         function renderQuizWrapper() {
             if (!document.getElementById('quiz-shell')) {
                 root.innerHTML = `
-                    <div id="quiz-shell" class="flex flex-col items-center justify-center min-h-screen px-4 py-12 animate-fade-in">
-                        <div class="w-full max-w-2xl flex flex-col h-full justify-center">
-                            <div class="mb-12 animate-slide-up" style="animation-delay: 0.1s;">
-                                <div class="flex justify-between text-xs font-black text-brand-jade/60 mb-4 px-2 uppercase tracking-[0.3em]">
+                    <div id="quiz-shell" class="flex flex-col items-center justify-center min-h-[calc(100vh-5rem)] px-4 py-8 animate-fade-in overflow-x-hidden">
+                        <div class="w-full max-w-2xl flex flex-col h-full justify-center mx-auto">
+                            <div class="mb-8 animate-slide-up" style="animation-delay: 0.1s;">
+                                <div class="flex justify-between text-xs font-black text-brand-jade/60 mb-3 px-2 uppercase tracking-[0.3em]">
                                     <span id="step-text">Step 1 of ${questions.length}</span>
                                     <span id="progress-text">10%</span>
                                 </div>
-                                <div class="w-full h-4 bg-white/40 rounded-full overflow-hidden backdrop-blur-md shadow-inner border border-white/50 p-1">
+                                <div class="w-full h-3 bg-white/40 rounded-full overflow-hidden backdrop-blur-md shadow-inner border border-white/50 p-1">
                                     <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-herb via-brand-aqua to-brand-jade transition-all duration-1000 ease-out rounded-full relative" style="width: 10%">
                                         <div class="absolute inset-0 bg-white/30 animate-pulse"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div id="question-container" class="relative min-h-[500px]"></div>
-                            <div class="flex justify-between mt-10 px-4 animate-slide-up" style="animation-delay: 0.3s;">
-                                <button id="back-btn" onclick="prevStep()" class="flex items-center px-8 py-4 font-bold text-brand-jade bg-white/30 rounded-xl backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none hover:bg-white/60 hover:shadow-lg border border-white/40">
-                                    <i data-lucide="chevron-left" class="w-6 h-6 mr-1"></i> Back
+                            
+                            <div id="question-container" class="relative w-full min-h-[450px] md:min-h-[500px]"></div>
+                            
+                            <div class="flex justify-between mt-8 px-2 animate-slide-up" style="animation-delay: 0.3s;">
+                                <button id="back-btn" onclick="prevStep()" class="flex items-center px-6 py-3 text-sm font-bold text-brand-jade bg-white/30 rounded-xl backdrop-blur-md transition-all duration-300 opacity-0 pointer-events-none hover:bg-white/60 hover:shadow-lg border border-white/40">
+                                    <i data-lucide="chevron-left" class="w-5 h-5 mr-1"></i> Back
                                 </button>
                             </div>
                         </div>
@@ -562,24 +479,26 @@
             if(currentStep === 0) backBtn.classList.add('opacity-0', 'pointer-events-none');
             else backBtn.classList.remove('opacity-0', 'pointer-events-none');
 
+            // Responsive grid adjustments: Use grid-cols-1 on very small screens, sm:grid-cols-2 to prevent overflow
             const optionsHtml = q.options.map((opt, idx) => `
                 <button onclick="handleSelect(this, '${q.id}', '${opt.value}')" 
-                    class="quiz-option relative flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 border-white/50 bg-white/50 hover:bg-white/90 hover:border-brand-herb/50 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 ease-out group overflow-hidden"
+                    class="quiz-option relative flex flex-col items-center justify-center p-6 sm:p-8 rounded-[2rem] border-2 border-white/50 bg-white/50 hover:bg-white/90 hover:border-brand-herb/50 hover:-translate-y-2 hover:shadow-xl transition-all duration-500 ease-out group overflow-hidden w-full h-full"
                     style="animation-delay: ${0.08 * idx}s">
                     <div class="absolute top-0 right-0 w-16 h-16 bg-brand-herb/10 rounded-full -mr-8 -mt-8 transition-transform group-hover:scale-[3]"></div>
-                    <i data-lucide="${opt.icon}" class="w-14 h-14 mb-5 text-brand-jade/40 group-hover:text-brand-herb group-hover:rotate-12 transition-all duration-500"></i>
-                    <span class="font-extrabold text-center text-brand-jade/70 group-hover:text-brand-jade transition-colors duration-500 text-xl">${opt.label}</span>
+                    <i data-lucide="${opt.icon}" class="w-10 h-10 md:w-12 md:h-12 mb-3 md:mb-4 text-brand-jade/40 group-hover:text-brand-herb group-hover:rotate-12 transition-all duration-500"></i>
+                    <span class="font-bold md:font-extrabold text-center text-brand-jade/70 group-hover:text-brand-jade transition-colors duration-500 text-lg md:text-xl break-words w-full">${opt.label}</span>
                 </button>
             `).join('');
 
             const animationClass = slideDirection === 'right' ? 'animate-slide-in-right' : 'animate-fade-in';
 
+            // Changed from absolute inset-0 to regular block layout to allow content to dictate height and prevent overflowing
             document.getElementById('question-container').innerHTML = `
-                <div id="quiz-card" class="${animationClass} absolute inset-0 w-full bg-white/70 backdrop-blur-3xl rounded-[4rem] p-10 md:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white flex flex-col justify-center">
-                    <h2 class="text-3xl md:text-5xl font-black text-center text-brand-jade mb-16 leading-tight tracking-tight">
+                <div id="quiz-card" class="${animationClass} w-full bg-white/70 backdrop-blur-3xl rounded-[3rem] p-6 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white flex flex-col justify-center overflow-hidden">
+                    <h2 class="text-2xl md:text-4xl font-black text-center text-brand-jade mb-8 md:mb-12 leading-tight tracking-tight px-2">
                         ${q.title}
                     </h2>
-                    <div class="grid grid-cols-2 gap-5 md:gap-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 w-full place-items-stretch">
                         ${optionsHtml}
                     </div>
                 </div>
@@ -595,12 +514,12 @@
             answers[questionId] = value;
 
             document.querySelectorAll('.quiz-option').forEach(btn => {
-                btn.classList.add('opacity-30', 'scale-90', 'grayscale-[0.5]');
-                btn.classList.remove('hover:-translate-y-2', 'hover:shadow-2xl', 'hover:bg-white/90');
+                btn.classList.add('opacity-30', 'scale-95', 'grayscale-[0.5]');
+                btn.classList.remove('hover:-translate-y-2', 'hover:shadow-xl', 'hover:bg-white/90');
             });
 
-            btnElement.classList.remove('opacity-30', 'scale-90', 'grayscale-[0.5]', 'border-white/50', 'bg-white/50');
-            btnElement.classList.add('border-brand-aqua', 'bg-brand-light/30', 'scale-[1.08]', 'shadow-[0_15px_40px_rgba(35,157,202,0.3)]', 'z-20');
+            btnElement.classList.remove('opacity-30', 'scale-95', 'grayscale-[0.5]', 'border-white/50', 'bg-white/50');
+            btnElement.classList.add('border-brand-aqua', 'bg-brand-light/30', 'scale-[1.05]', 'shadow-[0_15px_40px_rgba(35,157,202,0.3)]', 'z-20');
             
             setTimeout(() => {
                 card.classList.remove('animate-slide-in-right', 'animate-fade-in');
@@ -630,16 +549,16 @@
 
         function renderLoading() {
             root.innerHTML = `
-                <div class="flex flex-col items-center justify-center min-h-screen text-center animate-fade-in">
-                    <div class="relative w-48 h-48 mb-12">
+                <div class="flex flex-col items-center justify-center min-h-[calc(100vh-5rem)] text-center animate-fade-in px-4">
+                    <div class="relative w-36 h-36 md:w-48 md:h-48 mb-10">
                         <div class="absolute inset-0 rounded-full border-[6px] border-transparent border-t-brand-jade animate-spin-slow opacity-80"></div>
                         <div class="absolute inset-4 rounded-full border-[6px] border-transparent border-t-brand-aqua animate-spin-reverse opacity-80"></div>
                         <div class="absolute inset-8 rounded-full border-[6px] border-transparent border-t-brand-gold animate-spin-slow opacity-80" style="animation-duration: 2.5s;"></div>
-                        <i data-lucide="compass" class="absolute inset-0 m-auto w-16 h-16 text-brand-jade animate-pulse"></i>
+                        <i data-lucide="compass" class="absolute inset-0 m-auto w-12 h-12 md:w-16 md:h-16 text-brand-jade animate-pulse"></i>
                     </div>
-                    <h3 class="text-brand-gold font-black tracking-[0.3em] uppercase mb-4 animate-slide-up">Plotting Coordinates</h3>
-                    <h2 class="text-5xl font-black text-brand-jade mb-4 animate-slide-up" style="animation-delay: 0.1s;">Crafting your journey...</h2>
-                    <p class="text-brand-jade/60 text-2xl font-medium animate-slide-up" style="animation-delay: 0.2s;">The Khmer spirits are whispering the way.</p>
+                    <h3 class="text-brand-gold text-sm md:text-base font-black tracking-[0.3em] uppercase mb-4 animate-slide-up">Plotting Coordinates</h3>
+                    <h2 class="text-4xl md:text-5xl font-black text-brand-jade mb-4 animate-slide-up" style="animation-delay: 0.1s;">Crafting your journey...</h2>
+                    <p class="text-brand-jade/60 text-xl md:text-2xl font-medium animate-slide-up" style="animation-delay: 0.2s;">The Khmer spirits are whispering the way.</p>
                 </div>
             `;
             
@@ -654,97 +573,121 @@
             }
         }
 
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                const duration = 3000;
+                const end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 5,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#03695e', '#239dca', '#f59e0b', '#6daf5f']
+                    });
+                    confetti({
+                        particleCount: 5,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#03695e', '#239dca', '#f59e0b', '#6daf5f']
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            }
+        }
+
         function renderResults() {
             const top = topMatches[0];
             const runnersUp = topMatches.slice(1, 3);
             const calculatePercentage = (score) => Math.min(99, Math.max(78, Math.round((score / questions.length) * 100 + (Math.random() * 12))));
 
             root.innerHTML = `
-                <div class="min-h-screen py-24 px-4 md:px-8 animate-fade-in pb-40">
+                <div class="min-h-screen py-12 px-4 md:px-8 animate-fade-in pb-40">
                     <div class="max-w-7xl mx-auto">
-                        <div class="text-center mb-24 animate-slide-up">
-                            <h3 class="text-brand-gold font-black tracking-[0.4em] uppercase mb-6 flex items-center justify-center gap-3">
-                                <i data-lucide="map" class="w-6 h-6"></i> Expedition Map Unveiled
+                        <div class="text-center mb-16 md:mb-24 animate-slide-up">
+                            <h3 class="text-brand-gold text-sm md:text-base font-black tracking-[0.4em] uppercase mb-4 md:mb-6 flex items-center justify-center gap-3">
+                                <i data-lucide="map" class="w-5 h-5 md:w-6 md:h-6"></i> Expedition Map Unveiled
                             </h3>
-                            <h1 class="text-6xl md:text-8xl font-black text-brand-jade mb-10 tracking-tighter">Your Soul's Destination</h1>
-                            <button onclick="resetApp()" class="group inline-flex items-center text-sm font-black text-brand-aqua hover:text-white hover:bg-brand-aqua transition-all duration-500 bg-white/80 px-10 py-5 rounded-2xl backdrop-blur-md shadow-lg border border-white hover:shadow-2xl hover:-translate-y-2">
+                            <h1 class="text-5xl md:text-8xl font-black text-brand-jade mb-8 tracking-tighter">Your Soul's Destination</h1>
+                            <button onclick="resetApp()" class="group inline-flex items-center text-sm font-black text-brand-aqua hover:text-white hover:bg-brand-aqua transition-all duration-500 bg-white/80 px-8 py-4 rounded-2xl backdrop-blur-md shadow-lg border border-white hover:shadow-2xl hover:-translate-y-2">
                                 <i data-lucide="refresh-cw" class="w-5 h-5 mr-3 transition-transform group-hover:rotate-180 duration-700"></i> New Expedition
                             </button>
                         </div>
 
-                        <!-- Top Match -->
-                        <div class="mb-20 bg-white/90 backdrop-blur-3xl rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(3,105,94,0.2)] border border-white flex flex-col lg:flex-row transform transition-all duration-700 hover:shadow-[0_60px_120px_rgba(3,105,94,0.25)] animate-slide-up" style="animation-delay: 0.2s">
-                            <div class="lg:w-3/5 h-[500px] lg:h-auto relative overflow-hidden group">
+                        <div class="mb-16 md:mb-20 bg-white/90 backdrop-blur-3xl rounded-[3rem] overflow-hidden shadow-[0_50px_100px_rgba(3,105,94,0.2)] border border-white flex flex-col lg:flex-row transform transition-all duration-700 hover:shadow-[0_60px_120px_rgba(3,105,94,0.25)] animate-slide-up" style="animation-delay: 0.2s">
+                            <div class="lg:w-3/5 h-[400px] lg:h-auto relative overflow-hidden group">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
                                 <img src="${top.image}" alt="${top.name}" class="w-full h-full object-cover transition-transform duration-2000 group-hover:scale-110" />
-                                <div class="absolute top-10 right-10 z-20">
-                                    <div class="w-28 h-28 bg-brand-jade/95 backdrop-blur-xl rounded-full flex flex-col items-center justify-center border-4 border-brand-herb/40 shadow-2xl transform rotate-12 hover:rotate-0 transition-all duration-500">
-                                        <span class="text-3xl font-black text-white leading-none">${calculatePercentage(top.score + 1)}%</span>
-                                        <span class="text-[10px] uppercase font-black text-brand-light tracking-widest mt-1">Match</span>
+                                <div class="absolute top-6 right-6 md:top-10 md:right-10 z-20">
+                                    <div class="w-20 h-20 md:w-28 md:h-28 bg-brand-jade/95 backdrop-blur-xl rounded-full flex flex-col items-center justify-center border-4 border-brand-herb/40 shadow-2xl transform rotate-12 hover:rotate-0 transition-all duration-500">
+                                        <span class="text-2xl md:text-3xl font-black text-white leading-none">${calculatePercentage(top.score + 1)}%</span>
+                                        <span class="text-[8px] md:text-[10px] uppercase font-black text-brand-light tracking-widest mt-1">Match</span>
                                     </div>
                                 </div>
-                                <div class="absolute bottom-12 left-12 z-20 pr-12">
-                                    <div class="inline-flex items-center px-6 py-2.5 rounded-full bg-brand-herb text-white text-xs font-black shadow-xl mb-6 tracking-widest uppercase">
-                                        <i data-lucide="crown" class="w-4 h-4 mr-2"></i> Prime Selection
+                                <div class="absolute bottom-8 left-8 md:bottom-12 md:left-12 z-20 pr-8 md:pr-12">
+                                    <div class="inline-flex items-center px-4 py-2 md:px-6 md:py-2.5 rounded-full bg-brand-herb text-white text-[10px] md:text-xs font-black shadow-xl mb-4 tracking-widest uppercase">
+                                        <i data-lucide="crown" class="w-3 h-3 md:w-4 md:h-4 mr-2"></i> Prime Selection
                                     </div>
-                                    <h2 class="text-6xl md:text-8xl font-black text-white drop-shadow-2xl leading-[0.9] tracking-tighter">
+                                    <h2 class="text-5xl md:text-8xl font-black text-white drop-shadow-2xl leading-[0.9] tracking-tighter">
                                         ${top.name}
                                     </h2>
                                 </div>
                             </div>
                             
-                            <div class="lg:w-2/5 p-10 md:p-14 flex flex-col justify-center bg-gradient-to-br from-white/90 to-brand-bg/80 relative">
-                                <div class="flex items-center text-brand-aqua mb-4 font-black tracking-[0.3em] uppercase text-sm">
-                                    <i data-lucide="map-pin" class="w-6 h-6 mr-3"></i> Exploration Point
+                            <div class="lg:w-2/5 p-8 md:p-12 flex flex-col justify-center bg-gradient-to-br from-white/90 to-brand-bg/80 relative">
+                                <div class="flex items-center text-brand-aqua mb-3 font-black tracking-[0.3em] uppercase text-xs md:text-sm">
+                                    <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Exploration Point
                                 </div>
-                                <h4 class="text-xl font-bold text-brand-jade mb-4">${top.tagline}</h4>
-                                <p class="text-lg text-brand-jade/80 mb-8 leading-relaxed font-medium">
+                                <h4 class="text-lg md:text-xl font-bold text-brand-jade mb-3">${top.tagline}</h4>
+                                <p class="text-base md:text-lg text-brand-jade/80 mb-6 leading-relaxed font-medium">
                                     ${top.description}
                                 </p>
 
-                                <div class="grid grid-cols-2 gap-4 mb-8">
-                                    <div class="bg-brand-light/20 p-4 rounded-2xl border border-brand-light/30">
-                                        <div class="text-[10px] uppercase font-black tracking-widest text-brand-jade mb-1">Highlights</div>
-                                        <div class="font-bold text-sm text-brand-jade/80">${top.highlights.slice(0, 3).join(', ')}</div>
+                                <div class="grid grid-cols-2 gap-3 mb-6">
+                                    <div class="bg-brand-light/20 p-3 rounded-2xl border border-brand-light/30">
+                                        <div class="text-[9px] uppercase font-black tracking-widest text-brand-jade mb-1">Highlights</div>
+                                        <div class="font-bold text-xs text-brand-jade/80">${top.highlights.slice(0, 3).join(', ')}</div>
                                     </div>
-                                    <div class="bg-brand-light/20 p-4 rounded-2xl border border-brand-light/30">
-                                        <div class="text-[10px] uppercase font-black tracking-widest text-brand-jade mb-1">Weather</div>
-                                        <div class="font-bold text-sm text-brand-jade/80">${top.weather}<br/>${top.bestTime}</div>
+                                    <div class="bg-brand-light/20 p-3 rounded-2xl border border-brand-light/30">
+                                        <div class="text-[9px] uppercase font-black tracking-widest text-brand-jade mb-1">Weather</div>
+                                        <div class="font-bold text-xs text-brand-jade/80">${top.weather}<br/>${top.bestTime}</div>
                                     </div>
                                 </div>
 
                                 <div class="flex flex-wrap gap-2 mt-auto">
-                                    ${top.tags.slice(0,4).map(tag => `<span class="px-4 py-1.5 bg-brand-light/30 text-brand-jade text-[10px] font-black uppercase tracking-widest rounded-full border border-brand-light/60 backdrop-blur-md">${tag}</span>`).join('')}
+                                    ${top.tags.slice(0,4).map(tag => `<span class="px-3 py-1 bg-brand-light/30 text-brand-jade text-[9px] font-black uppercase tracking-widest rounded-full border border-brand-light/60 backdrop-blur-md">${tag}</span>`).join('')}
                                 </div>
                                 
-                                <!-- LINK TO THE DETAIL PAGE FROM YOUR GITHUB REPO -->
-                                <a href="destination-detail.html?id=${top.id}" class="mt-8 w-full py-6 bg-brand-jade text-white rounded-2xl font-black text-lg hover:bg-brand-aqua transition-all duration-500 shadow-2xl hover:shadow-[0_20px_60px_rgba(35,157,202,0.4)] hover:-translate-y-2 flex justify-center items-center group">
-                                    Explore Full Guide <i data-lucide="chevron-right" class="w-5 h-5 ml-2 transition-transform duration-500 group-hover:translate-x-2"></i>
+                                <a href="destination-detail.html?id=${top.id}" class="mt-6 w-full py-4 md:py-5 bg-brand-jade text-white rounded-xl font-black text-base md:text-lg hover:bg-brand-aqua transition-all duration-500 shadow-2xl hover:shadow-[0_20px_60px_rgba(35,157,202,0.4)] hover:-translate-y-2 flex justify-center items-center group">
+                                    Explore Full Guide <i data-lucide="chevron-right" class="w-4 h-4 md:w-5 md:h-5 ml-2 transition-transform duration-500 group-hover:translate-x-2"></i>
                                 </a>
                             </div>
                         </div>
 
-                        <!-- Grid -->
-                        <div class="grid md:grid-cols-2 gap-12">
+                        <div class="grid md:grid-cols-2 gap-8 md:gap-12">
                             ${runnersUp.map((match, i) => `
-                                <!-- LINKS TO THE DETAIL PAGE FROM YOUR GITHUB REPO -->
-                                <a href="destination-detail.html?id=${match.id}" class="bg-white/80 backdrop-blur-2xl rounded-[4rem] overflow-hidden shadow-2xl border border-white/80 group hover:-translate-y-4 transition-all duration-700 animate-slide-up flex flex-col block" style="animation-delay: ${0.4 + (i * 0.2)}s">
-                                    <div class="h-80 relative overflow-hidden">
+                                <a href="destination-detail.html?id=${match.id}" class="bg-white/80 backdrop-blur-2xl rounded-[3rem] overflow-hidden shadow-2xl border border-white/80 group hover:-translate-y-4 transition-all duration-700 animate-slide-up flex flex-col block" style="animation-delay: ${0.4 + (i * 0.2)}s">
+                                    <div class="h-64 md:h-80 relative overflow-hidden">
                                         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
                                         <img src="${match.image}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                                        <div class="absolute top-6 left-6 z-20 flex gap-2">
-                                            <span class="px-4 py-2 rounded-xl bg-white/90 text-brand-jade text-[10px] font-black uppercase tracking-widest shadow-lg">Alternative #${i+2}</span>
-                                            <span class="px-4 py-2 rounded-xl bg-brand-aqua text-white text-[10px] font-black uppercase tracking-widest shadow-lg">${calculatePercentage(match.score)}% Match</span>
+                                        <div class="absolute top-4 left-4 z-20 flex gap-2">
+                                            <span class="px-3 py-1.5 rounded-lg bg-white/90 text-brand-jade text-[9px] font-black uppercase tracking-widest shadow-lg">Alternative #${i+2}</span>
+                                            <span class="px-3 py-1.5 rounded-lg bg-brand-aqua text-white text-[9px] font-black uppercase tracking-widest shadow-lg">${calculatePercentage(match.score)}% Match</span>
                                         </div>
-                                        <div class="absolute bottom-8 left-8 right-8 z-20">
-                                            <h3 class="text-4xl font-black text-white leading-none tracking-tight mb-2">${match.name}</h3>
-                                            <p class="text-brand-gold font-bold text-sm tracking-wide uppercase">${match.tagline}</p>
+                                        <div class="absolute bottom-6 left-6 right-6 z-20">
+                                            <h3 class="text-3xl md:text-4xl font-black text-white leading-none tracking-tight mb-2">${match.name}</h3>
+                                            <p class="text-brand-gold font-bold text-xs md:text-sm tracking-wide uppercase">${match.tagline}</p>
                                         </div>
                                     </div>
-                                    <div class="p-12 flex-grow flex flex-col">
-                                        <p class="text-brand-jade/80 mb-10 line-clamp-3 text-xl font-bold leading-relaxed">${match.description}</p>
+                                    <div class="p-8 md:p-10 flex-grow flex flex-col">
+                                        <p class="text-brand-jade/80 mb-8 line-clamp-3 text-lg md:text-xl font-bold leading-relaxed">${match.description}</p>
                                         <div class="flex flex-wrap gap-2 mt-auto">
-                                            ${match.tags.slice(0, 3).map(tag => `<span class="px-4 py-1.5 bg-brand-bg/90 text-brand-herb text-[10px] font-black uppercase tracking-tighter rounded-lg">${tag}</span>`).join('')}
+                                            ${match.tags.slice(0, 3).map(tag => `<span class="px-3 py-1 bg-brand-bg/90 text-brand-herb text-[9px] font-black uppercase tracking-tighter rounded-md">${tag}</span>`).join('')}
                                         </div>
                                     </div>
                                 </a>
@@ -753,6 +696,9 @@
                     </div>
                 </div>
             `;
+
+            // Fire the confetti!
+            triggerConfetti();
         }
 
         function startQuiz() {
