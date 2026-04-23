@@ -4,31 +4,243 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Destinations | Wander KH</title>
-		<link rel="stylesheet" href="style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		<link rel="stylesheet" href="./stylenew.css">
+		<style>
+			.page-hero {
+				background: linear-gradient(135deg, var(--cool-jade) 0%, #024a42 100%);
+				padding: 140px 24px 80px;
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+			}
+			.page-hero::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: url("images/AngkorWat.jpg") center / cover;
+				opacity: 0.15;
+			}
+			.page-hero-content {
+				position: relative;
+				z-index: 2;
+			}
+			.page-hero-tag {
+				color: var(--spring-herb);
+				font-weight: 600;
+				font-size: 14px;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				margin-bottom: 12px;
+				display: block;
+			}
+			.page-hero h1 {
+				font-size: 52px;
+				color: var(--white);
+				margin-bottom: 16px;
+			}
+			.page-hero p {
+				color: var(--light-blue);
+				font-size: 18px;
+				max-width: 600px;
+				margin: 0 auto;
+			}
+			@media (max-width: 768px) {
+				.page-hero {
+					padding: 120px 24px 60px;
+				}
+				.page-hero h1 {
+					font-size: 36px;
+				}
+			}
+			a.dest-card {
+				text-decoration: none;
+				color: inherit;
+			}
+		</style>
 	</head>
 	<body>
-		<header>
-        <nav>
-            <a href="index.html" class="logo" onclick="location.reload(); return false;">Wander KH</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="discover.html">Discover</a></li>
-                <li><a href="destinations.html" class="active">Destinations</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+		<header id="header">
+			<nav>
+				<a href="index.html" class="logo" onclick="location.reload(); return false;">
+					<i class="fa-solid fa-leaf"></i> Wander KH
+				</a>
+				<button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+				<ul class="nav-links" id="navLinks">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="discover.html">Discover</a></li>
+					<li><a href="destinations.html" class="active">Destinations</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</nav>
+		</header>
 
-		<main class="container">
-			<section>
-				<h2>Top Destinations</h2>
-				<div id="destination-grid" class="destination-grid"></div>
+		<main>
+			<section class="page-hero">
+				<div class="page-hero-content">
+					<span class="page-hero-tag">Explore</span>
+					<h1>Discover Cambodia</h1>
+					<p>From ancient temples to pristine beaches, explore the most breathtaking destinations the Kingdom of Wonder has to offer.</p>
+				</div>
+			</section>
+
+			<section class="destinations-section">
+				<div class="container">
+					<div class="section-header">
+						<span class="section-tag">Explore</span>
+						<h2>All Destinations</h2>
+						<p>Browse our complete collection of Cambodia's most incredible places to visit.</p>
+					</div>
+
+					<div id="destination-grid" class="dest-grid"></div>
+				</div>
+			</section>
+
+			<section class="features-section">
+				<div class="container">
+					<div class="section-header">
+						<span class="section-tag">Why Visit</span>
+						<h2>Why Choose Cambodia?</h2>
+						<p>Experience a perfect blend of ancient history, lush nature, and incredibly welcoming people.</p>
+					</div>
+					
+					<div class="feature-grid">
+						<div class="feature-card">
+							<div class="feature-icon"><i class="fa-solid fa-vihara"></i></div>
+							<h3>Ancient Temples</h3>
+							<p>Home to Angkor Wat, a UNESCO World Heritage site and the largest religious monument in the world.</p>
+						</div>
+
+						<div class="feature-card">
+							<div class="feature-icon"><i class="fa-solid fa-leaf"></i></div>
+							<h3>Beautiful Nature</h3>
+							<p>From the pristine beaches of Koh Rong to the lush mountains and waterfalls of Mondulkiri.</p>
+						</div>
+
+						<div class="feature-card">
+							<div class="feature-icon"><i class="fa-solid fa-masks-theater"></i></div>
+							<h3>Rich Culture</h3>
+							<p>Immerse yourself in traditional Apsara dances, vibrant local festivals, and delicious Khmer cuisine.</p>
+						</div>
+
+						<div class="feature-card">
+							<div class="feature-icon"><i class="fa-solid fa-face-smile"></i></div>
+							<h3>Friendly People</h3>
+							<p>Cambodians are renowned globally for their warm hospitality, genuine smiles, and kind nature.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="cta-section">
+				<div class="container">
+					<div class="cta-content">
+						<h2>Ready for an Unforgettable Journey?</h2>
+						<p>Let our travel experts help you plan the perfect Cambodian adventure.</p>
+						<a href="contact.html" class="btn btn-primary" style="background-color: var(--sky-aqua);">Contact Us Now</a>
+					</div>
+				</div>
 			</section>
 		</main>
 
 		<footer>
-			<p>&copy; 2026 Wander Cambodia. INFO 250 Final Project.</p>
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<a href="index.html" class="logo">
+						<i class="fa-solid fa-leaf"></i> Wander KH
+					</a>
+					<p>Your ultimate guide to exploring the Kingdom of Wonder. We help you discover the hidden gems and famous landmarks of Cambodia.</p>
+					<div class="social-links">
+						<a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+						<a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+						<a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+						<a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+					</div>
+				</div>
+
+				<div class="footer-widget">
+					<h4 class="footer-title">Quick Links</h4>
+					<ul class="footer-links">
+						<li><a href="index.html">Home</a></li>
+<li><a href="discover.html">Discover</a></li>
+						<li><a href="destinations.html">Destinations</a></li>
+						<li><a href="contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-widget">
+					<h4 class="footer-title">Travel Info</h4>
+					<ul class="footer-links">
+						<li><a href="#">Visa Information</a></li>
+						<li><a href="#">Travel Insurance</a></li>
+						<li><a href="#">Best Time to Visit</a></li>
+						<li><a href="#">FAQ</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-widget">
+					<h4 class="footer-title">Contact Us</h4>
+					<ul class="contact-info list-none">
+						<li>
+							<i class="fa-solid fa-location-dot"></i>
+							<span>Phnom Penh, Cambodia</span>
+						</li>
+						<li>
+							<i class="fa-solid fa-phone"></i>
+							<span>+855 12 345 678</span>
+						</li>
+						<li>
+							<i class="fa-solid fa-envelope"></i>
+							<span>hello@wanderkh.com</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="footer-bottom">
+				<p>&copy; 2026 Wander KH | Designed with passion for Cambodia.</p>
+			</div>
 		</footer>
+
+		<script>
+			const header = document.getElementById('header');
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 50) {
+					header.classList.add('scrolled');
+				} else {
+					header.classList.remove('scrolled');
+				}
+			});
+
+			const mobileBtn = document.getElementById('mobileMenuBtn');
+			const navLinks = document.getElementById('navLinks');
+			mobileBtn.addEventListener('click', () => {
+				navLinks.classList.toggle('active');
+				const icon = mobileBtn.querySelector('i');
+				if(navLinks.classList.contains('active')){
+					icon.classList.remove('fa-bars');
+					icon.classList.add('fa-xmark');
+				} else {
+					icon.classList.remove('fa-xmark');
+					icon.classList.add('fa-bars');
+				}
+			});
+
+			document.querySelectorAll('.nav-links a').forEach(link => {
+				link.addEventListener('click', () => {
+					navLinks.classList.remove('active');
+					mobileBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+				});
+			});
+		</script>
 		<script src="js/destinations.js"></script>
 	</body>
 </html>

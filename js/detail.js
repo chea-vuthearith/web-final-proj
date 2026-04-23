@@ -16,9 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	document.title = `${destination.name} | Wander KH`;
 
+	document.getElementById("detail-hero").style.backgroundImage = `url('${destination.image}')`;
 	document.getElementById("map-frame").src = destination.map;
-	document.getElementById("dest-image").src = destination.image;
-	document.getElementById("dest-image").alt = destination.name;
 	document.getElementById("dest-name").textContent = destination.name;
 	document.getElementById("dest-tagline").textContent = destination.tagline;
 	document.getElementById("dest-description").textContent =

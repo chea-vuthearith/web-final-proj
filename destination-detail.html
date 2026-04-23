@@ -4,35 +4,784 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Destination | Wander KH</title>
-		<link rel="stylesheet" href="style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800&family=Inter:wght@300;400;500;600&display=swap"
+			rel="stylesheet"
+		>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		>
+
+		<style>
+		:root {
+			--cool-jade: #03695e;
+			--spring-herb: #6daf5f;
+			--sky-aqua: #239dca;
+			--light-blue: #a5c6db;
+			--linen-white: #e7e9d8;
+
+			--text-dark: #1a2e2c;
+			--text-light: #556b69;
+			--bg-light: #fbfbfa;
+			--bg-soft: #f2f4ec;
+			--white: #ffffff;
+
+			--shadow-sm: 0 4px 6px rgba(3, 105, 94, 0.08);
+			--shadow-md: 0 10px 25px rgba(3, 105, 94, 0.12);
+			--shadow-hover: 0 15px 35px rgba(3, 105, 94, 0.2);
+			--radius: 16px;
+			--max-width: 1280px;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: "Inter", sans-serif;
+			background-color: var(--bg-light);
+			color: var(--text-dark);
+			line-height: 1.7;
+			overflow-x: hidden;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4 {
+			font-family: "Poppins", sans-serif;
+			font-weight: 600;
+			line-height: 1.3;
+		}
+
+		header {
+			position: fixed;
+			width: 100%;
+			top: 0;
+			z-index: 1000;
+			transition: all 0.4s ease;
+			background: var(--cool-jade);
+			padding: 10px 0;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		}
+
+		nav {
+			max-width: var(--max-width);
+			margin: 0 auto;
+			padding: 0 24px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.logo {
+			color: var(--white);
+			font-family: "Poppins", sans-serif;
+			font-size: 28px;
+			font-weight: 700;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.logo i {
+			color: var(--spring-herb);
+		}
+
+		.nav-links {
+			list-style: none;
+			display: flex;
+			gap: 8px;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			color: var(--white);
+			font-size: 15px;
+			font-weight: 500;
+			padding: 10px 18px;
+			border-radius: 30px;
+			transition: all 0.3s ease;
+			position: relative;
+		}
+
+		.nav-links a:hover,
+		.nav-links a.active {
+			background-color: rgba(255, 255, 255, 0.15);
+			color: var(--white);
+		}
+
+		.mobile-menu-btn {
+			display: none;
+			color: var(--white);
+			font-size: 24px;
+			cursor: pointer;
+			background: none;
+			border: none;
+		}
+
+.detail-hero {
+			position: relative;
+			height: 50vh;
+			min-height: 400px;
+			background-size: cover;
+			background-position: center;
+			margin-top: 60px;
+		}
+
+		.detail-hero::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(
+				to bottom,
+				rgba(3, 105, 94, 0.6) 0%,
+				rgba(0, 0, 0, 0.3) 100%
+			);
+		}
+
+		.detail-hero-content {
+			position: absolute;
+			bottom: 40px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 100%;
+			max-width: var(--max-width);
+			padding: 0 24px;
+			z-index: 2;
+		}
+
+		.back-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			color: var(--white);
+			text-decoration: none;
+			font-size: 15px;
+			font-weight: 500;
+			margin-bottom: 20px;
+			padding: 10px 20px;
+			background: rgba(255, 255, 255, 0.15);
+			border-radius: 30px;
+			backdrop-filter: blur(10px);
+			transition: all 0.3s ease;
+		}
+
+		.back-btn:hover {
+			background: rgba(255, 255, 255, 0.25);
+		}
+
+		.detail-title h1 {
+			font-size: 52px;
+			color: var(--white);
+			margin-bottom: 8px;
+			text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+		}
+
+		.detail-title p {
+			font-size: 20px;
+			color: var(--light-blue);
+		}
+
+		.quick-facts {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 20px;
+			max-width: var(--max-width);
+			margin: -20px auto 0;
+			padding: 0 24px;
+			position: relative;
+			z-index: 10;
+		}
+
+		.fact-card {
+			background: var(--white);
+			padding: 24px;
+			border-radius: var(--radius);
+			box-shadow: var(--shadow-md);
+			text-align: center;
+		}
+
+		.fact-label {
+			display: block;
+			color: var(--text-light);
+			font-size: 13px;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			margin-bottom: 8px;
+		}
+
+		.fact-value {
+			color: var(--cool-jade);
+			font-family: "Poppins", sans-serif;
+			font-size: 18px;
+			font-weight: 600;
+		}
+
+		section {
+			padding: 60px 24px;
+		}
+
+		.container {
+			max-width: var(--max-width);
+			margin: 0 auto;
+		}
+
+		.detail-content {
+			display: grid;
+			grid-template-columns: 1fr 350px;
+			gap: 40px;
+			max-width: var(--max-width);
+			margin: 0 auto;
+		}
+
+		.detail-main h2 {
+			font-size: 28px;
+			color: var(--cool-jade);
+			margin-bottom: 20px;
+			margin-top: 40px;
+		}
+
+		.detail-main h2:first-child {
+			margin-top: 0;
+		}
+
+		.detail-desc {
+			color: var(--text-light);
+			font-size: 16px;
+			margin-bottom: 30px;
+		}
+
+		.highlights-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 30px;
+			margin-bottom: 40px;
+		}
+
+		.highlight-item h3 {
+			font-size: 18px;
+			color: var(--text-dark);
+			margin-bottom: 16px;
+		}
+
+		.attractions-list,
+		.activities-list {
+			list-style: none;
+		}
+
+		.attractions-list li,
+		.activities-list li {
+			padding: 10px 0;
+			border-bottom: 1px solid var(--bg-soft);
+			color: var(--text-light);
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.attractions-list li::before {
+			content: "\f3c5";
+			font-family: "Font Awesome 6 Free", sans-serif;
+			font-weight: 900;
+			color: var(--sky-aqua);
+		}
+
+		.activities-list li::before {
+			content: "\f45c";
+			font-family: "Font Awesome 6 Free", sans-serif;
+			font-weight: 900;
+			color: var(--spring-herb);
+		}
+
+		.accommodation-section {
+			background: var(--bg-soft);
+			padding: 30px;
+			border-radius: var(--radius);
+			margin-bottom: 40px;
+		}
+
+		.accommodation-note {
+			color: var(--text-light);
+			font-size: 15px;
+		}
+
+		.getting-there {
+			margin-bottom: 40px;
+		}
+
+		.transport-option {
+			background: var(--white);
+			padding: 24px;
+			border-radius: var(--radius);
+			box-shadow: var(--shadow-sm);
+		}
+
+		.transport-option h4 {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			color: var(--text-dark);
+			margin-bottom: 12px;
+		}
+
+		.transport-icon {
+			width: 40px;
+			height: 40px;
+			background: var(--bg-soft);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.transport-option p {
+			color: var(--text-light);
+			font-size: 15px;
+		}
+
+		.travel-tips {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			gap: 20px;
+		}
+
+		.tip-card {
+			background: var(--white);
+			padding: 24px;
+			border-radius: var(--radius);
+			box-shadow: var(--shadow-sm);
+			transition: all 0.3s ease;
+		}
+
+		.tip-card h4 {
+			color: var(--cool-jade);
+			font-size: 16px;
+			margin-bottom: 10px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.tip-card h4 i {
+			color: var(--sky-aqua);
+		}
+
+		.tip-card p {
+			color: var(--text-light);
+			font-size: 14px;
+		}
+
+		.tip-card::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 4px;
+			background: var(--sky-aqua);
+			transform: scaleX(0);
+			transition: transform 0.4s ease;
+			transform-origin: left;
+			z-index: -1;
+		}
+
+		.tip-card:hover {
+			transform: translateY(-10px);
+			box-shadow: var(--shadow-hover);
+		}
+
+		.tip-card:hover::before {
+			transform: scaleX(1);
+		}
+
+		.tip-card:nth-child(1)::before {
+			background: var(--cool-jade);
+		}
+		.tip-card:nth-child(2)::before {
+			background: var(--spring-herb);
+		}
+		.tip-card:nth-child(3)::before {
+			background: var(--sky-aqua);
+		}
+		.tip-card:nth-child(4)::before {
+			background: var(--light-blue);
+		}
+
+		.tip-icon {
+			width: 70px;
+			height: 70px;
+			background: var(--bg-soft);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 24px;
+			font-size: 28px;
+			color: var(--cool-jade);
+			transition: all 0.3s ease;
+		}
+
+		.tip-card:hover .tip-icon {
+			background: var(--cool-jade);
+			color: var(--white);
+		}
+
+		.tip-card h4 {
+			color: var(--text-dark);
+			margin-bottom: 16px;
+			font-size: 22px;
+		}
+
+		.tip-card p {
+			color: var(--text-light);
+			font-size: 15px;
+		}
+
+		.tip-card {
+			background: var(--white);
+			padding: 24px;
+			border-radius: var(--radius);
+			box-shadow: var(--shadow-sm);
+		}
+
+		.tip-card h4 {
+			color: var(--cool-jade);
+			font-size: 16px;
+			margin-bottom: 10px;
+		}
+
+		.tip-card p {
+			color: var(--text-light);
+			font-size: 14px;
+		}
+
+		.accommodation-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+			gap: 20px;
+		}
+
+		.accom-card {
+			background: var(--white);
+			padding: 20px;
+			border-radius: var(--radius);
+			box-shadow: var(--shadow-sm);
+			text-align: center;
+		}
+
+		.accom-card h4 {
+			color: var(--text-light);
+			font-size: 12px;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			margin-bottom: 8px;
+		}
+
+		.accom-card p {
+			color: var(--cool-jade);
+			font-weight: 600;
+			font-size: 16px;
+		}
+
+		.detail-sidebar {
+			position: sticky;
+			top: 100px;
+			height: fit-content;
+		}
+
+		.sidebar-box {
+			background: var(--white);
+			padding: 24px;
+			border-radius: var(--radius);
+			box-shadow: var(--shadow-sm);
+			margin-bottom: 24px;
+		}
+
+		.sidebar-box h3 {
+			color: var(--cool-jade);
+			font-size: 18px;
+			margin-bottom: 16px;
+		}
+
+		.map-box iframe {
+			border-radius: 12px;
+		}
+
+		.quick-info-list {
+			list-style: none;
+		}
+
+		.quick-info-list li {
+			padding: 8px 0;
+			border-bottom: 1px solid var(--bg-soft);
+			color: var(--text-light);
+			font-size: 14px;
+		}
+
+		.quick-info-list li strong {
+			color: var(--text-dark);
+		}
+
+		.cta-box {
+			background: linear-gradient(135deg, var(--cool-jade) 0%, #024a42 100%);
+			color: var(--white);
+		}
+
+		.cta-box h3 {
+			color: var(--white);
+		}
+
+		.cta-box p {
+			color: var(--light-blue);
+			font-size: 15px;
+			margin-bottom: 20px;
+		}
+
+		.btn {
+			display: inline-block;
+			text-decoration: none;
+			padding: 14px 28px;
+			border-radius: 50px;
+			font-size: 15px;
+			font-weight: 600;
+			transition: all 0.3s ease;
+			cursor: pointer;
+			border: none;
+			font-family: "Inter", sans-serif;
+		}
+
+		.btn-primary {
+			background: var(--spring-herb);
+			color: var(--white);
+			box-shadow: 0 4px 15px rgba(109, 175, 95, 0.4);
+		}
+
+		.btn-primary:hover {
+			background: #5a9e4d;
+			transform: translateY(-2px);
+		}
+
+		footer {
+			background-color: var(--text-dark);
+			color: var(--linen-white);
+			padding: 80px 24px 30px;
+		}
+
+		.footer-grid {
+			max-width: var(--max-width);
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 2fr 1fr 1fr 1.5fr;
+			gap: 40px;
+			margin-bottom: 60px;
+		}
+
+		.footer-brand .logo {
+			color: var(--white);
+			margin-bottom: 20px;
+			display: inline-block;
+		}
+
+		.footer-brand p {
+			color: #a0b2b0;
+			font-size: 15px;
+			max-width: 300px;
+			margin-bottom: 24px;
+		}
+
+		.social-links {
+			display: flex;
+			gap: 12px;
+		}
+
+		.social-links a {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.1);
+			color: var(--white);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.3s ease;
+			text-decoration: none;
+		}
+
+		.social-links a:hover {
+			background: var(--spring-herb);
+			transform: translateY(-3px);
+		}
+
+		.footer-title {
+			color: var(--white);
+			font-size: 18px;
+			margin-bottom: 24px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.footer-title::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 40px;
+			height: 2px;
+			background: var(--sky-aqua);
+		}
+
+		.footer-links {
+			list-style: none;
+		}
+
+		.footer-links li {
+			margin-bottom: 12px;
+		}
+
+		.footer-links a {
+			color: #a0b2b0;
+			text-decoration: none;
+			transition: 0.3s;
+			font-size: 15px;
+		}
+
+		.footer-links a:hover {
+			color: var(--spring-herb);
+			padding-left: 5px;
+		}
+
+		.contact-info li {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 16px;
+			color: #a0b2b0;
+			font-size: 15px;
+		}
+
+		.contact-info i {
+			color: var(--sky-aqua);
+			margin-top: 4px;
+		}
+
+		.footer-bottom {
+			max-width: var(--max-width);
+			margin: 0 auto;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			padding-top: 24px;
+			text-align: center;
+			color: #a0b2b0;
+			font-size: 14px;
+		}
+
+		@media (max-width: 992px) {
+			.detail-title h1 {
+				font-size: 42px;
+			}
+			.detail-content {
+				grid-template-columns: 1fr;
+			}
+			.detail-sidebar {
+				position: static;
+			}
+			.footer-grid {
+				grid-template-columns: 1fr 1fr;
+			}
+			.highlights-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.mobile-menu-btn {
+				display: block;
+			}
+			nav {
+				padding: 0 16px;
+			}
+			.nav-links {
+				position: fixed;
+				top: 0;
+				right: -100%;
+				width: 280px;
+				height: 100vh;
+				background: var(--cool-jade);
+				flex-direction: column;
+				padding: 100px 30px 30px;
+				box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+				transition: 0.4s ease-in-out;
+			}
+			.nav-links.active {
+				right: 0;
+			}
+			.nav-links a {
+				font-size: 18px;
+				padding: 12px 0;
+				display: block;
+				border-radius: 0;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			}
+			.detail-hero {
+				height: 40vh;
+				min-height: 300px;
+			}
+			.detail-title h1 {
+				font-size: 32px;
+			}
+			.quick-facts {
+				grid-template-columns: 1fr 1fr;
+				margin-top: -30px;
+			}
+			.fact-card {
+				padding: 16px;
+			}
+			.footer-grid {
+				grid-template-columns: 1fr;
+				gap: 30px;
+			}
+		}
+		</style>
 	</head>
 	<body>
-		<header>
-        <nav>
-            <a href="index.html" class="logo" onclick="location.reload(); return false;">Wander KH</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="discover.html">Discover</a></li>
-                <li><a href="destinations.html" class="active">Destinations</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+		<header id="header">
+			<nav>
+				<a href="index.html" class="logo">
+					<i class="fa-solid fa-leaf"></i>
+					Wander KH
+				</a>
+				<button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+				<ul class="nav-links" id="navLinks">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="discover.html">Discover</a></li>
+					<li><a href="destinations.html" class="active">Destinations</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</nav>
+		</header>
 
-		<main class="container">
-			<a href="destinations.html" class="back-btn"
-				>&larr; Back to Destinations</a
-			>
-
-			<section class="detail-header">
-				<img id="dest-image" src="" alt="">
-				<div class="detail-title">
-					<h1 id="dest-name"></h1>
-					<p id="dest-tagline"></p>
+		<main>
+			<div class="detail-hero" id="detail-hero">
+				<div class="detail-hero-content">
+					<a href="destinations.html" class="back-btn">
+						<i class="fa-solid fa-arrow-left"></i>
+						Back to Destinations
+					</a>
+					<div class="detail-title">
+						<h1 id="dest-name"></h1>
+						<p id="dest-tagline"></p>
+					</div>
 				</div>
-			</section>
+			</div>
 
-			<section class="quick-facts">
+			<div class="quick-facts">
 				<div class="fact-card">
 					<span class="fact-label">Best Time</span>
 					<span id="fact-best-time" class="fact-value"></span>
@@ -49,114 +798,211 @@
 					<span class="fact-label">Weather</span>
 					<span id="fact-weather" class="fact-value"></span>
 				</div>
-			</section>
+			</div>
 
-			<section class="detail-content">
-				<div class="detail-main">
-					<h2>About This Destination</h2>
-					<p id="dest-description" class="detail-desc"></p>
+			<section>
+				<div class="detail-content">
+					<div class="detail-main">
+						<h2>About This Destination</h2>
+						<p id="dest-description" class="detail-desc"></p>
 
-					<h2>What to See & Do</h2>
-					<div class="highlights-grid">
-						<div class="highlight-item">
-							<h3>Top Attractions</h3>
-							<ul id="dest-highlights" class="attractions-list"></ul>
+						<h2>What to See & Do</h2>
+						<div class="highlights-grid">
+							<div class="highlight-item">
+								<h3>Top Attractions</h3>
+								<ul id="dest-highlights" class="attractions-list"></ul>
+							</div>
+							<div class="highlight-item">
+								<h3>Things to Do</h3>
+								<ul id="dest-activities" class="activities-list"></ul>
+							</div>
 						</div>
-						<div class="highlight-item">
-							<h3>Things to Do</h3>
-							<ul id="dest-activities" class="activities-list"></ul>
-						</div>
-					</div>
 
-					<h2>Where to Stay</h2>
-					<div id="accommodation-section" class="accommodation-section">
-						<p class="accommodation-note">
-							Accommodation options vary by budget. Search for hotels, hostels,
-							or resorts in this area.
-						</p>
-					</div>
-
-					<h2>Getting There</h2>
-					<div class="getting-there">
-						<div class="transport-option">
-							<h4>
-								<span class="transport-icon">&#128648;</span>
-								<span id="transport-method"></span>
-							</h4>
-							<p>Duration: <span id="transport-duration"></span></p>
-							<p class="transport-desc">
-								Most convenient option. Buses depart regularly from Phnom Penh's
-								Olympic Market.
+						<h2>Where to Stay</h2>
+						<div class="accommodation-section">
+							<p class="accommodation-note">
+								Accommodation options vary by budget. Search for hotels,
+								hostels, or resorts in this area.
 							</p>
 						</div>
+
+						<h2>Getting There</h2>
+						<div class="getting-there">
+							<div class="transport-option">
+								<h4>
+									<span class="transport-icon"
+										><i class="fa-solid fa-bus"></i></span
+									>
+									<span id="transport-method"></span>
+								</h4>
+								<p>Duration: <span id="transport-duration"></span></p>
+								<p class="transport-desc">
+									Most convenient option. Buses depart regularly from Phnom
+									Penh's Olympic Market.
+								</p>
+							</div>
+						</div>
+
+						<h2>Travel Tips</h2>
+						<div class="travel-tips">
+							<div class="tip-card">
+								<h4><i class="fa-solid fa-shirt"></i> Dress Code</h4>
+								<p>
+									Wear modest clothing when visiting temples. Shoulders and
+									knees covered.
+								</p>
+							</div>
+							<div class="tip-card">
+								<h4><i class="fa-solid fa-coins"></i> Currency</h4>
+								<p>
+									US Dollars widely accepted. Small riel change given for small
+									amounts.
+								</p>
+							</div>
+							<div class="tip-card">
+								<h4><i class="fa-solid fa-bottle-water"></i> Health</h4>
+								<p>
+									Stay hydrated and use sunscreen. Mosquitos present in some
+									areas.
+								</p>
+							</div>
+							<div class="tip-card">
+								<h4><i class="fa-solid fa-comments"></i> Communication</h4>
+								<p>
+									English spoken in tourist areas. Learn a few Khmer phrases!
+								</p>
+							</div>
+						</div>
 					</div>
 
-					<h2>Travel Tips</h2>
-					<div class="travel-tips">
-						<div class="tip-card">
-							<h4>&#127959; Dress Code</h4>
-							<p>
-								Wear modest clothing when visiting temples. Shoulders and knees
-								covered.
-							</p>
+					<div class="detail-sidebar">
+						<div class="sidebar-box map-box">
+							<h3>Location</h3>
+							<iframe
+								id="map-frame"
+								width="100%"
+								height="200"
+								style="border:0;border-radius:12px;"
+								allowfullscreen
+								loading="lazy"
+								title="Location Map"
+							></iframe>
 						</div>
-						<div class="tip-card">
-							<h4>&#127758; Currency</h4>
-							<p>
-								US Dollars widely accepted. Small riel change given for small
-								amounts.
-							</p>
-						</div>
-						<div class="tip-card">
-							<h4>&#127763; Health</h4>
-							<p>
-								Stay hydrated and use sunscreen. Mosquitos present in some
-								areas.
-							</p>
-						</div>
-						<div class="tip-card">
-							<h4>&#128222; Communication</h4>
-							<p>English spoken in tourist areas. Learn a few Khmer phrases!</p>
-						</div>
-					</div>
-				</div>
 
-				<div class="detail-sidebar">
-					<div class="sidebar-box map-box">
-						<h3>Location</h3>
-						<iframe
-							id="map-frame"
-							width="100%"
-							height="200"
-							style="border:0;border-radius:8px;"
-							allowfullscreen
-							loading="lazy"
-							title="Location Map"
-						></iframe>
-					</div>
+						<div class="sidebar-box">
+							<h3>Quick Info</h3>
+							<ul class="quick-info-list">
+								<li><strong>Language:</strong> Khmer</li>
+								<li><strong>Currency:</strong> USD / KHR</li>
+								<li><strong>Time Zone:</strong> GMT+7</li>
+							</ul>
+						</div>
 
-					<div class="sidebar-box">
-						<h3>Quick Info</h3>
-						<ul class="quick-info-list">
-							<li><strong>Language:</strong> Khmer</li>
-							<li><strong>Currency:</strong> USD / KHR</li>
-							<li><strong>Time Zone:</strong> GMT+7</li>
-						</ul>
-					</div>
-
-					<div class="sidebar-box cta-box">
-						<h3>Ready to Visit?</h3>
-						<p>Book your trip now and explore this amazing destination!</p>
-						<a href="contact.html" class="btn-primary">Plan Your Trip</a>
+						<div class="sidebar-box cta-box">
+							<h3>Ready to Visit?</h3>
+							<p>Book your trip now and explore this amazing destination!</p>
+							<a href="contact.html" class="btn btn-primary">Plan Your Trip</a>
+						</div>
 					</div>
 				</div>
 			</section>
 		</main>
 
 		<footer>
-			<p>&copy; 2026 Wander Cambodia. INFO 250 Final Project.</p>
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<a href="index.html" class="logo">
+						<i class="fa-solid fa-leaf"></i>
+						Wander KH
+					</a>
+					<p>
+						Your ultimate guide to exploring the Kingdom of Wonder. We help you
+						discover the hidden gems and famous landmarks of Cambodia.
+					</p>
+					<div class="social-links">
+						<a href="#" aria-label="Facebook"
+							><i class="fa-brands fa-facebook-f"></i></a
+						>
+						<a href="#" aria-label="Instagram"
+							><i class="fa-brands fa-instagram"></i></a
+						>
+						<a href="#" aria-label="Twitter"
+							><i class="fa-brands fa-twitter"></i></a
+						>
+						<a href="#" aria-label="YouTube"
+							><i class="fa-brands fa-youtube"></i></a
+						>
+					</div>
+				</div>
+
+				<div class="footer-widget">
+					<h4 class="footer-title">Quick Links</h4>
+					<ul class="footer-links">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="discover.html">Discover</a></li>
+						<li><a href="destinations.html">Destinations</a></li>
+						<li><a href="contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-widget">
+					<h4 class="footer-title">Travel Info</h4>
+					<ul class="footer-links">
+						<li><a href="#">Visa Information</a></li>
+						<li><a href="#">Travel Insurance</a></li>
+						<li><a href="#">Best Time to Visit</a></li>
+						<li><a href="#">FAQ</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-widget">
+					<h4 class="footer-title">Contact Us</h4>
+					<ul class="contact-info list-none">
+						<li>
+							<i class="fa-solid fa-location-dot"></i>
+							<span>Phnom Penh, Cambodia</span>
+						</li>
+						<li>
+							<i class="fa-solid fa-phone"></i>
+							<span>+855 12 345 678</span>
+						</li>
+						<li>
+							<i class="fa-solid fa-envelope"></i>
+							<span>hello@wanderkh.com</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<p>&copy; 2026 Wander KH | Designed with passion for Cambodia.</p>
+			</div>
 		</footer>
+
+		<script>
+		const mobileBtn = document.getElementById("mobileMenuBtn");
+		const navLinks = document.getElementById("navLinks");
+		mobileBtn.addEventListener("click", () => {
+			navLinks.classList.toggle("active");
+			const icon = mobileBtn.querySelector("i");
+			if (navLinks.classList.contains("active")) {
+				icon.classList.remove("fa-bars");
+				icon.classList.add("fa-xmark");
+			} else {
+				icon.classList.remove("fa-xmark");
+				icon.classList.add("fa-bars");
+			}
+		});
+
+		document.querySelectorAll(".nav-links a").forEach((link) => {
+			link.addEventListener("click", () => {
+				navLinks.classList.remove("active");
+				mobileBtn.querySelector("i").classList.replace("fa-xmark", "fa-bars");
+			});
+		});
+		</script>
 		<script src="js/destinations.js"></script>
 		<script src="js/detail.js"></script>
 	</body>
 </html>
+

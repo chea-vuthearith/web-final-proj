@@ -3,11 +3,9 @@ const destinations = [
 		id: "siem-reap",
 		name: "Siem Reap",
 		tagline: "The gateway to the ruins of Angkor",
-		image:
-			"https://angkorwildlife.com/wp-content/uploads/2024/08/12-must-visit-places-to-visit-in-siem-reap-cambodia-1.jpg",
+		image: "images/AngkorWat.jpg",
 		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d250185.3941440069!2d103.8564!3d13.3633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310e046537e92b1d%3A0x4c1c2c1c1c1c1c1c!2sKrong%20Siem%20Reap!5e1!3m2!1sen!2skh!4v1",
-		description:
-			"Siem Reap is the gateway to the magnificent Angkor archaeological park, home to the world-famous Angkor Wat temple.",
+		description: "Siem Reap is the gateway to the magnificent Angkor archaeological park, home to the world-famous Angkor Wat temple. This charming town offers a perfect blend of ancient history and modern amenities, with bustling night markets, excellent restaurants, and cozy cafes. Explore the stunning temples at sunrise, witness traditional Apsara dance performances, and immerse yourself in the rich Khmer culture that permeates every corner of this incredible destination.",
 		highlights: ["Angkor Wat", "Bayon Temple", "Ta Prohm", "Pub Street"],
 		activities: ["Temple Tours", "Apsara Shows", "Cooking Classes"],
 		bestTime: "Nov-Mar",
@@ -20,11 +18,9 @@ const destinations = [
 		id: "phnom-penh",
 		name: "Phnom Penh",
 		tagline: "The vibrant capital city",
-		image:
-			"https://images.travelandleisureasia.com/wp-content/uploads/sites/5/2025/01/28131632/phnom-penh-fi.jpeg?tr=w-1200,q-60",
+		image: "images/phnom-penh.jpg",
 		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d250189.674!2d104.9282!3d11.5564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951f54e01d07d%3A0x1c1c1c1c1c1c1c1c!2sPhnom%20Penh!5e1!3m2!1sen!2skh!4v1",
-		description:
-			"Cambodia's bustling capital at the confluence of the Mekong and Tonle Sap rivers.",
+		description: "Cambodia's bustling capital sits gracefully at the confluence of the Mekong, Tonle Sap, and Bassac rivers. This dynamic city offers a fascinating mix of colonial French architecture, royal palaces, and tragic historical sites. Experience the vibrant street food scene, explore bustling markets, take relaxing river cruises at sunset, and discover the resilience of the Khmer people through museums and cultural centers.",
 		highlights: ["Royal Palace", "Tuol Sleng Museum", "Central Market"],
 		activities: ["City Tours", "River Cruises", "Street Food"],
 		bestTime: "Nov-Mar",
@@ -40,12 +36,10 @@ const destinations = [
 	{
 		id: "battambang",
 		name: "Battambang",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.15602055!3d13.093932849999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31054996eaddd7e5%3A0x9c55ce955ce9e393!2sKrong%20Battambang!5e1!3m2!1sen!2skh!4v1776623050065!5m2!1sen!2skh",
 		tagline: "Colonial architecture and countryside",
-		image:
-			"https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=375,height=375,dpr=2/tour_img/2abd49cb7c63a049d72bba69423afd9f1adebc8bc1c892da3b44e66100244ac0.jpg",
-		description:
-			"Cambodia's second-largest city with the best colonial architecture.",
+		image: "images/battambang.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.15602055!3d13.093932849999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31054996eaddd7e5%3A0x9c55ce955ce9e393!2sKrong%20Battambang!5e1!3m2!1sen!2skh!4v1776623050065!5m2!1sen!2skh",
+		description: "Cambodia's second-largest city boasts the best-preserved colonial architecture in the country. Nestled in the heart of the rice-producing province, Battambang offers a more relaxed pace than Phnom Penh while still providing cultural attractions. Ride the famous bamboo train, explore ancient temples perched on hills, and witness the spectacular daily bat exodus at Phnom Sampeau. The surrounding countryside offers cycling routes through picturesque villages and rice paddies.",
 		highlights: ["Colonial Buildings", "Phnom Banan", "Bamboo Train"],
 		activities: ["Bike Tours", "Bamboo Train", "Cooking Classes"],
 		bestTime: "Nov-Mar",
@@ -61,11 +55,10 @@ const destinations = [
 	{
 		id: "kampot",
 		name: "Kampot",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.2907!3d10.4865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKampot!5e1!3m2!1sen!2skh!4v1",
 		tagline: "Fresh pepper and river views",
-		image:
-			"https://d34vm3j4h7f97z.cloudfront.net/original/4X/8/1/e/81e31f6817402c4a711d09891d53515e0ada2571.jpeg",
-		description: "Quiet riverside town famous for world-class Kampot pepper.",
+		image: "images/kampot.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.2907!3d10.4865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKampot!5e1!3m2!1sen!2skh!4v1",
+		description: "This quiet riverside town is famous for world-class Kampot pepper, which is prized by chefs worldwide. Enjoy the laid-back atmosphere as you kayak along the Kampot River, explore limestone caves, visit pepper farms, and sample delicious fresh seafood. The nearby Bokit Waterfall offers a refreshing escape, while the French colonial architecture lining the streets harkens back to a bygone era. Perfect for travelers seeking relaxation and authentic Khmer hospitality.",
 		highlights: ["Kampot River", "Pepper Farms", "Bokit Waterfall"],
 		activities: ["Kayaking", "Farm Tours", "Cave Exploration"],
 		bestTime: "Nov-May",
@@ -76,11 +69,11 @@ const destinations = [
 	},
 	{
 		id: "kep",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.2909!3d10.4832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKep!5e1!3m2!1sen!2skh!4v1",
 		name: "Kep",
 		tagline: "Crab markets and quiet beaches",
-		image: "https://www.asiakingtravel.com/cuploads/files/Kep_Crab_Statue_.jpg",
-		description: "Coastal town renowned for fresh crab and relaxed beaches.",
+		image: "images/kep.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.2909!3d10.4832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKep!5e1!3m2!1sen!2skh!4v1",
+		description: "This coastal town is renowned for its fresh crab and relaxed beaches. Once a fashionable resort destination for Cambodia's elite during the colonial era, Kep retains a nostalgic charm with its abandoned villas and quiet streets. Sample the famous crab dishes at the Crab Market, explore the nearby Rabbit Island, or simply relax on the peaceful beaches. The nearby Phnom Kesar Kiri hill offers panoramic views of the Gulf of Thailand.",
 		highlights: ["Crab Market", "Kep Beach", "Rabbit Island"],
 		activities: ["Beach Hopping", "Snorkeling", "Crab Cooking"],
 		bestTime: "Nov-May",
@@ -91,13 +84,11 @@ const destinations = [
 	},
 	{
 		id: "sihanoukville",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.5237!3d10.6278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKrong%20Sihanoukville!5e1!3m2!1sen!2skh!4v1",
 		name: "Sihanoukville",
 		tagline: "Beach resorts and island hopping",
-		image:
-			"https://d3pa5s1toq8zys.cloudfront.net/explore/wp-content/uploads/2024/07/Sihanoukville-campuchia-4.jpg",
-		description:
-			"Cambodia's premier beach destination with resorts and islands.",
+		image: "images/sihanoukville.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.5237!3d10.6278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKrong%20Sihanoukville!5e1!3m2!1sen!2skh!4v1",
+		description: "Cambodia's premier beach destination offers a range of experiences from lively beach parties to peaceful island getaways. With pristine sandy beaches, crystal-clear waters, and a growing selection of resorts and restaurants, Sihanoukville caters to all tastes. Take boat trips to nearby islands like Koh Rong, explore Ream National Park, or simply lounge by the sea. The city also serves as a gateway to other coastal destinations and islands.",
 		highlights: ["Ochheuteal Beach", "Koh Rong", "Ream Park"],
 		activities: ["Island Hopping", "Snorkeling", "Beach Parties"],
 		bestTime: "Nov-May",
@@ -112,12 +103,11 @@ const destinations = [
 	},
 	{
 		id: "koh-rong",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.36!3d10.548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKoh%20Rong!5e1!3m2!1sen!2skh!4v1",
 		name: "Koh Rong",
 		tagline: "Island paradise with glowing plankton",
-		image:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsf7ILMU3iU48iLBZL0XNR_ucqjEcU3Lblxw&s",
-		description: "Pristine island famous for bioluminescent plankton at night.",
+		image: "images/koh-rong.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d103.36!3d10.548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKoh%20Rong!5e1!3m2!1sen!2skh!4v1",
+		description: "This pristine island is famous for its bioluminescent plankton that create a magical glow in the water at night. With powdery white sand beaches, turquoise waters, and lush jungle interiors, Koh Rong offers a tropical paradise experience. Whether you're seeking adventure through jungle treks, relaxation on beautiful beaches, or vibrant nightlife, this island delivers. Several luxury resorts and budget-friendly hostels cater to different travel styles.",
 		highlights: ["Long Set Beach", "Glowing Plankton", "Koh Touch"],
 		activities: ["Night Swimming", "Snorkeling", "Jungle Treks"],
 		bestTime: "Nov-May",
@@ -132,12 +122,11 @@ const destinations = [
 	},
 	{
 		id: "koh-trong",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.0297!3d12.4778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKoh%20Trong!5e1!3m2!1sen!2skh!4v1",
 		name: "Koh Trong",
 		tagline: "Traditional stilt villages",
-		image:
-			"https://focus-cambodia.com/wp-content/uploads/2020/08/koh-trong-09.jpg",
-		description: "Peaceful Mekong island with stilt houses and homestays.",
+		image: "images/koh-trong.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.0297!3d12.4778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKoh%20Trong!5e1!3m2!1sen!2skh!4v1",
+		description: "This peaceful Mekong island offers a glimpse into traditional Cambodian rural life. Famous for its round houses and stilt homes, Koh Trong provides an authentic homestay experience that few destinations can match. Cycle around the small island, visit local temples, enjoy fresh fruit from orchards, and watch the sunset over the Mekong. The island is only accessible by boat, adding to its remote and tranquil appeal.",
 		highlights: ["Stilt Houses", "Wat Sopah", "Mekong Views"],
 		activities: ["Cycling", "Boat Tours", "Homestay"],
 		bestTime: "Nov-Feb",
@@ -148,13 +137,11 @@ const destinations = [
 	},
 	{
 		id: "mondulkiri",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d107.002!3d12.454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sMondulkiri!5e1!3m2!1sen!2skh!4v1",
 		name: "Mondulkiri",
 		tagline: "Rolling hills and elephant sanctuaries",
-		image:
-			"https://www.tourismcambodia.com/img/travelguides/bou_sra_waterfall.jpg",
-		description:
-			"Remote province with hills, forests, and ethical elephant sanctuaries.",
+		image: "images/mondulkiri.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d107.002!3d12.454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sMondulkiri!5e1!3m2!1sen!2skh!4v1",
+		description: "This remote province is known for its rolling hills, lush forests, and ethical elephant sanctuaries. Home to the Bunong indigenous people, Mondulkiri offers unique cultural experiences and adventure activities. Visit ethical elephant sanctuaries where you can observe and interact with elephants in their natural habitat, trek through pristine jungle to hidden waterfalls, and experience the cool mountain climate that contrasts with the rest of Cambodia's heat.",
 		highlights: ["Elephant Sanctuary", "Bousra Waterfall", "Bunong Villages"],
 		activities: ["Elephant Care", "Jungle Treks", "Waterfall Visits"],
 		bestTime: "Nov-Mar",
@@ -170,12 +157,10 @@ const destinations = [
 	{
 		id: "banlung",
 		name: "Banlung (Ratanakiri)",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.9513!3d13.7276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sBanlung!5e1!3m2!1sen!2skh!4v1",
 		tagline: "Volcanic lakes and jungle treks",
-		image:
-			"https://autourasia.com/uploads/Travel-Guide-Cambodia/rattanakiri/useful-infos-ratanakiri/700-lac-volcanique-Yeak-Lom%20-%20Copy.png",
-		description:
-			"Remote adventure destination with crater lakes and rainforests.",
+		image: "images/banlung.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.9513!3d13.7276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sBanlung!5e1!3m2!1sen!2skh!4v1",
+		description: "This remote adventure destination in northeastern Cambodia offers crater lakes, rainforests, and unique indigenous cultures. Yeak Laom, a beautiful volcanic crater lake, is perfect for swimming and relaxing. Virachey National Park provides excellent trekking opportunities through diverse ecosystems. Visit ethnic minority villages, explore waterfalls, and discover the wild side of Cambodia that few tourists experience. A paradise for nature lovers and adventure seekers.",
 		highlights: ["Yeak Laom Lake", "Virachey Park", "Ka Tien Falls"],
 		activities: ["Jungle Treks", "Lake Swimming", "Homestays"],
 		bestTime: "Nov-Mar",
@@ -187,11 +172,10 @@ const destinations = [
 	{
 		id: "kampong-thom",
 		name: "Kampong Thom",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.9812!3d12.7119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKampong%20Thom!5e1!3m2!1sen!2skh!4v1",
 		tagline: "Ancient temples and green jungles",
-		image:
-			"https://www.vivutravel.com/images/des-cambodia3/kampong-thom-travel-guide.jpg",
-		description: "Home to pre-Angkorian Sambor Prei Kuk temples.",
+		image: "images/kampong-thom.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.9812!3d12.7119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKampong%20Thom!5e1!3m2!1sen!2skh!4v1",
+		description: "This province is home to the pre-Angkorian Sambor Prei Kuk temples, a less-crowded alternative to Angkor Wat. Set amidst lush jungle and rice paddies, these ancient brick temples offer a more intimate and mysterious experience. Explore the intricate carvings, climb to hilltop temples for panoramic views, and visit local villages to see traditional crafts. The area is also known for its rubber plantations and scenic countryside drives.",
 		highlights: ["Sambor Prei Kuk", "Phnom Santuk", "Stung Proah Falls"],
 		activities: ["Temple Tours", "Trekking", "Waterfall Visits"],
 		bestTime: "Nov-Mar",
@@ -203,11 +187,10 @@ const destinations = [
 	{
 		id: "preah-vihear",
 		name: "Preah Vihear",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.5287!3d14.4129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sPreah%20Vihear!5e1!3m2!1sen!2skh!4v1",
 		tagline: "Majestic cliffside temple",
-		image:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHZxscAu7vBobMB11EZv9cIk3xZrHaqUi_rg&s",
-		description: "Spectacular temple perched on a 525m cliff.",
+		image: "images/preah-vihear.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d104.5287!3d14.4129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sPreah%20Vihear!5e1!3m2!1sen!2skh!4v1",
+		description: "This spectacular temple complex sits atop a 525-meter cliff in the Dângrêk Mountains, offering breathtaking views and a sense of spiritual wonder. A UNESCO World Heritage Site, Preah Vihear Temple is one of Cambodia's most impressive Angkorian temples. Witness sunrise from the temple for an unforgettable experience, explore the intricate galleries and courtyards, and appreciate the stunning mountain location that makes this temple unique among Angkor's treasures.",
 		highlights: ["Preah Vihear Temple", "Mountain Views"],
 		activities: ["Temple Tours", "Sunrise Views", "Photography"],
 		bestTime: "Nov-Mar",
@@ -219,11 +202,10 @@ const destinations = [
 	{
 		id: "kratie",
 		name: "Kratie",
-		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.0298!3d12.4881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKratie!5e1!3m2!1sen!2skh!4v1",
 		tagline: "Irrawaddy dolphins and river cruises",
-		image:
-			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTliKHWytHm636srYnSrVirr6437WoBme7wjg&s",
-		description: "Riverside town famous for Irrawaddy dolphin watching.",
+		image: "images/kratie.jpg",
+		map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d177950.2125064312!2d106.0298!3d12.4881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a80a16a1c1c1c%3A0x1c1c2c1c1c1c1c1c!2sKratie!5e1!3m2!1sen!2skh!4v1",
+		description: "This riverside town is famous for Irrawaddy dolphin watching in the Mekong River. Take boat trips to spot these gentle creatures in their natural habitat, often seen playing in the waters near town. Kratie also serves as a gateway to the peaceful Koh Trong Island and offers beautiful sunset views over the Mekong. The town has a relaxed atmosphere with colonial architecture and friendly locals, making it a pleasant stop on any Mekong itinerary.",
 		highlights: ["Dolphin Sanctuary", "Koh Trong Island"],
 		activities: ["Dolphin Watching", "River Cruises", "Cycling"],
 		bestTime: "Nov-Mar",
@@ -243,10 +225,15 @@ document.addEventListener("DOMContentLoaded", () => {
 		card.href = `destination-detail.html?id=${dest.id}`;
 		card.className = "dest-card";
 		card.innerHTML = `
-      <img src="${dest.image}" alt="${dest.name}">
-      <h3>${dest.name}</h3>
-      <p>${dest.tagline}</p>
-    `;
+            <div class="img-wrapper" style="overflow:hidden;">
+                <img src="${dest.image}" alt="${dest.name}" class="dest-img">
+            </div>
+            <div class="dest-info">
+                <h3>${dest.name}</h3>
+                <p>${dest.tagline}</p>
+                <span class="dest-link">Explore ${dest.name} <i class="fa-solid fa-arrow-right"></i></span>
+            </div>
+        `;
 		grid.appendChild(card);
 	});
 });

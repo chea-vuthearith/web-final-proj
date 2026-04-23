@@ -1,51 +1,736 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | Wander KH</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo" onclick="location.reload(); return false;">Wander KH</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="discover.html">Discover</a></li>
-                <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Contact Us | Wander KH</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800&family=Inter:wght@300;400;500;600&display=swap"
+			rel="stylesheet"
+		>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		>
 
-    <main class="container">
-        <section class="contact-section">
-            <h2>Get in Touch</h2>
-            <p>Have questions about traveling in Cambodia? Send us a message!</p>
-            
-            <form id="contact-form" class="custom-form">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" required placeholder="John Doe">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" required placeholder="john@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="message">Your Message</label>
-                    <textarea id="message" rows="5" required placeholder="How can we help?"></textarea>
-                </div>
-                <button type="submit" class="btn-primary">Send Message</button>
-            </form>
-            <div id="form-success" class="hidden success-msg">Thanks for reaching out! We will reply soon.</div>
-        </section>
-    </main>
+		<style>
+		:root {
+			--cool-jade: #03695e;
+			--spring-herb: #6daf5f;
+			--sky-aqua: #239dca;
+			--light-blue: #a5c6db;
+			--linen-white: #e7e9d8;
 
-    <footer>
-        <p>&copy; 2026 Wander Cambodia. INFO 250 Final Project.</p>
-    </footer>
-    <script src="js/script.js"></script>
-</body>
+			--text-dark: #1a2e2c;
+			--text-light: #556b69;
+			--bg-light: #fbfbfa;
+			--bg-soft: #f2f4ec;
+			--white: #ffffff;
+
+			--shadow-sm: 0 4px 6px rgba(3, 105, 94, 0.08);
+			--shadow-md: 0 10px 25px rgba(3, 105, 94, 0.12);
+			--shadow-hover: 0 15px 35px rgba(3, 105, 94, 0.2);
+			--radius: 16px;
+			--max-width: 1280px;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: "Inter", sans-serif;
+			background-color: var(--bg-light);
+			color: var(--text-dark);
+			line-height: 1.7;
+			overflow-x: hidden;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4 {
+			font-family: "Poppins", sans-serif;
+			font-weight: 600;
+			line-height: 1.3;
+		}
+
+		header {
+			position: fixed;
+			width: 100%;
+			top: 0;
+			z-index: 1000;
+			transition: all 0.4s ease;
+			background: transparent;
+			padding: 15px 0;
+		}
+
+		header.scrolled {
+			background: var(--cool-jade);
+			padding: 10px 0;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		}
+
+		nav {
+			max-width: var(--max-width);
+			margin: 0 auto;
+			padding: 0 24px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.logo {
+			color: var(--white);
+			font-family: "Poppins", sans-serif;
+			font-size: 28px;
+			font-weight: 700;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.logo i {
+			color: var(--spring-herb);
+		}
+
+		.nav-links {
+			list-style: none;
+			display: flex;
+			gap: 8px;
+		}
+
+		.nav-links a {
+			text-decoration: none;
+			color: var(--white);
+			font-size: 15px;
+			font-weight: 500;
+			padding: 10px 18px;
+			border-radius: 30px;
+			transition: all 0.3s ease;
+			position: relative;
+		}
+
+		.nav-links a:hover,
+		.nav-links a.active {
+			background-color: rgba(255, 255, 255, 0.15);
+			color: var(--white);
+		}
+
+		.mobile-menu-btn {
+			display: none;
+			color: var(--white);
+			font-size: 24px;
+			cursor: pointer;
+			background: none;
+			border: none;
+		}
+
+		.page-hero {
+			background: linear-gradient(135deg, var(--cool-jade) 0%, #024a42 100%);
+			padding: 140px 24px 80px;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.page-hero::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background:
+				url("images/AngkorWat.jpg")
+				center / cover;
+			opacity: 0.1;
+		}
+
+		.page-hero-content {
+			position: relative;
+			z-index: 2;
+		}
+
+		.page-hero-tag {
+			color: var(--spring-herb);
+			font-weight: 600;
+			font-size: 14px;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			margin-bottom: 12px;
+			display: block;
+		}
+
+		.page-hero h1 {
+			font-size: 52px;
+			color: var(--white);
+			margin-bottom: 16px;
+		}
+
+		.page-hero p {
+			color: var(--light-blue);
+			font-size: 18px;
+			max-width: 600px;
+			margin: 0 auto;
+		}
+
+		section {
+			padding: 80px 24px;
+		}
+
+		.container {
+			max-width: var(--max-width);
+			margin: 0 auto;
+		}
+
+		.contact-section {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 60px;
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+
+		.contact-info-side {
+			padding: 40px;
+			background: linear-gradient(135deg, var(--cool-jade) 0%, #024a42 100%);
+			border-radius: var(--radius);
+			color: var(--white);
+		}
+
+		.contact-info-side h2 {
+			color: var(--white);
+			font-size: 32px;
+			margin-bottom: 20px;
+		}
+
+		.contact-info-side > p {
+			color: var(--light-blue);
+			margin-bottom: 40px;
+			font-size: 16px;
+		}
+
+		.contact-item {
+			display: flex;
+			align-items: flex-start;
+			gap: 16px;
+			margin-bottom: 24px;
+		}
+
+		.contact-icon {
+			width: 50px;
+			height: 50px;
+			background: rgba(255, 255, 255, 0.15);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+		}
+
+		.contact-icon i {
+			color: var(--spring-herb);
+			font-size: 20px;
+		}
+
+		.contact-item h4 {
+			color: var(--white);
+			font-size: 16px;
+			margin-bottom: 4px;
+		}
+
+		.contact-item p {
+			color: var(--light-blue);
+			font-size: 14px;
+		}
+
+		.contact-form-side {
+			padding: 40px;
+		}
+
+		.contact-form-side h2 {
+			font-size: 32px;
+			color: var(--cool-jade);
+			margin-bottom: 30px;
+		}
+
+		.form-group {
+			margin-bottom: 24px;
+		}
+
+		.form-group label {
+			display: block;
+			color: var(--text-dark);
+			font-weight: 500;
+			margin-bottom: 8px;
+			font-size: 15px;
+		}
+
+		.form-group input,
+		.form-group textarea {
+			width: 100%;
+			padding: 14px 18px;
+			border: 2px solid var(--bg-soft);
+			border-radius: 12px;
+			font-family: "Inter", sans-serif;
+			font-size: 15px;
+			transition: all 0.3s ease;
+			background: var(--white);
+		}
+
+		.form-group input:focus,
+		.form-group textarea:focus {
+			outline: none;
+			border-color: var(--sky-aqua);
+			box-shadow: 0 0 0 4px rgba(35, 157, 202, 0.1);
+		}
+
+		.form-group textarea {
+			resize: vertical;
+			min-height: 140px;
+		}
+
+		.btn {
+			display: inline-block;
+			text-decoration: none;
+			padding: 16px 36px;
+			border-radius: 50px;
+			font-size: 16px;
+			font-weight: 600;
+			transition: all 0.3s ease;
+			cursor: pointer;
+			border: none;
+			font-family: "Inter", sans-serif;
+		}
+
+		.btn-primary {
+			background: var(--spring-herb);
+			color: var(--white);
+			box-shadow: 0 4px 15px rgba(109, 175, 95, 0.4);
+			width: 100%;
+		}
+
+		.btn-primary:hover {
+			background: #5a9e4d;
+			transform: translateY(-3px);
+			box-shadow: 0 8px 20px rgba(109, 175, 95, 0.6);
+		}
+
+		.success-msg {
+			margin-top: 20px;
+			padding: 16px 24px;
+			background: rgba(109, 175, 95, 0.1);
+			border: 2px solid var(--spring-herb);
+			border-radius: 12px;
+			color: var(--cool-jade);
+			font-weight: 500;
+			text-align: center;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+		}
+
+		footer {
+			background-color: var(--text-dark);
+			color: var(--linen-white);
+			padding: 80px 24px 30px;
+		}
+
+		.footer-grid {
+			max-width: var(--max-width);
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 2fr 1fr 1fr 1.5fr;
+			gap: 40px;
+			margin-bottom: 60px;
+		}
+
+		.footer-brand .logo {
+			color: var(--white);
+			margin-bottom: 20px;
+			display: inline-block;
+		}
+
+		.footer-brand p {
+			color: #a0b2b0;
+			font-size: 15px;
+			max-width: 300px;
+			margin-bottom: 24px;
+		}
+
+		.social-links {
+			display: flex;
+			gap: 12px;
+		}
+
+		.social-links a {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.1);
+			color: var(--white);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.3s ease;
+			text-decoration: none;
+		}
+
+		.social-links a:hover {
+			background: var(--spring-herb);
+			transform: translateY(-3px);
+		}
+
+		.footer-title {
+			color: var(--white);
+			font-size: 18px;
+			margin-bottom: 24px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.footer-title::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 40px;
+			height: 2px;
+			background: var(--sky-aqua);
+		}
+
+		.footer-links {
+			list-style: none;
+		}
+
+		.footer-links li {
+			margin-bottom: 12px;
+		}
+
+		.footer-links a {
+			color: #a0b2b0;
+			text-decoration: none;
+			transition: 0.3s;
+			font-size: 15px;
+		}
+
+		.footer-links a:hover {
+			color: var(--spring-herb);
+			padding-left: 5px;
+		}
+
+		.contact-info li {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 16px;
+			color: #a0b2b0;
+			font-size: 15px;
+		}
+
+		.contact-info i {
+			color: var(--sky-aqua);
+			margin-top: 4px;
+		}
+
+		.footer-bottom {
+			max-width: var(--max-width);
+			margin: 0 auto;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			padding-top: 24px;
+			text-align: center;
+			color: #a0b2b0;
+			font-size: 14px;
+		}
+
+		@media (max-width: 992px) {
+			.page-hero h1 {
+				font-size: 42px;
+			}
+			.contact-section {
+				grid-template-columns: 1fr;
+			}
+			.footer-grid {
+				grid-template-columns: 1fr 1fr;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.mobile-menu-btn {
+				display: block;
+			}
+			nav {
+				padding: 0 16px;
+			}
+			.nav-links {
+				position: fixed;
+				top: 0;
+				right: -100%;
+				width: 280px;
+				height: 100vh;
+				background: var(--cool-jade);
+				flex-direction: column;
+				padding: 100px 30px 30px;
+				box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+				transition: 0.4s ease-in-out;
+			}
+			.nav-links.active {
+				right: 0;
+			}
+			.nav-links a {
+				font-size: 18px;
+				padding: 12px 0;
+				display: block;
+				border-radius: 0;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			}
+			.page-hero h1 {
+				font-size: 36px;
+			}
+			section {
+				padding: 60px 20px;
+			}
+			.contact-info-side,
+			.contact-form-side {
+				padding: 30px;
+			}
+			.footer-grid {
+				grid-template-columns: 1fr;
+				gap: 30px;
+			}
+		}
+		</style>
+	</head>
+	<body>
+		<header id="header">
+			<nav>
+				<a href="index.html" class="logo">
+					<i class="fa-solid fa-leaf"></i>
+					Wander KH
+				</a>
+				<button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+				<ul class="nav-links" id="navLinks">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="discover.html">Discover</a></li>
+					<li><a href="destinations.html">Destinations</a></li>
+					<li><a href="contact.html" class="active">Contact</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main>
+			<section class="page-hero">
+				<div class="page-hero-content">
+					<span class="page-hero-tag">Get in Touch</span>
+					<h1>Contact Us</h1>
+					<p>
+						Have questions about traveling in Cambodia? We'd love to hear from
+						you and help plan your perfect journey.
+					</p>
+				</div>
+			</section>
+
+			<section class="contact-section-wrapper">
+				<div class="container">
+					<div class="contact-section">
+						<div class="contact-info-side">
+							<h2>Let's Connect</h2>
+							<p>
+								Whether you need travel advice, want to customize your
+								itinerary, or have general questions, our team is here to help.
+							</p>
+
+							<div class="contact-item">
+								<div class="contact-icon">
+									<i class="fa-solid fa-location-dot"></i>
+								</div>
+								<div>
+									<h4>Visit Us</h4>
+									<p>Phnom Penh, Cambodia</p>
+								</div>
+							</div>
+
+							<div class="contact-item">
+								<div class="contact-icon">
+									<i class="fa-solid fa-phone"></i>
+								</div>
+								<div>
+									<h4>Call Us</h4>
+									<p>+855 12 345 678</p>
+								</div>
+							</div>
+
+							<div class="contact-item">
+								<div class="contact-icon">
+									<i class="fa-solid fa-envelope"></i>
+								</div>
+								<div>
+									<h4>Email Us</h4>
+									<p>hello@wanderkh.com</p>
+								</div>
+							</div>
+
+							<div class="contact-item">
+								<div class="contact-icon">
+									<i class="fa-solid fa-clock"></i>
+								</div>
+								<div>
+									<h4>Working Hours</h4>
+									<p>Mon - Sat: 8:00 AM - 6:00 PM</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="contact-form-side">
+							<h2>Send Us a Message</h2>
+							<form id="contact-form">
+								<div class="form-group">
+									<label for="name">Full Name</label>
+									<input type="text" id="name" required placeholder="John Doe">
+								</div>
+								<div class="form-group">
+									<label for="email">Email Address</label>
+									<input
+										type="email"
+										id="email"
+										required
+										placeholder="john@example.com"
+									>
+								</div>
+								<div class="form-group">
+									<label for="message">Your Message</label>
+									<textarea
+										id="message"
+										rows="5"
+										required
+										placeholder="How can we help you plan your Cambodian adventure?"
+									></textarea>
+								</div>
+								<button type="submit" class="btn btn-primary" style="background-color: #025048;">
+									Send Message <i class="fa-solid fa-paper-plane"></i>
+								</button>
+							</form>
+							<div id="form-success" class="success-msg hidden">
+								<i class="fa-solid fa-check-circle"></i>
+								Thanks for reaching out! We'll reply soon.
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer>
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<a href="index.html" class="logo">
+						<i class="fa-solid fa-leaf"></i>
+						Wander KH
+					</a>
+					<p>
+						Your ultimate guide to exploring the Kingdom of Wonder. We help you
+						discover the hidden gems and famous landmarks of Cambodia.
+					</p>
+					<div class="social-links">
+						<a href="#" aria-label="Facebook"
+							><i class="fa-brands fa-facebook-f"></i></a
+						>
+						<a href="#" aria-label="Instagram"
+							><i class="fa-brands fa-instagram"></i></a
+						>
+						<a href="#" aria-label="Twitter"
+							><i class="fa-brands fa-twitter"></i></a
+						>
+						<a href="#" aria-label="YouTube"
+							><i class="fa-brands fa-youtube"></i></a
+						>
+					</div>
+				</div>
+
+				<div class="footer-widget">
+					<h4 class="footer-title">Quick Links</h4>
+					<ul class="footer-links">
+						<li><a href="index.html">Home</a></li>
+<li><a href="discover.html">Discover</a></li>
+						<li><a href="destinations.html">Destinations</a></li>
+						<li><a href="contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-widget">
+					<h4 class="footer-title">Travel Info</h4>
+					<ul class="footer-links">
+						<li><a href="#">Visa Information</a></li>
+						<li><a href="#">Travel Insurance</a></li>
+						<li><a href="#">Best Time to Visit</a></li>
+						<li><a href="#">FAQ</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-widget">
+					<h4 class="footer-title">Contact Us</h4>
+					<ul class="contact-info list-none">
+						<li>
+							<i class="fa-solid fa-location-dot"></i>
+							<span>Phnom Penh, Cambodia</span>
+						</li>
+						<li>
+							<i class="fa-solid fa-phone"></i>
+							<span>+855 12 345 678</span>
+						</li>
+						<li>
+							<i class="fa-solid fa-envelope"></i>
+							<span>hello@wanderkh.com</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<p>&copy; 2026 Wander KH | Designed with passion for Cambodia.</p>
+			</div>
+		</footer>
+
+		<script>
+		const header = document.getElementById('header');
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > 50) {
+				header.classList.add('scrolled');
+			} else {
+				header.classList.remove('scrolled');
+			}
+		});
+
+		const mobileBtn = document.getElementById("mobileMenuBtn");
+		const navLinks = document.getElementById("navLinks");
+		mobileBtn.addEventListener("click", () => {
+			navLinks.classList.toggle("active");
+			const icon = mobileBtn.querySelector("i");
+			if (navLinks.classList.contains("active")) {
+				icon.classList.remove("fa-bars");
+				icon.classList.add("fa-xmark");
+			} else {
+				icon.classList.remove("fa-xmark");
+				icon.classList.add("fa-bars");
+			}
+		});
+
+		document.querySelectorAll(".nav-links a").forEach((link) => {
+			link.addEventListener("click", () => {
+				navLinks.classList.remove("active");
+				mobileBtn.querySelector("i").classList.replace("fa-xmark", "fa-bars");
+			});
+		});
+		</script>
+		<script src="js/script.js"></script>
+	</body>
 </html>
+
