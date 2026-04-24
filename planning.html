@@ -1,1 +1,1825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Trip Planner | Wander KH</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="./stylenew.css">
+	<style>
+	
+		:root {
+			--cool-jade: #03695e;
+			--spring-herb: #6daf5f;
+			--sky-aqua: #239dca;
+			--light-blue: #a5c6db;
+			--linen-white: #e7e9d8;
+			--text-dark: #1a2e2c;
+			--text-light: #556b69;
+			--bg-light: #fbfbfa;
+			--bg-soft: #f2f4ec;
+			--white: #ffffff;
+		}
 
+		.page-hero {
+			position: relative;
+			padding: 160px 24px 100px;
+			text-align: center;
+			overflow: hidden;
+			min-height: 520px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #02322d;
+		}
+
+		/* Animated bg slides — same pattern as home page hero */
+		.page-hero-bg-slide {
+			position: absolute;
+			inset: 0;
+			background-size: cover;
+			background-position: center;
+			opacity: 0;
+			transform: scale(1.05);
+			z-index: 1;
+			animation: pageHeroCrossFade 18s infinite;
+		}
+		.page-hero-bg-slide:nth-child(1) { animation-delay: 0s; }
+		.page-hero-bg-slide:nth-child(2) { animation-delay: 6s; }
+		.page-hero-bg-slide:nth-child(3) { animation-delay: 12s; }
+
+		@keyframes pageHeroCrossFade {
+			0%   { opacity: 0; transform: scale(1.05); }
+			5%   { opacity: 1;  transform: scale(1);    }
+			33%  { opacity: 1;  transform: scale(1.06); }
+			38%  { opacity: 0;  transform: scale(1.08); }
+			100% { opacity: 0;  transform: scale(1.1);  }
+		}
+
+		/* Dark overlay on top of slides */
+		.page-hero::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(
+				165deg,
+				rgba(2, 50, 45, 0.82) 0%,
+				rgba(3, 105, 94, 0.65) 50%,
+				rgba(1, 30, 27, 0.88) 100%
+			);
+			z-index: 2;
+		}
+
+		.page-hero-content {
+			position: relative;
+			z-index: 3;
+			max-width: 720px;
+			margin: 0 auto;
+		}
+		.page-hero-tag {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			color: var(--spring-herb);
+			font-weight: 600;
+			font-size: 13px;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			margin-bottom: 20px;
+			background: rgba(109, 175, 95, 0.15);
+			border: 1px solid rgba(109, 175, 95, 0.3);
+			padding: 8px 20px;
+			border-radius: 30px;
+		}
+		.page-hero h1 {
+			font-size: 58px;
+			color: #fff;
+			margin-bottom: 18px;
+			line-height: 1.1;
+			text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+		}
+		.page-hero h1 span { color: var(--spring-herb); }
+		.page-hero p {
+			color: rgba(255,255,255,0.85);
+			font-size: 18px;
+			max-width: 580px;
+			margin: 0 auto 32px;
+			line-height: 1.7;
+		}
+		.hero-stats {
+			display: flex;
+			gap: 32px;
+			justify-content: center;
+			flex-wrap: wrap;
+			margin-top: 12px;
+		}
+		.hero-stat {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 4px;
+		}
+		.hero-stat strong {
+			font-family: 'Poppins', sans-serif;
+			font-size: 28px;
+			font-weight: 700;
+			color: #fff;
+		}
+		.hero-stat span {
+			font-size: 12px;
+			color: rgba(255,255,255,0.65);
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+		.hero-divider {
+			width: 1px;
+			height: 40px;
+			background: rgba(255,255,255,0.2);
+			align-self: center;
+		}
+		.hero-scroll-hint {
+			position: absolute;
+			bottom: 28px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 3;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 6px;
+			color: rgba(255,255,255,0.5);
+			font-size: 11px;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			animation: bounce 2s ease infinite;
+		}
+		.hero-scroll-hint i { font-size: 16px; }
+		@keyframes bounce {
+			0%, 100% { transform: translateX(-50%) translateY(0); }
+			50%       { transform: translateX(-50%) translateY(6px); }
+		}
+
+		.planning-section {
+			padding: 90px 24px;
+		}
+		.planning-section:nth-child(even) {
+			background: var(--bg-soft);
+		}
+		.section-inner {
+			max-width: 1280px;
+			margin: 0 auto;
+		}
+		.section-label {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			background: rgba(3,105,94,0.1);
+			color: var(--cool-jade);
+			font-size: 12px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			padding: 7px 18px;
+			border-radius: 30px;
+			margin-bottom: 16px;
+			border: 1px solid rgba(3,105,94,0.15);
+		}
+		.section-title {
+			font-family: 'Poppins', sans-serif;
+			font-size: 38px;
+			font-weight: 700;
+			color: var(--text-dark);
+			margin-bottom: 12px;
+			line-height: 1.2;
+		}
+		.section-subtitle {
+			color: var(--text-light);
+			font-size: 17px;
+			max-width: 560px;
+			margin-bottom: 48px;
+			line-height: 1.7;
+		}
+
+		.dest-selector-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 18px;
+		}
+		.dest-select-card {
+			position: relative;
+			border-radius: 18px;
+			overflow: hidden;
+			cursor: pointer;
+			height: 220px;
+			box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+			transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+		}
+		.dest-select-card:hover {
+			transform: translateY(-6px) scale(1.01);
+			box-shadow: 0 16px 40px rgba(3,105,94,0.25);
+		}
+		.dest-select-card img {
+			width: 100%; height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+		.dest-select-card:hover img { transform: scale(1.08); }
+		.dest-select-card .card-overlay {
+			position: absolute; inset: 0;
+			background: linear-gradient(to top, rgba(2,40,36,0.90) 0%, rgba(0,0,0,0.1) 55%);
+			display: flex; flex-direction: column;
+			justify-content: flex-end;
+			padding: 20px;
+			transition: background 0.3s;
+		}
+		.dest-select-card.active .card-overlay {
+			background: linear-gradient(to top, rgba(3,105,94,0.97) 0%, rgba(3,105,94,0.35) 60%);
+		}
+		.card-overlay h3 {
+			color: #fff;
+			font-size: 18px;
+			font-weight: 700;
+			margin-bottom: 3px;
+		}
+		.card-overlay p {
+			color: rgba(255,255,255,0.72);
+			font-size: 12px;
+			margin: 0;
+		}
+		.card-badge {
+			position: absolute;
+			top: 12px; left: 12px;
+			background: rgba(109,175,95,0.9);
+			color: #fff;
+			font-size: 10px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			padding: 3px 9px;
+			border-radius: 20px;
+			opacity: 0;
+			transform: translateY(-4px);
+			transition: all 0.25s;
+		}
+		.dest-select-card:hover .card-badge { opacity: 1; transform: translateY(0); }
+		.check-badge {
+			position: absolute;
+			top: 12px; right: 12px;
+			width: 30px; height: 30px;
+			background: var(--spring-herb);
+			border-radius: 50%;
+			display: flex; align-items: center; justify-content: center;
+			color: #fff;
+			font-size: 13px;
+			opacity: 0;
+			transform: scale(0.4) rotate(-90deg);
+			transition: opacity 0.3s, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+		}
+		.dest-select-card.active .check-badge {
+			opacity: 1;
+			transform: scale(1) rotate(0deg);
+		}
+
+		.plan-panel {
+			display: none;
+			animation: fadeUp 0.5s ease forwards;
+		}
+		.plan-panel.visible { display: block; }
+		@keyframes fadeUp {
+			from { opacity: 0; transform: translateY(28px); }
+			to   { opacity: 1; transform: translateY(0); }
+		}
+
+		.plan-header {
+			display: flex;
+			align-items: center;
+			gap: 28px;
+			margin-bottom: 36px;
+			padding-bottom: 28px;
+			border-bottom: 2px solid var(--linen-white);
+			flex-wrap: wrap;
+		}
+		.plan-hero-img {
+			width: 130px; height: 95px;
+			border-radius: 14px;
+			object-fit: cover;
+			flex-shrink: 0;
+			box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+		}
+		.plan-header-info h2 {
+			font-size: 32px;
+			color: var(--cool-jade);
+			margin-bottom: 6px;
+		}
+		.plan-header-info p { color: var(--text-light); font-size: 15px; margin: 0 0 10px; }
+		.plan-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+		.plan-tag {
+			background: var(--bg-soft);
+			color: var(--cool-jade);
+			font-size: 12px;
+			font-weight: 600;
+			padding: 5px 13px;
+			border-radius: 20px;
+			border: 1px solid rgba(3,105,94,0.15);
+		}
+
+		/* Tabs */
+		.plan-tabs {
+			display: flex;
+			gap: 10px;
+			margin-bottom: 32px;
+			flex-wrap: wrap;
+		}
+		.plan-tab-btn {
+			padding: 10px 24px;
+			border-radius: 30px;
+			border: 2px solid #dde8e6;
+			background: transparent;
+			color: var(--text-light);
+			font-family: 'Poppins', sans-serif;
+			font-size: 14px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.25s ease;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+		.plan-tab-btn:hover { border-color: var(--cool-jade); color: var(--cool-jade); background: rgba(3,105,94,0.04); }
+		.plan-tab-btn.active {
+			background: var(--cool-jade);
+			border-color: var(--cool-jade);
+			color: #fff;
+			box-shadow: 0 4px 16px rgba(3,105,94,0.3);
+		}
+
+		/* Tab content */
+		.tab-content { display: none; }
+		.tab-content.active { display: block; animation: fadeUp 0.4s ease; }
+
+		/* Day cards */
+		.days-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+			gap: 20px;
+		}
+		.day-card {
+			background: #fff;
+			border-radius: 18px;
+			box-shadow: 0 4px 18px rgba(3,105,94,0.08);
+			overflow: hidden;
+			transition: box-shadow 0.3s ease, transform 0.3s ease;
+		}
+		.day-card:hover {
+			box-shadow: 0 12px 36px rgba(3,105,94,0.16);
+			transform: translateY(-2px);
+		}
+		.day-card-head {
+			background: linear-gradient(135deg, var(--cool-jade), #027a6c);
+			padding: 18px 20px;
+			display: flex;
+			align-items: center;
+			gap: 14px;
+		}
+		.day-number {
+			width: 44px; height: 44px;
+			background: rgba(255,255,255,0.2);
+			border-radius: 50%;
+			display: flex; align-items: center; justify-content: center;
+			color: #fff;
+			font-family: 'Poppins', sans-serif;
+			font-weight: 700;
+			font-size: 14px;
+			flex-shrink: 0;
+		}
+		.day-card-head h4 { color: #fff; font-size: 16px; margin: 0 0 2px; }
+		.day-card-head span { color: rgba(255,255,255,0.65); font-size: 12px; }
+		.day-card-body { padding: 20px; }
+		.activity-list { list-style: none; margin: 0; padding: 0; }
+		.activity-list li {
+			display: flex;
+			align-items: flex-start;
+			gap: 12px;
+			padding: 10px 0;
+			border-bottom: 1px dashed #e8eeec;
+			font-size: 14px;
+			color: var(--text-dark);
+			line-height: 1.5;
+		}
+		.activity-list li:last-child { border-bottom: none; }
+		.time {
+			background: var(--bg-soft);
+			color: var(--cool-jade);
+			font-weight: 600;
+			font-size: 11px;
+			padding: 3px 8px;
+			border-radius: 6px;
+			white-space: nowrap;
+			margin-top: 2px;
+			flex-shrink: 0;
+		}
+		.act-icon {
+			color: var(--spring-herb);
+			font-size: 14px;
+			margin-top: 3px;
+			flex-shrink: 0;
+		}
+
+		/* Luggage */
+		.luggage-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+			gap: 18px;
+		}
+		.luggage-card {
+			background: #fff;
+			border-radius: 16px;
+			padding: 24px;
+			box-shadow: 0 4px 14px rgba(3,105,94,0.07);
+			border-top: 4px solid var(--cool-jade);
+			transition: box-shadow 0.3s, transform 0.3s;
+		}
+		.luggage-card:hover {
+			box-shadow: 0 10px 30px rgba(3,105,94,0.13);
+			transform: translateY(-2px);
+		}
+		.luggage-card h4 {
+			font-size: 15px;
+			color: var(--cool-jade);
+			margin-bottom: 14px;
+			display: flex;
+			align-items: center;
+			gap: 9px;
+		}
+		.luggage-items { list-style: none; padding: 0; margin: 0; }
+		.luggage-items li {
+			font-size: 13.5px;
+			color: var(--text-dark);
+			padding: 7px 0;
+			border-bottom: 1px solid #f0f4f2;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+		.luggage-items li:last-child { border-bottom: none; }
+		.luggage-items li::before {
+			content: "✓";
+			color: var(--spring-herb);
+			font-weight: 700;
+			font-size: 12px;
+			flex-shrink: 0;
+		}
+
+		/* Tips */
+		.tips-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+			gap: 18px;
+		}
+		.tip-card {
+			background: #fff;
+			border-radius: 16px;
+			padding: 24px;
+			box-shadow: 0 4px 14px rgba(3,105,94,0.07);
+			display: flex;
+			gap: 18px;
+			align-items: flex-start;
+			transition: box-shadow 0.3s, transform 0.3s;
+		}
+		.tip-card:hover {
+			box-shadow: 0 10px 30px rgba(3,105,94,0.13);
+			transform: translateY(-2px);
+		}
+		.tip-icon {
+			width: 46px; height: 46px;
+			background: linear-gradient(135deg, rgba(3,105,94,0.1), rgba(3,105,94,0.05));
+			border-radius: 14px;
+			display: flex; align-items: center; justify-content: center;
+			color: var(--cool-jade);
+			font-size: 18px;
+			flex-shrink: 0;
+		}
+		.tip-card h4 { font-size: 15px; color: var(--text-dark); margin-bottom: 6px; }
+		.tip-card p { font-size: 13.5px; color: var(--text-light); margin: 0; line-height: 1.65; }
+
+		/* Best Time Banner */
+		.best-time-banner {
+			background: linear-gradient(135deg, var(--cool-jade) 0%, #027a6c 60%, #014e45 100%);
+			border-radius: 18px;
+			padding: 30px 36px;
+			color: #fff;
+			display: flex;
+			align-items: flex-start;
+			gap: 24px;
+			margin-bottom: 36px;
+			flex-wrap: wrap;
+			box-shadow: 0 8px 30px rgba(3,105,94,0.25);
+			position: relative;
+			overflow: hidden;
+		}
+		.best-time-banner::before {
+			content: '';
+			position: absolute;
+			top: -30px; right: -30px;
+			width: 160px; height: 160px;
+			background: rgba(255,255,255,0.05);
+			border-radius: 50%;
+		}
+		.best-time-banner i { font-size: 38px; color: var(--spring-herb); flex-shrink: 0; margin-top: 2px; }
+		.best-time-banner h4 { font-size: 18px; margin-bottom: 6px; }
+		.best-time-banner p { font-size: 14px; color: rgba(255,255,255,0.78); margin: 0; line-height: 1.6; }
+		.season-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+		.season-badge {
+			background: rgba(255,255,255,0.15);
+			border: 1px solid rgba(255,255,255,0.2);
+			padding: 5px 14px;
+			border-radius: 20px;
+			font-size: 12px;
+			font-weight: 600;
+		}
+
+		.empty-state {
+			text-align: center;
+			padding: 80px 20px;
+			color: var(--text-light);
+		}
+		.empty-state-icon {
+			width: 100px; height: 100px;
+			background: var(--bg-soft);
+			border-radius: 50%;
+			display: flex; align-items: center; justify-content: center;
+			margin: 0 auto 24px;
+			border: 2px dashed #c9ddd9;
+		}
+		.empty-state-icon i { font-size: 42px; color: #b0cbc6; }
+		.empty-state h3 { font-size: 24px; color: var(--text-dark); margin-bottom: 10px; }
+		.empty-state p { font-size: 16px; max-width: 380px; margin: 0 auto; }
+
+		.how-section {
+			background: var(--cool-jade);
+			padding: 70px 24px;
+		}
+		.how-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 32px;
+			max-width: 960px;
+			margin: 0 auto;
+		}
+		.how-step {
+			text-align: center;
+			color: #fff;
+		}
+		.how-step-num {
+			width: 56px; height: 56px;
+			border-radius: 50%;
+			background: rgba(255,255,255,0.15);
+			border: 2px solid rgba(255,255,255,0.3);
+			display: flex; align-items: center; justify-content: center;
+			font-family: 'Poppins', sans-serif;
+			font-size: 22px;
+			font-weight: 700;
+			margin: 0 auto 16px;
+		}
+		.how-step h4 { font-size: 16px; margin-bottom: 8px; }
+		.how-step p { font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.6; }
+		.how-arrow {
+			display: none;
+		}
+
+		@media (max-width: 1100px) {
+			.dest-selector-grid { grid-template-columns: repeat(4, 1fr); }
+		}
+		@media (max-width: 900px) {
+			.dest-selector-grid { grid-template-columns: repeat(3, 1fr); }
+			.how-grid { grid-template-columns: 1fr; max-width: 420px; }
+		}
+		@media (max-width: 640px) {
+			.dest-selector-grid { grid-template-columns: repeat(2, 1fr); }
+			.dest-select-card { height: 170px; }
+			.page-hero h1 { font-size: 36px; }
+			.section-title { font-size: 28px; }
+			.days-grid { grid-template-columns: 1fr; }
+			.plan-header { flex-direction: column; align-items: flex-start; }
+			.plan-hero-img { width: 100%; height: 170px; }
+			.hero-divider { display: none; }
+		}
+	</style>
+</head>
+<body>
+
+	<header id="header">
+		<nav>
+			<a href="index.html" class="logo">
+				<i class="fa-solid fa-leaf"></i> Wander KH
+			</a>
+			<button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+				<i class="fa-solid fa-bars"></i>
+			</button>
+			<ul class="nav-links" id="navLinks">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="discover.html">Discover</a></li>
+				<li><a href="destinations.html">Destinations</a></li>
+				<li><a href="planning.html" class="active">Trip Planner</a></li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+
+		<section class="page-hero">
+			<div class="page-hero-bg-slide" style="background-image: url('images/AngkorWat.jpg');"></div>
+			<div class="page-hero-bg-slide" style="background-image: url('images/kampot.jpg');"></div>
+			<div class="page-hero-bg-slide" style="background-image: url('images/mondulkiri.jpg');"></div>
+			<div class="page-hero-content">
+				<span class="page-hero-tag">
+					<i class="fa-solid fa-map"></i>
+					Plan Your Journey
+				</span>
+				<h1>Cambodia <span>Trip</span> Planner</h1>
+				<p>Choose a destination and get a complete travel plan — day-by-day itinerary, packing list, local tips, and the best times to visit.</p>
+			</div>
+			<div class="hero-scroll-hint">
+				<span>Explore</span>
+				<i class="fa-solid fa-chevron-down"></i>
+			</div>
+		</section>
+
+		<section class="how-section">
+			<div class="section-inner">
+				<div class="how-grid">
+					<div class="how-step">
+						<div class="how-step-num">1</div>
+						<h4>Pick a Destination</h4>
+						<p>Browse Cambodia's iconic places below and click any card to select it.</p>
+					</div>
+					<div class="how-step">
+						<div class="how-step-num">2</div>
+						<h4>View Your Plan</h4>
+						<p>A full travel plan appears with itinerary, packing list, and local tips.</p>
+					</div>
+					<div class="how-step">
+						<div class="how-step-num">3</div>
+						<h4>Go & Explore</h4>
+						<p>Follow the plan at your own pace and discover the Kingdom of Wonder.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ======================== -->
+		<!-- DESTINATION SELECTOR     -->
+		<!-- ======================== -->
+		<section class="planning-section">
+			<div class="section-inner">
+				<span class="section-label"><i class="fa-solid fa-compass"></i>&nbsp;Step 1</span>
+				<h2 class="section-title">Pick Your Destination</h2>
+				<p class="section-subtitle">Select one of Cambodia's iconic places to reveal its complete travel plan.</p>
+
+				<div class="dest-selector-grid">
+
+					<!-- Siem Reap -->
+					<div class="dest-select-card" data-dest="siem-reap" onclick="selectDest(this)">
+						<img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80" alt="Siem Reap" onerror="this.src='https://images.unsplash.com/photo-1599421498111-9b49d12e8a9e?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Siem Reap</h3>
+							<p>Temple Capital &nbsp;·&nbsp; 3–4 days</p>
+						</div>
+						<div class="card-badge">Popular</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Phnom Penh -->
+					<div class="dest-select-card" data-dest="phnom-penh" onclick="selectDest(this)">
+						<img src="images/phnom-penh.jpg" alt="Phnom Penh" onerror="this.src='https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Phnom Penh</h3>
+							<p>Capital City &nbsp;·&nbsp; 2–3 days</p>
+						</div>
+						<div class="card-badge">Must-See</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Koh Rong -->
+					<div class="dest-select-card" data-dest="koh-rong" onclick="selectDest(this)">
+						<img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Koh Rong" onerror="this.src='https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Koh Rong</h3>
+							<p>Island Paradise &nbsp;·&nbsp; 3–5 days</p>
+						</div>
+						<div class="card-badge">Beach</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Kampot -->
+					<div class="dest-select-card" data-dest="kampot" onclick="selectDest(this)">
+						<img src="images/kampot.jpg" alt="Kampot" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Kampot</h3>
+							<p>River Town &nbsp;·&nbsp; 2–3 days</p>
+						</div>
+						<div class="card-badge">Relaxed</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Mondulkiri -->
+					<div class="dest-select-card" data-dest="mondulkiri" onclick="selectDest(this)">
+						<img src="images/mondulkiri.jpg" alt="Mondulkiri" onerror="this.src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Mondulkiri</h3>
+							<p>Highlands &nbsp;·&nbsp; 3–4 days</p>
+						</div>
+						<div class="card-badge">Wildlife</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Battambang -->
+					<div class="dest-select-card" data-dest="battambang" onclick="selectDest(this)">
+						<img src="images/battambang.jpg" alt="Battambang" onerror="this.src='https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Battambang</h3>
+							<p>Arts & Heritage &nbsp;·&nbsp; 2–3 days</p>
+						</div>
+						<div class="card-badge">Culture</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Kratie -->
+					<div class="dest-select-card" data-dest="kratie" onclick="selectDest(this)">
+						<img src="images/kratie.jpg" alt="Kratie" onerror="this.src='https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Kratie</h3>
+							<p>Dolphin River &nbsp;·&nbsp; 2 days</p>
+						</div>
+						<div class="card-badge">Nature</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Kep — NEW -->
+					<div class="dest-select-card" data-dest="kep" onclick="selectDest(this)">
+						<img src="images/kep.jpg" alt="Kep" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Kep</h3>
+							<p>Crab Coast &nbsp;·&nbsp; 1–2 days</p>
+						</div>
+						<div class="card-badge">Seafood</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Sihanoukville — NEW -->
+					<div class="dest-select-card" data-dest="sihanoukville" onclick="selectDest(this)">
+						<img src="images/sihanoukville.jpg" alt="Sihanoukville" onerror="this.src='https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Sihanoukville</h3>
+							<p>Coastal Hub &nbsp;·&nbsp; 1–2 days</p>
+						</div>
+						<div class="card-badge">Gateway</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Banlung — NEW -->
+					<div class="dest-select-card" data-dest="banlung" onclick="selectDest(this)">
+						<img src="images/banlung.jpg" alt="Banlung" onerror="this.src='https://images.unsplash.com/photo-1542401886-65d6c61db217?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Banlung</h3>
+							<p>Ratanakiri Jungle &nbsp;·&nbsp; 3–4 days</p>
+						</div>
+						<div class="card-badge">Adventure</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Koh Kong — NEW -->
+					<div class="dest-select-card" data-dest="koh-kong" onclick="selectDest(this)">
+						<img src="images/KohKongBeach.jpg" alt="Koh Kong" onerror="this.src='https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Koh Kong</h3>
+							<p>Cardamom Wilderness &nbsp;·&nbsp; 2–3 days</p>
+						</div>
+						<div class="card-badge">Eco</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Kampong Thom — NEW -->
+					<div class="dest-select-card" data-dest="kampong-thom" onclick="selectDest(this)">
+						<img src="images/kampong-thom.jpg" alt="Kampong Thom" onerror="this.src='https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Kampong Thom</h3>
+							<p>Pre-Angkor Temples &nbsp;·&nbsp; 2–3 days</p>
+						</div>
+						<div class="card-badge">History</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+					<!-- Preah Vihear — NEW -->
+					<div class="dest-select-card" data-dest="preah-vihear" onclick="selectDest(this)">
+						<img src="images/preah-vihear.jpg" alt="Preah Vihear" onerror="this.src='https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=600&q=80'">
+						<div class="card-overlay">
+							<h3>Preah Vihear</h3>
+							<p>Cliff-top Temple &nbsp;·&nbsp; 1–2 days</p>
+						</div>
+						<div class="card-badge">UNESCO</div>
+						<div class="check-badge"><i class="fa-solid fa-check"></i></div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- ======================== -->
+		<!-- PLAN DISPLAY             -->
+		<!-- ======================== -->
+		<section class="planning-section" id="plan-section">
+			<div class="section-inner">
+
+				<!-- Empty state -->
+				<div class="empty-state" id="empty-state">
+					<div class="empty-state-icon">
+						<i class="fa-regular fa-map"></i>
+					</div>
+					<h3>No destination selected yet</h3>
+					<p>Click any destination card above to reveal its full travel plan!</p>
+				</div>
+
+				<!-- ============ SIEM REAP ============ -->
+				<div class="plan-panel" id="plan-siem-reap">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=400&q=80" alt="Siem Reap" onerror="this.src='images/AngkorWat.jpg'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-gopuram"></i> &nbsp;Siem Reap</h2>
+							<p>The gateway to the ancient Khmer empire — temples, night markets, and floating villages await.</p>
+							<div class="plan-tags">
+								<span class="plan-tag">🏛️ Cultural</span>
+								<span class="plan-tag">📸 Photography</span>
+								<span class="plan-tag">🌄 Sunrise Views</span>
+								<span class="plan-tag">3–4 Days Recommended</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="best-time-banner">
+						<i class="fa-solid fa-sun"></i>
+						<div>
+							<h4>Best Time to Visit Siem Reap</h4>
+							<p>November to April is the dry season — ideal for temple exploration. Avoid midday heat by starting at sunrise.</p>
+							<div class="season-badges">
+								<span class="season-badge">🌤 Nov – Feb (Cool & Dry)</span>
+								<span class="season-badge">☀️ Mar – Apr (Hot)</span>
+								<span class="season-badge">🌧 May – Oct (Wet Season)</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'sr-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'sr-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'sr-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+
+					<div class="tab-content active" id="sr-itinerary">
+						<div class="days-grid">
+							<div class="day-card">
+								<div class="day-card-head"><div class="day-number">D1</div><div><h4>Angkor at Sunrise</h4><span>Temple Marathon</span></div></div>
+								<div class="day-card-body"><ul class="activity-list">
+									<li><span class="time">5:00 AM</span><i class="fa-solid fa-camera act-icon"></i>Catch sunrise at Angkor Wat reflecting pool</li>
+									<li><span class="time">8:00 AM</span><i class="fa-solid fa-utensils act-icon"></i>Breakfast at a local café near the main gate</li>
+									<li><span class="time">9:30 AM</span><i class="fa-solid fa-shoe-prints act-icon"></i>Explore Angkor Wat interior galleries & bas-reliefs</li>
+									<li><span class="time">12:00 PM</span><i class="fa-solid fa-sun act-icon"></i>Rest — avoid midday heat (hotel or café)</li>
+									<li><span class="time">3:00 PM</span><i class="fa-solid fa-tree act-icon"></i>Ta Prohm — jungle temple with ancient tree roots</li>
+									<li><span class="time">5:30 PM</span><i class="fa-solid fa-mountain-sun act-icon"></i>Sunset from Phnom Bakheng hill viewpoint</li>
+									<li><span class="time">8:00 PM</span><i class="fa-solid fa-star act-icon"></i>Pub Street night market & Khmer BBQ dinner</li>
+								</ul></div>
+							</div>
+							<div class="day-card">
+								<div class="day-card-head"><div class="day-number">D2</div><div><h4>Angkor Thom & Beyond</h4><span>Hidden Gems</span></div></div>
+								<div class="day-card-body"><ul class="activity-list">
+									<li><span class="time">6:30 AM</span><i class="fa-solid fa-face-smile act-icon"></i>Bayon Temple — 216 serene stone faces</li>
+									<li><span class="time">9:00 AM</span><i class="fa-solid fa-archway act-icon"></i>Elephant Terrace & the Royal Palace ruins</li>
+									<li><span class="time">11:00 AM</span><i class="fa-solid fa-water act-icon"></i>Neak Pean — island temple & peaceful walk</li>
+									<li><span class="time">1:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Lunch: amok fish curry at a riverside restaurant</li>
+									<li><span class="time">3:00 PM</span><i class="fa-solid fa-hands-praying act-icon"></i>Banteay Srei — pink sandstone "jewel of Khmer art"</li>
+									<li><span class="time">6:00 PM</span><i class="fa-solid fa-masks-theater act-icon"></i>Apsara dance cultural dinner show</li>
+								</ul></div>
+							</div>
+							<div class="day-card">
+								<div class="day-card-head"><div class="day-number">D3</div><div><h4>Village & Water Life</h4><span>Local Culture</span></div></div>
+								<div class="day-card-body"><ul class="activity-list">
+									<li><span class="time">8:00 AM</span><i class="fa-solid fa-person-biking act-icon"></i>Rent a bicycle, ride through rice paddies</li>
+									<li><span class="time">10:00 AM</span><i class="fa-solid fa-shop act-icon"></i>Artisans Angkor workshop — silk weaving & silver</li>
+									<li><span class="time">12:30 PM</span><i class="fa-solid fa-utensils act-icon"></i>Cooking class: make your own Khmer dishes</li>
+									<li><span class="time">3:00 PM</span><i class="fa-solid fa-sailboat act-icon"></i>Boat tour on Tonlé Sap Lake floating village</li>
+									<li><span class="time">6:30 PM</span><i class="fa-solid fa-spa act-icon"></i>Traditional Khmer massage & reflexology</li>
+									<li><span class="time">8:00 PM</span><i class="fa-solid fa-music act-icon"></i>Farewell dinner at Shadow of Angkor restaurant</li>
+								</ul></div>
+							</div>
+						</div>
+					</div>
+
+					
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D4</div><div><h4>Outer Temples Circuit</h4><span>Hidden Wonders</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">7:00 AM</span><i class="fa-solid fa-gopuram act-icon"></i>Beng Mealea — atmospheric jungle-covered temple (60 km)</li>
+							<li><span class="time">9:30 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Explore collapsed galleries & hidden courtyards</li>
+							<li><span class="time">12:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Countryside lunch at a local family restaurant</li>
+							<li><span class="time">2:00 PM</span><i class="fa-solid fa-gopuram act-icon"></i>Banteay Samre — underrated moated temple</li>
+							<li><span class="time">4:30 PM</span><i class="fa-solid fa-water act-icon"></i>Pre Rup — evening views over the plains</li>
+							<li><span class="time">7:30 PM</span><i class="fa-solid fa-utensils act-icon"></i>Dinner at a riverside garden restaurant in Siem Reap</li>
+						</ul></div>
+					</div>
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D5</div><div><h4>Phnom Kulen & Relax</h4><span>Sacred Mountain</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">7:30 AM</span><i class="fa-solid fa-mountain act-icon"></i>Drive to Phnom Kulen National Park (50 km)</li>
+							<li><span class="time">9:30 AM</span><i class="fa-solid fa-fish act-icon"></i>River of a Thousand Lingas — sacred carvings in riverbed</li>
+							<li><span class="time">11:00 AM</span><i class="fa-solid fa-person-swimming act-icon"></i>Swim at Phnom Kulen waterfall</li>
+							<li><span class="time">1:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Picnic & lunch near the falls</li>
+							<li><span class="time">3:00 PM</span><i class="fa-solid fa-spa act-icon"></i>Giant reclining Buddha at the mountain summit</li>
+							<li><span class="time">5:30 PM</span><i class="fa-solid fa-shopping-bag act-icon"></i>Last souvenir shopping at Old Market (Phsar Chas)</li>
+							<li><span class="time">8:00 PM</span><i class="fa-solid fa-champagne-glasses act-icon"></i>Farewell cocktail at a Pub Street rooftop bar</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+
+					<div class="tab-content" id="sr-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Lightweight long pants (temple dress code)</li><li>Modest tops covering shoulders</li><li>Breathable t-shirts & shorts</li><li>Comfortable walking sandals</li><li>Sturdy sneakers or trekking shoes</li><li>Light rain jacket (wet season)</li><li>Shawl / scarf for temple visits</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-kit-medical"></i> Health & Safety</h4><ul class="luggage-items"><li>SPF 50+ sunscreen (essential!)</li><li>DEET insect repellent</li><li>Oral rehydration salts</li><li>Antihistamines & diarrhea meds</li><li>Basic first aid kit</li><li>Water purification tablets</li><li>Hand sanitizer</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-camera"></i> Gear & Tech</h4><ul class="luggage-items"><li>Camera + extra memory cards</li><li>Power bank (10,000 mAh+)</li><li>Universal travel adapter</li><li>Headlamp / torch</li><li>Lightweight daypack</li><li>Offline map downloaded</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-wallet"></i> Money & Documents</h4><ul class="luggage-items"><li>USD cash (widely accepted)</li><li>Angkor Pass (1/3/7-day options)</li><li>Passport + photocopies</li><li>Travel insurance card</li><li>Vaccination records</li><li>Emergency contact card</li></ul></div>
+						</div>
+					</div>
+
+					<div class="tab-content" id="sr-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-clock"></i></div><div><h4>Go at Sunrise</h4><p>Beat the crowds and heat. Angkor Wat at 5:30 AM is magical — the reflection pool glows orange and you'll have it nearly to yourself.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-person-dress"></i></div><div><h4>Dress Respectfully</h4><p>Covered knees and shoulders are required at all temples. Keep a sarong in your bag — guards enforce the rule strictly at Angkor Wat.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-motorcycle"></i></div><div><h4>Hire a Tuk-tuk Driver</h4><p>Negotiate a full-day tuk-tuk for $15–20 USD. Your driver becomes a guide, knows the best routes, and waits while you explore.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-droplet"></i></div><div><h4>Stay Hydrated</h4><p>Cambodia heat is serious. Carry at least 2L of water. Coconut water sold near temples is refreshing and cheap ($0.50–1).</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-dollar-sign"></i></div><div><h4>Use USD & Small Bills</h4><p>USD is king. Carry $1–5 bills for tuk-tuks, food stalls and tips. Riel change is given for amounts under $1.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-ban"></i></div><div><h4>Avoid Scams</h4><p>Buy your Angkor Pass only at the official ticket office. Beware of "free tours" that lead to souvenir shops.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ PHNOM PENH ============ -->
+				<div class="plan-panel" id="plan-phnom-penh">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/phnom-penh.jpg" alt="Phnom Penh" onerror="this.src='https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-city"></i> &nbsp;Phnom Penh</h2>
+							<p>A vibrant capital where history, culture, and modernity collide along the Mekong and Tonlé Sap rivers.</p>
+							<div class="plan-tags"><span class="plan-tag">🏯 History</span><span class="plan-tag">🍜 Street Food</span><span class="plan-tag">🚤 River Life</span><span class="plan-tag">2–3 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-cloud-sun"></i>
+						<div>
+							<h4>Best Time to Visit Phnom Penh</h4>
+							<p>Year-round destination. November–January is the most comfortable season. The Water Festival (Bon Om Touk) in November is unmissable.</p>
+							<div class="season-badges"><span class="season-badge">🌤 Nov – Jan (Best)</span><span class="season-badge">☀️ Feb – Apr (Hot)</span><span class="season-badge">🌧 May – Oct (Rainy)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'pp-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'pp-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'pp-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="pp-itinerary">
+						<div class="days-grid">
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D1</div><div><h4>History & Heritage</h4><span>Royal & Sobering History</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">8:00 AM</span><i class="fa-solid fa-crown act-icon"></i>Royal Palace & Silver Pagoda morning visit</li><li><span class="time">10:30 AM</span><i class="fa-solid fa-landmark act-icon"></i>National Museum of Cambodia — Khmer sculptures</li><li><span class="time">12:30 PM</span><i class="fa-solid fa-utensils act-icon"></i>Lunch at FCC riverside</li><li><span class="time">2:30 PM</span><i class="fa-solid fa-cross act-icon"></i>Tuol Sleng Genocide Museum (S-21 Prison)</li><li><span class="time">4:30 PM</span><i class="fa-solid fa-person-walking act-icon"></i>Choeung Ek Killing Fields memorial</li><li><span class="time">7:00 PM</span><i class="fa-solid fa-sailboat act-icon"></i>Sunset cruise on Mekong & Tonlé Sap confluence</li></ul></div></div>
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D2</div><div><h4>Markets & City Life</h4><span>Local Experience</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">7:00 AM</span><i class="fa-solid fa-egg act-icon"></i>Breakfast: Khmer noodle soup (kuyteav) at Kandal Market</li><li><span class="time">9:00 AM</span><i class="fa-solid fa-store act-icon"></i>Central Market — Art Deco dome & shopping</li><li><span class="time">11:00 AM</span><i class="fa-solid fa-person-biking act-icon"></i>Cycling tour along Sisowath Quay</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Street food lunch: lok lak beef & baguettes</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-palette act-icon"></i>Bophana Audiovisual Resource Center</li><li><span class="time">5:00 PM</span><i class="fa-solid fa-shopping-bag act-icon"></i>Russian Market — handicrafts & gems</li><li><span class="time">8:00 PM</span><i class="fa-solid fa-champagne-glasses act-icon"></i>Rooftop cocktails at Eclipse Sky Bar</li></ul></div></div>
+						
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D3</div><div><h4>Riverfront & Modern PP</h4><span>Contemporary City</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">7:30 AM</span><i class="fa-solid fa-coffee act-icon"></i>Morning jog or walk along Sisowath Quay waterfront</li>
+							<li><span class="time">9:00 AM</span><i class="fa-solid fa-gopuram act-icon"></i>Wat Phnom — hilltop pagoda and city park</li>
+							<li><span class="time">11:00 AM</span><i class="fa-solid fa-palette act-icon"></i>Meta House gallery — contemporary Khmer art</li>
+							<li><span class="time">12:30 PM</span><i class="fa-solid fa-utensils act-icon"></i>Trendy lunch at Friends Restaurant (social enterprise)</li>
+							<li><span class="time">2:30 PM</span><i class="fa-solid fa-store act-icon"></i>BKK1 neighborhood — boutiques, cafés & art spaces</li>
+							<li><span class="time">4:30 PM</span><i class="fa-solid fa-sailboat act-icon"></i>Second sunset boat cruise on Mekong confluence</li>
+							<li><span class="time">7:00 PM</span><i class="fa-solid fa-champagne-glasses act-icon"></i>Farewell dinner — fine dining at Embassy Restaurant</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+					<div class="tab-content" id="pp-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Lightweight breathable clothes</li><li>Smart casual for nicer restaurants</li><li>Comfortable walking shoes</li><li>Modest clothing for pagodas</li><li>Light jacket for AC restaurants</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-kit-medical"></i> Health</h4><ul class="luggage-items"><li>Sunscreen & lip balm</li><li>Insect repellent</li><li>Stomach medication</li><li>Rehydration sachets</li><li>N95 mask (air quality)</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-camera"></i> Gear</h4><ul class="luggage-items"><li>Camera with good low-light</li><li>Power bank</li><li>Grab app installed (taxis)</li><li>Small crossbody bag (anti-theft)</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-wallet"></i> Documents</h4><ul class="luggage-items"><li>USD cash & ATM card</li><li>Passport copy</li><li>Travel insurance</li><li>Hotel address in Khmer script</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="pp-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-motorcycle"></i></div><div><h4>Use Grab or PassApp</h4><p>Grab and PassApp are the safest way to get around. Cheaper than tuk-tuks for longer rides and prices are fixed — no negotiation stress.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-face-sad-tear"></i></div><div><h4>Prepare Emotionally</h4><p>Tuol Sleng and Choeung Ek are deeply affecting. Allow time to reflect. Guided tours provide crucial historical context.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-moon"></i></div><div><h4>Evenings on the Riverfront</h4><p>Sisowath Quay at night is magical. Street food vendors, bars, and the glow on the river make it the best free activity in the city.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-shield"></i></div><div><h4>Watch Your Belongings</h4><p>Bag snatching from motorbikes occurs. Keep bags on your inside shoulder, away from the road. Don't flash expensive items.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ KOH RONG ============ -->
+				<div class="plan-panel" id="plan-koh-rong">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" alt="Koh Rong" onerror="this.src='images/koh-rong.jpg'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-umbrella-beach"></i> &nbsp;Koh Rong</h2>
+							<p>Cambodia's tropical island gem — turquoise waters, bioluminescent plankton, and pure beach bliss.</p>
+							<div class="plan-tags"><span class="plan-tag">🏖️ Beach</span><span class="plan-tag">🤿 Diving</span><span class="plan-tag">✨ Bioluminescence</span><span class="plan-tag">3–5 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-water"></i>
+						<div>
+							<h4>Best Time to Visit Koh Rong</h4>
+							<p>November to May offers calm seas and sunny skies. Ferries can be cancelled during heavy monsoon season.</p>
+							<div class="season-badges"><span class="season-badge">🌞 Nov – May (Ideal)</span><span class="season-badge">🌊 Jun – Oct (Monsoon — rough seas)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'kr-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kr-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kr-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="kr-itinerary">
+						<div class="days-grid">
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D1</div><div><h4>Arrival & Beach Day</h4><span>Settle In</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">Morning</span><i class="fa-solid fa-ship act-icon"></i>Ferry from Sihanoukville (1.5 hrs)</li><li><span class="time">Noon</span><i class="fa-solid fa-bed act-icon"></i>Check in, drop bags, change into swimwear</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-umbrella-beach act-icon"></i>Long Set Beach — swim & relax</li><li><span class="time">4:00 PM</span><i class="fa-solid fa-person-swimming act-icon"></i>Snorkeling near the pier</li><li><span class="time">7:00 PM</span><i class="fa-solid fa-fire act-icon"></i>Beach bonfire & BBQ seafood dinner</li><li><span class="time">9:30 PM</span><i class="fa-solid fa-star act-icon"></i>Night swim — watch bioluminescent plankton glow!</li></ul></div></div>
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D2</div><div><h4>Jungle Trek & Diving</h4><span>Adventure Day</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">7:30 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Jungle hike to Lonely Beach (1.5 hr trail)</li><li><span class="time">10:00 AM</span><i class="fa-solid fa-fish act-icon"></i>Snorkel or dive at coral reef site</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-bowl-food act-icon"></i>Fresh catch lunch at a beach shack</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-water act-icon"></i>Kayaking around the island's coves</li><li><span class="time">6:00 PM</span><i class="fa-solid fa-sun act-icon"></i>Sunset from the western beach point</li><li><span class="time">8:00 PM</span><i class="fa-solid fa-music act-icon"></i>Beachside bar — hammock & cocktails</li></ul></div></div>
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D3</div><div><h4>Island Hopping</h4><span>Explore & Unwind</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">9:00 AM</span><i class="fa-solid fa-sailboat act-icon"></i>Boat trip to Koh Rong Sanloem island</li><li><span class="time">11:00 AM</span><i class="fa-solid fa-water act-icon"></i>Swim at Saracen Bay — crystal clear water</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-shrimp act-icon"></i>Seafood BBQ lunch on the beach</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-face-smile act-icon"></i>Lazy afternoon — hammock & book</li><li><span class="time">5:30 PM</span><i class="fa-solid fa-ship act-icon"></i>Return ferry to Koh Rong</li><li><span class="time">8:00 PM</span><i class="fa-solid fa-star act-icon"></i>Stargazing on the beach — zero light pollution</li></ul></div></div>
+						
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D4</div><div><h4>Deep Dive & Coral</h4><span>Under the Sea</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">8:00 AM</span><i class="fa-solid fa-fish act-icon"></i>PADI discover scuba diving session (beginner-friendly)</li>
+							<li><span class="time">11:00 AM</span><i class="fa-solid fa-water act-icon"></i>Coral reef snorkeling — spot sea turtles</li>
+							<li><span class="time">1:00 PM</span><i class="fa-solid fa-shrimp act-icon"></i>Fresh catch BBQ on the beach</li>
+							<li><span class="time">3:00 PM</span><i class="fa-solid fa-person-swimming act-icon"></i>Village Beach — the quieter, local side of the island</li>
+							<li><span class="time">6:00 PM</span><i class="fa-solid fa-sun act-icon"></i>Golden hour swim — the water glows in the light</li>
+							<li><span class="time">9:00 PM</span><i class="fa-solid fa-star act-icon"></i>Bioluminescent night swim — the best yet!</li>
+						</ul></div>
+					</div>
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D5</div><div><h4>Departure Day</h4><span>Final Island Morning</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">6:00 AM</span><i class="fa-solid fa-camera act-icon"></i>Sunrise at the pier — breathtaking colors over the sea</li>
+							<li><span class="time">8:00 AM</span><i class="fa-solid fa-person-swimming act-icon"></i>Last morning swim at your favourite beach</li>
+							<li><span class="time">10:00 AM</span><i class="fa-solid fa-bowl-food act-icon"></i>Final breakfast — full pancakes at a beach shack</li>
+							<li><span class="time">12:00 PM</span><i class="fa-solid fa-ship act-icon"></i>Ferry back to Sihanoukville (1.5 hrs)</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+					<div class="tab-content" id="kr-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Swimsuits (bring 2–3)</li><li>Rash guard (sun protection)</li><li>Light shorts & tank tops</li><li>Sandals & flip flops</li><li>Light long sleeve for night</li><li>Quick-dry towel</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-sun"></i> Beach Essentials</h4><ul class="luggage-items"><li>Reef-safe sunscreen SPF50+</li><li>Waterproof bag / dry bag</li><li>Snorkel mask & fins</li><li>Waterproof phone case</li><li>Insect repellent (jungle)</li><li>After-sun aloe vera gel</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-bolt"></i> Power & Tech</h4><ul class="luggage-items"><li>Large power bank</li><li>Waterproof camera or GoPro</li><li>Download offline maps (no 4G)</li><li>Enough cash — no ATMs on island!</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-kit-medical"></i> Health</h4><ul class="luggage-items"><li>Sea-sickness tablets</li><li>Antihistamine (insects at night)</li><li>Rehydration salts</li><li>Waterproof bandages</li><li>Malaria prevention (consult doctor)</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="kr-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-money-bill-wave"></i></div><div><h4>Bring Enough Cash</h4><p>There are NO ATMs on Koh Rong. Withdraw USD in Sihanoukville before boarding. Budget $40–60/day for food, drinks & activities.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-moon"></i></div><div><h4>The Bioluminescence</h4><p>Don't miss a night swim! Wade into the shallow water and wave your hands to see the electric-blue plankton glow. No flashlight needed.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-wifi"></i></div><div><h4>Embrace the Offline Life</h4><p>Wi-Fi is limited and slow. Embrace the digital detox — it's one of the last places in Cambodia truly off the grid.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-ferry"></i></div><div><h4>Book Ferries Early</h4><p>Ferries sell out during high season. Book your return in advance and confirm the schedule — cancellations happen in bad weather.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ KAMPOT ============ -->
+				<div class="plan-panel" id="plan-kampot">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/kampot.jpg" alt="Kampot" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-water"></i> &nbsp;Kampot</h2>
+							<p>A laid-back riverside town famous for pepper, cave temples, and the best sunsets in Cambodia.</p>
+							<div class="plan-tags"><span class="plan-tag">🌅 Sunsets</span><span class="plan-tag">🚴 Cycling</span><span class="plan-tag">🌶️ Pepper Farms</span><span class="plan-tag">2–3 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-leaf"></i>
+						<div>
+							<h4>Best Time to Visit Kampot</h4>
+							<p>November to April is perfect — dry, breezy and cool. The pepper harvest (Jan–Feb) is a special time to visit farms.</p>
+							<div class="season-badges"><span class="season-badge">🌾 Nov – Apr (Dry & Pleasant)</span><span class="season-badge">🌧 May – Oct (Rainy — still beautiful)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'kp-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kp-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kp-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="kp-itinerary">
+						<div class="days-grid">
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D1</div><div><h4>Old Town & River</h4><span>Slow Travel Vibes</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">9:00 AM</span><i class="fa-solid fa-coffee act-icon"></i>Breakfast & coffee in Kampot old town</li><li><span class="time">10:30 AM</span><i class="fa-solid fa-person-biking act-icon"></i>Bike the riverside road — French colonial architecture</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Lunch: Khmer fish amok at Rikitikitavi</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-seedling act-icon"></i>Kampot pepper farm tour & tasting</li><li><span class="time">5:30 PM</span><i class="fa-solid fa-mountain-sun act-icon"></i>Sunset by the river — grab a hammock at a café</li><li><span class="time">8:00 PM</span><i class="fa-solid fa-fire act-icon"></i>Riverside BBQ & live music at Epic Arts</li></ul></div></div>
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D2</div><div><h4>Caves & Coastline</h4><span>Adventure & Nature</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">8:00 AM</span><i class="fa-solid fa-gopuram act-icon"></i>Phnom Chhnork cave temple — ancient Hindu shrine</li><li><span class="time">10:30 AM</span><i class="fa-solid fa-water act-icon"></i>Swimming in Kampot river (boat tour)</li><li><span class="time">12:30 PM</span><i class="fa-solid fa-shrimp act-icon"></i>Kep crab market lunch — famous pepper crab!</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-person-walking act-icon"></i>Kep National Park — jungle trail to beach</li><li><span class="time">6:00 PM</span><i class="fa-solid fa-sun act-icon"></i>Sunset at Kep Beach</li><li><span class="time">8:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Dinner back in Kampot — explore night market</li></ul></div></div>
+						
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D3</div><div><h4>Bokor Hill Station</h4><span>Mountain Escape</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">8:00 AM</span><i class="fa-solid fa-mountain act-icon"></i>Drive up to Bokor National Park (1,000m altitude)</li>
+							<li><span class="time">9:30 AM</span><i class="fa-solid fa-building-columns act-icon"></i>Explore the eerie abandoned French colonial casino</li>
+							<li><span class="time">11:00 AM</span><i class="fa-solid fa-gopuram act-icon"></i>Bokor Hill Catholic Church ruins & cloud forest</li>
+							<li><span class="time">1:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Lunch at a mountaintop restaurant with valley views</li>
+							<li><span class="time">3:00 PM</span><i class="fa-solid fa-person-hiking act-icon"></i>Waterfall hike in the national park</li>
+							<li><span class="time">6:00 PM</span><i class="fa-solid fa-mountain-sun act-icon"></i>Sunset over the Gulf of Thailand from the summit</li>
+							<li><span class="time">8:00 PM</span><i class="fa-solid fa-fire act-icon"></i>Last night in Kampot — riverside drinks & street food</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+					<div class="tab-content" id="kp-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Light casual clothes</li><li>Swimsuit for river dips</li><li>Sturdy shoes for caves</li><li>Bug-proof long sleeve for evenings</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-person-biking"></i> Activities</h4><ul class="luggage-items"><li>Bicycle-friendly shoes</li><li>Small backpack for day trips</li><li>Waterproof bag</li><li>Headlamp (cave visits)</li><li>Reusable water bottle</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-kit-medical"></i> Health</h4><ul class="luggage-items"><li>Sunscreen & hat</li><li>Insect repellent (evenings)</li><li>Stomach & allergy meds</li><li>Rehydration salts</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="kp-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-pepper-hot"></i></div><div><h4>Buy Kampot Pepper</h4><p>Kampot pepper is world-famous and UNESCO-recognized. Buy direct from farms — far cheaper and fresher than any airport store.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-clock"></i></div><div><h4>Kampot Runs Slow</h4><p>This is a place to decompress. Don't overschedule — the best moments are unplanned boat rides and hammock afternoons.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-crab"></i></div><div><h4>Kep Crab is a Must</h4><p>The 15-minute tuk-tuk ride to Kep for pepper crab at the crab market is mandatory. Order the crab with fresh Kampot green pepper.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-bicycle"></i></div><div><h4>Rent a Bicycle</h4><p>Kampot is perfectly sized for cycling. Rent a bike for $2–3/day and explore countryside, farms, and river roads at your own pace.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ MONDULKIRI ============ -->
+				<div class="plan-panel" id="plan-mondulkiri">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/mondulkiri.jpg" alt="Mondulkiri" onerror="this.src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-tree"></i> &nbsp;Mondulkiri</h2>
+							<p>Cambodia's wild east — rolling highlands, elephant sanctuaries, and indigenous Bunong culture.</p>
+							<div class="plan-tags"><span class="plan-tag">🐘 Elephants</span><span class="plan-tag">🌿 Eco-Tourism</span><span class="plan-tag">⛰️ Highlands</span><span class="plan-tag">3–4 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-cloud"></i>
+						<div>
+							<h4>Best Time to Visit Mondulkiri</h4>
+							<p>October to April. The highlands are lush after rains in Oct–Nov. December–February is cool and perfect for trekking.</p>
+							<div class="season-badges"><span class="season-badge">🍃 Oct – Nov (Green & Lush)</span><span class="season-badge">❄️ Dec – Feb (Cool & Ideal)</span><span class="season-badge">☀️ Mar – Apr (Dry)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'mk-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'mk-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'mk-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="mk-itinerary">
+						<div class="days-grid">
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D1</div><div><h4>Elephants & Forest</h4><span>Ethical Wildlife</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">7:00 AM</span><i class="fa-solid fa-elephant act-icon"></i>Elephant Valley Project — ethical sanctuary</li><li><span class="time">10:00 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Walk with elephants through the forest (no riding!)</li><li><span class="time">12:30 PM</span><i class="fa-solid fa-utensils act-icon"></i>Lunch with the mahouts — local food</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-water act-icon"></i>Watch elephants bathe in the river</li><li><span class="time">5:30 PM</span><i class="fa-solid fa-house-chimney act-icon"></i>Return to Sen Monorom — rest & relax</li><li><span class="time">7:30 PM</span><i class="fa-solid fa-fire act-icon"></i>Bunong barbecue dinner around bonfire</li></ul></div></div>
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D2</div><div><h4>Waterfalls & Village</h4><span>Nature & Culture</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">8:00 AM</span><i class="fa-solid fa-droplet act-icon"></i>Bou Sra Waterfall — Cambodia's largest two-tier falls</li><li><span class="time">10:30 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Trek through the rainforest</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Picnic lunch by the falls</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-people-group act-icon"></i>Bunong indigenous village visit & culture talk</li><li><span class="time">5:00 PM</span><i class="fa-solid fa-coffee act-icon"></i>Mondulkiri coffee at a hilltop café</li><li><span class="time">8:00 PM</span><i class="fa-solid fa-star act-icon"></i>Incredible stargazing — zero light pollution</li></ul></div></div>
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D3</div><div><h4>Trekking & Wildlife</h4><span>Wild East</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">6:30 AM</span><i class="fa-solid fa-binoculars act-icon"></i>Bird watching in pine forest</li><li><span class="time">9:00 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Full-day trekking — Mondulkiri highlands loop</li><li><span class="time">12:00 PM</span><i class="fa-solid fa-carrot act-icon"></i>Farm-to-table lunch at eco-lodge</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-motorcycle act-icon"></i>Motorbike ride to Rokha Kiri viewpoint</li><li><span class="time">6:00 PM</span><i class="fa-solid fa-mountain-sun act-icon"></i>Panoramic sunset over rolling highlands</li></ul></div></div>
+						
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D4</div><div><h4>Green Valley & Departure</h4><span>Last Wild Day</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">6:00 AM</span><i class="fa-solid fa-sun act-icon"></i>Sunrise over the highlands from hilltop viewpoint</li>
+							<li><span class="time">8:00 AM</span><i class="fa-solid fa-seedling act-icon"></i>Visit a local coffee & cashew plantation</li>
+							<li><span class="time">10:00 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Dak Dam waterfall — hidden gem in the forest</li>
+							<li><span class="time">12:30 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Traditional Bunong meal at a community homestay</li>
+							<li><span class="time">3:00 PM</span><i class="fa-solid fa-shopping-bag act-icon"></i>Sen Monorom market — buy handwoven Bunong baskets</li>
+							<li><span class="time">5:00 PM</span><i class="fa-solid fa-bus act-icon"></i>Evening bus back to Phnom Penh (overnight)</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+					<div class="tab-content" id="mk-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Warm layer — highlands get cold at night</li><li>Long pants for trekking</li><li>Waterproof jacket</li><li>Sturdy trekking boots</li><li>Wool or fleece top</li><li>Quick-dry socks (multiple pairs)</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-person-hiking"></i> Trekking Gear</h4><ul class="luggage-items"><li>Trekking poles</li><li>Daypack (20L)</li><li>Rain poncho</li><li>Headlamp + extra batteries</li><li>Gaiters (wet season)</li><li>Emergency whistle</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-kit-medical"></i> Health</h4><ul class="luggage-items"><li>Malaria prevention (consult doctor)</li><li>Strong DEET repellent</li><li>Blister plasters</li><li>Antiseptic cream</li><li>Allergy and antihistamine meds</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-wallet"></i> Essentials</h4><ul class="luggage-items"><li>Enough cash (limited ATMs)</li><li>Offline map downloaded</li><li>Local SIM card (buy in PP)</li><li>Snacks for long treks</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="mk-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-elephant"></i></div><div><h4>Choose Ethical Elephant Tours</h4><p>Only visit sanctuaries where elephants roam free and are not ridden. The Elephant Valley Project is the gold standard — book ahead.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-temperature-low"></i></div><div><h4>Pack Warm Clothes</h4><p>Mondulkiri nights drop to 15°C in peak season. Most visitors are unprepared. A fleece or light down jacket is essential.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-road"></i></div><div><h4>Road Conditions</h4><p>Roads to Sen Monorom are rough. The bus is the safest way (7 hrs from Phnom Penh). Motorbike rentals available locally.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-people-group"></i></div><div><h4>Respect Bunong Culture</h4><p>Ask before photographing villagers. Remove shoes before entering longhouses. Small community tourism fees go directly to local families.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ BATTAMBANG ============ -->
+				<div class="plan-panel" id="plan-battambang">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/battambang.jpg" alt="Battambang" onerror="this.src='https://images.unsplash.com/photo-1596402184320-417e7178b2cd?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-palette"></i> &nbsp;Battambang</h2>
+							<p>Cambodia's creative capital — French colonial charm, circus arts, bamboo train, and bat caves.</p>
+							<div class="plan-tags"><span class="plan-tag">🎭 Arts & Culture</span><span class="plan-tag">🏛️ Colonial Heritage</span><span class="plan-tag">🦇 Bat Caves</span><span class="plan-tag">2–3 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-sun"></i>
+						<div>
+							<h4>Best Time to Visit Battambang</h4>
+							<p>November to March — dry and cool. The boat trip from Siem Reap (7 hrs through wetlands) is a highlight when water levels are right.</p>
+							<div class="season-badges"><span class="season-badge">🌤 Nov – Mar (Best)</span><span class="season-badge">🌿 Oct – Nov (Boat trip season)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'bb-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'bb-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'bb-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="bb-itinerary">
+						<div class="days-grid">
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D1</div><div><h4>City & Colonial Charm</h4><span>Art & Architecture</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">9:00 AM</span><i class="fa-solid fa-building-columns act-icon"></i>Walk the French colonial old town</li><li><span class="time">11:00 AM</span><i class="fa-solid fa-masks-theater act-icon"></i>Phare Ponleu Selpak — Cambodian circus arts school</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Lunch at Jaan Bai (social enterprise restaurant)</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-palette act-icon"></i>Gallery visit — local contemporary art</li><li><span class="time">5:00 PM</span><i class="fa-solid fa-person-biking act-icon"></i>Sunset cycling along Sangker River</li><li><span class="time">8:00 PM</span><i class="fa-solid fa-star act-icon"></i>Phare circus performance (book in advance!)</li></ul></div></div>
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D2</div><div><h4>Bamboo Train & Bats</h4><span>Only-in-Cambodia</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">8:00 AM</span><i class="fa-solid fa-train act-icon"></i>Bamboo train (norry) ride through the countryside</li><li><span class="time">10:30 AM</span><i class="fa-solid fa-gopuram act-icon"></i>Wat Banan — hilltop temple, 358 steps up</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Rice wine tasting at a local village</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-person-hiking act-icon"></i>Phnom Sampeau — mountaintop temple & killing caves</li><li><span class="time">5:30 PM</span><i class="fa-solid fa-bat act-icon"></i>Watch 3 million bats spiral out at sunset!</li><li><span class="time">8:00 PM</span><i class="fa-solid fa-music act-icon"></i>Night market dinner & Battambang nightlife</li></ul></div></div>
+						
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D3</div><div><h4>Countryside & Temples</h4><span>Rural Battambang</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">8:00 AM</span><i class="fa-solid fa-person-biking act-icon"></i>Morning cycle through rice paddies & sugar palm groves</li>
+							<li><span class="time">10:00 AM</span><i class="fa-solid fa-gopuram act-icon"></i>Wat Ek Phnom — 11th-century riverside temple ruins</li>
+							<li><span class="time">12:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Village lunch with a local family</li>
+							<li><span class="time">2:30 PM</span><i class="fa-solid fa-wine-bottle act-icon"></i>Battambang winery — Cambodian rice wine tasting</li>
+							<li><span class="time">4:30 PM</span><i class="fa-solid fa-sailboat act-icon"></i>Sunset boat cruise on the Sangker River</li>
+							<li><span class="time">7:30 PM</span><i class="fa-solid fa-star act-icon"></i>Farewell dinner at a riverside terrace restaurant</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+					<div class="tab-content" id="bb-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Comfortable walking shoes</li><li>Light layers (AC in restaurants)</li><li>Modest clothes for temples</li><li>Hat and sunglasses</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-camera"></i> Gear</h4><ul class="luggage-items"><li>Camera with telephoto (bats!)</li><li>Tripod for bat emergence</li><li>Power bank</li><li>Torch for caves</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-kit-medical"></i> Health</h4><ul class="luggage-items"><li>Sunscreen</li><li>Insect repellent</li><li>Good walking shoes for temple steps</li><li>Water bottle</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="bb-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-bat"></i></div><div><h4>The Bat Emergence</h4><p>Every evening at 5:30 PM, millions of bats spiral out from Phnom Sampeau caves. Arrive 30 minutes early — it lasts about 45 minutes.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-masks-theater"></i></div><div><h4>Book the Circus Early</h4><p>Phare circus shows sell out fast. Book online at least 2 days in advance. Revenue supports at-risk youth in the community.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-train"></i></div><div><h4>The Bamboo Train</h4><p>The "norry" is a flat bamboo platform on wheels that rattles along old French railway tracks. It's rickety, fast, and completely unforgettable.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-utensils"></i></div><div><h4>Eat at Social Enterprises</h4><p>Battambang has several restaurants that train underprivileged youth. Jaan Bai and Pomme are excellent — great food with real social impact.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ KRATIE ============ -->
+				<div class="plan-panel" id="plan-kratie">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/kratie.jpg" alt="Kratie" onerror="this.src='https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-otter"></i> &nbsp;Kratie</h2>
+							<p>A tranquil riverside town on the Mekong — home to the rare Irrawaddy river dolphins.</p>
+							<div class="plan-tags"><span class="plan-tag">🐬 Dolphins</span><span class="plan-tag">🚴 Cycling Islands</span><span class="plan-tag">🌅 Mekong Sunsets</span><span class="plan-tag">2 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-fish"></i>
+						<div>
+							<h4>Best Time to Visit Kratie</h4>
+							<p>Dolphins are present year-round at Kampi, but December to April gives clearest water views. Avoid September when the Mekong floods heavily.</p>
+							<div class="season-badges"><span class="season-badge">🐬 Dec – Apr (Best for dolphins)</span><span class="season-badge">🌧 May – Nov (High river — still ok)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'kt-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kt-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kt-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="kt-itinerary">
+						<div class="days-grid">
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D1</div><div><h4>Dolphins & River Life</h4><span>Mekong Magic</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">7:00 AM</span><i class="fa-solid fa-coffee act-icon"></i>Coffee & baguette at a riverside café</li><li><span class="time">8:30 AM</span><i class="fa-solid fa-sailboat act-icon"></i>Boat trip to Kampi dolphin pool</li><li><span class="time">10:00 AM</span><i class="fa-solid fa-otter act-icon"></i>Spot Irrawaddy dolphins in the wild</li><li><span class="time">12:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Lunch at local market (fresh Mekong fish)</li><li><span class="time">2:00 PM</span><i class="fa-solid fa-person-biking act-icon"></i>Cycle around Koh Trong island</li><li><span class="time">5:30 PM</span><i class="fa-solid fa-sun act-icon"></i>Sunset over the Mekong from a riverside café</li><li><span class="time">7:30 PM</span><i class="fa-solid fa-star act-icon"></i>Quiet evening — hammock, river breeze, stars</li></ul></div></div>
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D2</div><div><h4>Temples & Countryside</h4><span>Rural Exploration</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">8:00 AM</span><i class="fa-solid fa-gopuram act-icon"></i>Phnom Sombok temple — hilltop views</li><li><span class="time">10:00 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Walk through Kratie old town & colonial buildings</li><li><span class="time">12:30 PM</span><i class="fa-solid fa-shrimp act-icon"></i>Mekong river fish lunch</li><li><span class="time">2:30 PM</span><i class="fa-solid fa-person-biking act-icon"></i>Village cycling — rice paddies & farms</li><li><span class="time">5:00 PM</span><i class="fa-solid fa-sailboat act-icon"></i>Second dolphin boat trip (golden hour light!)</li><li><span class="time">7:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Farewell dinner & Mekong night views</li></ul></div></div>
+						
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D3</div><div><h4>Stung Treng Day Trip</h4><span>Mekong Discovery</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">7:00 AM</span><i class="fa-solid fa-bus act-icon"></i>Early minivan to Stung Treng (1.5 hrs north)</li>
+							<li><span class="time">9:00 AM</span><i class="fa-solid fa-sailboat act-icon"></i>Boat trip to Preah Rumkel — 4,000 Islands zone border</li>
+							<li><span class="time">11:00 AM</span><i class="fa-solid fa-otter act-icon"></i>Spot dolphins at the Cambodian-Laos border stretch</li>
+							<li><span class="time">1:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Riverside lunch in Stung Treng town</li>
+							<li><span class="time">3:00 PM</span><i class="fa-solid fa-person-biking act-icon"></i>Mekong Discovery Trail cycling section</li>
+							<li><span class="time">5:30 PM</span><i class="fa-solid fa-bus act-icon"></i>Return minivan to Kratie by sunset</li>
+							<li><span class="time">7:30 PM</span><i class="fa-solid fa-utensils act-icon"></i>Farewell Mekong dinner & night views</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+					<div class="tab-content" id="kt-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Light, breathable clothes</li><li>Long sleeve for Mekong evenings</li><li>Sandals & sneakers</li><li>Hat and sunglasses</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-camera"></i> Gear</h4><ul class="luggage-items"><li>Binoculars for dolphin spotting</li><li>Zoom camera lens</li><li>Sunscreen (no shade on boats)</li><li>Waterproof bag</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-wallet"></i> Essentials</h4><ul class="luggage-items"><li>Cash (limited ATMs)</li><li>Reusable water bottle</li><li>Offline maps</li><li>Insect repellent</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="kt-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-otter"></i></div><div><h4>Dolphin Etiquette</h4><p>Stay in licensed boats and keep the required distance. The Irrawaddy dolphin is critically endangered — responsible tourism is essential.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-bicycle"></i></div><div><h4>Koh Trong by Bicycle</h4><p>Take the tiny ferry (500 riel) to Koh Trong island and rent a bicycle for $1. The 8km loop through villages and farms is one of Cambodia's most peaceful rides.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-clock"></i></div><div><h4>Go Early for Dolphins</h4><p>Dolphins are most active at dawn and dusk. The 7 AM boat trip gives calm water, cool air, and more active dolphins than midday tours.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-road"></i></div><div><h4>Getting to Kratie</h4><p>Minivan from Phnom Penh takes 4–5 hours ($8–12). Book through a guesthouse for a safe, direct connection. Night buses also available.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ KEP (NEW) ============ -->
+				<div class="plan-panel" id="plan-kep">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/kep.jpg" alt="Kep" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-shrimp"></i> &nbsp;Kep</h2>
+							<p>Cambodia's quiet coastal gem — legendary pepper crab, untouched beaches, and a nostalgic colonial charm.</p>
+							<div class="plan-tags"><span class="plan-tag">🦀 Crab Market</span><span class="plan-tag">🏖️ Rabbit Island</span><span class="plan-tag">🌿 National Park</span><span class="plan-tag">1–2 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-umbrella-beach"></i>
+						<div>
+							<h4>Best Time to Visit Kep</h4>
+							<p>November to April — dry and breezy. Easy to combine with a Kampot trip (only 25 km away). Avoid peak monsoon for beach days.</p>
+							<div class="season-badges"><span class="season-badge">🌤 Nov – Apr (Ideal)</span><span class="season-badge">🌧 May – Oct (Wet season)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'kep-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kep-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kep-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="kep-itinerary">
+						<div class="days-grid">
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D1</div><div><h4>Crabs & Coastal Bliss</h4><span>The Kep Classic</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">9:00 AM</span><i class="fa-solid fa-coffee act-icon"></i>Breakfast at a beachside café in Kep</li><li><span class="time">10:30 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Kep National Park — coastal jungle trail</li><li><span class="time">12:30 PM</span><i class="fa-solid fa-shrimp act-icon"></i>Kep Crab Market — famous pepper crab lunch!</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-ship act-icon"></i>Ferry to Rabbit Island (Koh Tonsay) — snorkel & swim</li><li><span class="time">5:30 PM</span><i class="fa-solid fa-sun act-icon"></i>Sunset at Kep Beach with fresh coconut</li><li><span class="time">7:30 PM</span><i class="fa-solid fa-utensils act-icon"></i>Seafood dinner at a crab market restaurant</li></ul></div></div>
+						
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D2</div><div><h4>Rabbit Island & Villas</h4><span>Hidden Kep</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">8:00 AM</span><i class="fa-solid fa-ship act-icon"></i>Early ferry to Rabbit Island (Koh Tonsay)</li>
+							<li><span class="time">9:00 AM</span><i class="fa-solid fa-umbrella-beach act-icon"></i>Full morning on Rabbit Island's pristine beach</li>
+							<li><span class="time">12:00 PM</span><i class="fa-solid fa-shrimp act-icon"></i>BBQ seafood lunch at a beach shack on the island</li>
+							<li><span class="time">2:30 PM</span><i class="fa-solid fa-person-swimming act-icon"></i>Snorkeling around the island's coral patches</li>
+							<li><span class="time">4:00 PM</span><i class="fa-solid fa-ship act-icon"></i>Return ferry to Kep</li>
+							<li><span class="time">5:00 PM</span><i class="fa-solid fa-building-columns act-icon"></i>Explore Kep's haunting abandoned Art Deco villas</li>
+							<li><span class="time">7:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Last supper at the crab market — pepper crab again!</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+					<div class="tab-content" id="kep-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Swimsuit & beach shorts</li><li>Light summer clothes</li><li>Sandals for beach walks</li><li>Sun hat & sunglasses</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-sun"></i> Essentials</h4><ul class="luggage-items"><li>Reef-safe sunscreen</li><li>Snorkel gear (or rent on island)</li><li>Cash for crab market</li><li>Water bottle</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="kep-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-crab"></i></div><div><h4>Order Pepper Crab</h4><p>Kep's specialty is crab cooked with fresh Kampot green pepper. Choose your live crab from the tank and watch it cooked right in front of you.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-ship"></i></div><div><h4>Day Trip to Rabbit Island</h4><p>Boats to Koh Tonsay run from Kep pier (~$5 return). The island has pristine beaches and simple seafood shacks — bring cash and enjoy the slow pace.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-person-biking"></i></div><div><h4>Combine with Kampot</h4><p>Kep is only 25 km from Kampot — perfectly combined as a day trip. Hire a tuk-tuk for $10–15 for a half-day of crab, beaches, and pepper farms.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-building-columns"></i></div><div><h4>Explore Abandoned Villas</h4><p>Kep was a resort town for Cambodia's elite pre-Khmer Rouge. The empty Art Deco ruins scattered around town are hauntingly beautiful to explore.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ SIHANOUKVILLE (NEW) ============ -->
+				<div class="plan-panel" id="plan-sihanoukville">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/sihanoukville.jpg" alt="Sihanoukville" onerror="this.src='https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-anchor"></i> &nbsp;Sihanoukville</h2>
+							<p>Cambodia's coastal hub — the main gateway to Koh Rong island and home to lively beaches.</p>
+							<div class="plan-tags"><span class="plan-tag">⚓ Island Gateway</span><span class="plan-tag">🏖️ Otres Beach</span><span class="plan-tag">🍹 Beach Bars</span><span class="plan-tag">1–2 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-sailboat"></i>
+						<div>
+							<h4>Best Time to Visit Sihanoukville</h4>
+							<p>November to May for calm seas and ferry access to islands. Most visitors use it as a transit hub to the offshore islands.</p>
+							<div class="season-badges"><span class="season-badge">🌤 Nov – May (Island season)</span><span class="season-badge">🌊 Jun – Oct (Ferry disruptions)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'sv-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'sv-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'sv-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="sv-itinerary">
+						<div class="days-grid">
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D1</div><div><h4>Beaches & Island Prep</h4><span>Coastal Gateway</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">9:00 AM</span><i class="fa-solid fa-umbrella-beach act-icon"></i>Otres Beach — quietest & most scenic in town</li><li><span class="time">12:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Seafood lunch at Otres Village</li><li><span class="time">2:30 PM</span><i class="fa-solid fa-money-bill act-icon"></i>Withdraw USD at ATMs for island trip</li><li><span class="time">4:00 PM</span><i class="fa-solid fa-ship act-icon"></i>Buy ferry tickets to Koh Rong for next morning</li><li><span class="time">6:00 PM</span><i class="fa-solid fa-sun act-icon"></i>Sunset at Sokha Beach</li><li><span class="time">8:00 PM</span><i class="fa-solid fa-music act-icon"></i>Beachside dinner & early night before island ferry</li></ul></div></div>
+						
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D2</div><div><h4>Otres Village & Ream</h4><span>Nature & Coast</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">7:30 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Ream National Park — mangrove forest boat tour</li>
+							<li><span class="time">10:00 AM</span><i class="fa-solid fa-fish act-icon"></i>Snorkeling at Ream's coral reefs</li>
+							<li><span class="time">1:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Lunch at Otres Beach 2 — freshest fish in town</li>
+							<li><span class="time">3:00 PM</span><i class="fa-solid fa-umbrella-beach act-icon"></i>Lazy afternoon on Otres Beach — drinks & hammock</li>
+							<li><span class="time">6:00 PM</span><i class="fa-solid fa-sun act-icon"></i>Sunset at Serendipity Beach</li>
+							<li><span class="time">8:00 PM</span><i class="fa-solid fa-ship act-icon"></i>Early pack — morning ferry to the islands tomorrow</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+					<div class="tab-content" id="sv-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Essentials</h4><ul class="luggage-items"><li>Beach clothes & swimwear</li><li>Sandals & flip flops</li><li>Light rain jacket</li><li>Small daypack</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-wallet"></i> Money & Documents</h4><ul class="luggage-items"><li>Plenty of USD cash (for islands)</li><li>Ferry booking confirmation</li><li>Passport (for ferry)</li><li>Travel insurance</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="sv-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-money-bill-wave"></i></div><div><h4>Stock Up on Cash</h4><p>ATMs are plentiful in Sihanoukville but scarce on the islands. Withdraw enough USD here — budget $50–80 per day for island life.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-ferry"></i></div><div><h4>Check Ferry Times</h4><p>Ferries to Koh Rong leave early morning (8–9 AM). Book the day before at the pier or through your guesthouse to guarantee a seat.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-umbrella-beach"></i></div><div><h4>Head to Otres Beach</h4><p>Avoid the busy central beaches and head to Otres Beach instead — it's a 10-minute tuk-tuk ride with much calmer, cleaner surroundings.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-triangle-exclamation"></i></div><div><h4>Transit Mindset</h4><p>Most travellers use Sihanoukville purely as a transit point for the islands. Don't plan too much here — save your energy for Koh Rong!</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ BANLUNG (NEW) ============ -->
+				<div class="plan-panel" id="plan-banlung">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/banlung.jpg" alt="Banlung" onerror="this.src='https://images.unsplash.com/photo-1542401886-65d6c61db217?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-volcano"></i> &nbsp;Banlung</h2>
+							<p>Ratanakiri's remote capital — volcanic crater lakes, jungle treks, and the indigenous cultures of Cambodia's northeast.</p>
+							<div class="plan-tags"><span class="plan-tag">🌊 Crater Lakes</span><span class="plan-tag">🌿 Jungle Trekking</span><span class="plan-tag">🐘 Wildlife</span><span class="plan-tag">3–4 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-tree"></i>
+						<div>
+							<h4>Best Time to Visit Banlung</h4>
+							<p>October to April is ideal. The crater lake Yeak Laom is beautiful year-round. Avoid July–September when jungle trails become extremely muddy.</p>
+							<div class="season-badges"><span class="season-badge">🍃 Oct – Apr (Best)</span><span class="season-badge">🌧 Jul – Sep (Muddy trails)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'bl-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'bl-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'bl-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="bl-itinerary">
+						<div class="days-grid">
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D1</div><div><h4>Crater Lake & Market</h4><span>Arrival Day</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">9:00 AM</span><i class="fa-solid fa-store act-icon"></i>Banlung market — vibrant indigenous traders</li><li><span class="time">11:00 AM</span><i class="fa-solid fa-water act-icon"></i>Yeak Laom volcanic crater lake — swim & kayak</li><li><span class="time">1:30 PM</span><i class="fa-solid fa-utensils act-icon"></i>Lunch in the park — local jungle food</li><li><span class="time">3:30 PM</span><i class="fa-solid fa-people-group act-icon"></i>Tampuan indigenous village cultural visit</li><li><span class="time">6:00 PM</span><i class="fa-solid fa-fire act-icon"></i>Sunset bonfire dinner at eco-lodge</li></ul></div></div>
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D2</div><div><h4>Waterfalls & Trekking</h4><span>Deep Jungle</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">7:00 AM</span><i class="fa-solid fa-droplet act-icon"></i>Ka Chanh & Cha Ong waterfalls hike</li><li><span class="time">10:00 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Guided jungle trek — spot gibbons & rare birds</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Picnic lunch deep in the jungle</li><li><span class="time">3:30 PM</span><i class="fa-solid fa-gem act-icon"></i>Ruby and gemstone mining village tour</li><li><span class="time">6:00 PM</span><i class="fa-solid fa-star act-icon"></i>Stargazing from the crater lake viewpoint</li></ul></div></div>
+						
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D3</div><div><h4>Remote Villages & Jade Lake</h4><span>Off the Beaten Path</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">7:30 AM</span><i class="fa-solid fa-motorcycle act-icon"></i>Motorbike ride to remote Jarai village (30 km)</li>
+							<li><span class="time">9:30 AM</span><i class="fa-solid fa-people-group act-icon"></i>Traditional spirit house ceremony — witness local beliefs</li>
+							<li><span class="time">11:30 AM</span><i class="fa-solid fa-water act-icon"></i>Swim at a second volcanic lake — Ka Tieng Lake</li>
+							<li><span class="time">1:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Lunch at an indigenous community restaurant</li>
+							<li><span class="time">3:00 PM</span><i class="fa-solid fa-binoculars act-icon"></i>Gibbon-watching trek in Virachey National Park buffer</li>
+							<li><span class="time">6:00 PM</span><i class="fa-solid fa-fire act-icon"></i>Bonfire farewell dinner at eco-lodge under the stars</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+					<div class="tab-content" id="bl-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Long pants for trekking (leeches!)</li><li>Quick-dry t-shirts</li><li>Waterproof boots or trail shoes</li><li>Warm layer for evenings</li><li>Swimsuit for crater lake</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-person-hiking"></i> Trekking</h4><ul class="luggage-items"><li>Leech-proof socks</li><li>Strong DEET repellent</li><li>Headlamp</li><li>Trekking poles</li><li>Waterproof daypack</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-wallet"></i> Essentials</h4><ul class="luggage-items"><li>Cash (only 1–2 ATMs in town)</li><li>Offline maps</li><li>Malaria prevention</li><li>Water purification tablets</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="bl-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-water"></i></div><div><h4>Swim in Yeak Laom</h4><p>This circular volcanic crater lake is one of Cambodia's most beautiful spots. The water is remarkably clear and swimming is permitted — don't miss it.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-plane"></i></div><div><h4>Consider Flying</h4><p>Banlung is 10+ hours by bus from Phnom Penh on rough roads. Sky Angkor Airlines operates small planes from PP in ~1 hour — worth the splurge.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-bug"></i></div><div><h4>Leech Season Warning</h4><p>During rainy season, jungle trails are full of leeches. Tuck pants into leech socks and wear closed shoes. They're harmless but surprising!</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-people-group"></i></div><div><h4>Indigenous Culture</h4><p>Ratanakiri is home to many ethnic minority groups. Hire local guides who ensure your tourism fees benefit communities directly.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ KOH KONG (NEW) ============ -->
+				<div class="plan-panel" id="plan-koh-kong">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/KohKongBeach.jpg" alt="Koh Kong" onerror="this.src='https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-leaf"></i> &nbsp;Koh Kong</h2>
+							<p>The gateway to the Cardamom Mountains — kayaking, jungle rivers, waterfalls, and pristine mangroves.</p>
+							<div class="plan-tags"><span class="plan-tag">🏔️ Cardamom Mountains</span><span class="plan-tag">🛶 Kayaking</span><span class="plan-tag">🌊 Waterfalls</span><span class="plan-tag">2–3 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-mountain"></i>
+						<div>
+							<h4>Best Time to Visit Koh Kong</h4>
+							<p>November to May for outdoor adventures. The jungle is lush year-round but some trails and kayak routes are better in the dry season.</p>
+							<div class="season-badges"><span class="season-badge">🌤 Nov – May (Ideal)</span><span class="season-badge">🌧 Jun – Oct (Jungle is vibrant but wet)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'kk-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kk-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kk-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="kk-itinerary">
+						<div class="days-grid">
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D1</div><div><h4>Rivers & Mangroves</h4><span>Water World</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">8:00 AM</span><i class="fa-solid fa-water act-icon"></i>Kayak through Koh Kong mangrove forest</li><li><span class="time">11:00 AM</span><i class="fa-solid fa-droplet act-icon"></i>Tatai Waterfall — swim in jungle pools</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-fish act-icon"></i>Riverside BBQ lunch on the Tatai River</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-sailboat act-icon"></i>Boat through Cardamom wildlife corridor</li><li><span class="time">5:30 PM</span><i class="fa-solid fa-sun act-icon"></i>Sunset from a floating bungalow on the river</li><li><span class="time">8:00 PM</span><i class="fa-solid fa-star act-icon"></i>Night boat — spot fireflies along the river</li></ul></div></div>
+							<div class="day-card"><div class="day-card-head"><div class="day-number">D2</div><div><h4>Jungle Trekking</h4><span>Cardamom Mountains</span></div></div><div class="day-card-body"><ul class="activity-list"><li><span class="time">7:00 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Guided trek into Cardamom Mountains</li><li><span class="time">10:00 AM</span><i class="fa-solid fa-binoculars act-icon"></i>Wildlife spotting — sun bears, gibbons, hornbills</li><li><span class="time">1:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Jungle picnic lunch</li><li><span class="time">3:00 PM</span><i class="fa-solid fa-water act-icon"></i>Kayak back to town via the Koh Por rapids</li><li><span class="time">6:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Farewell dinner at Koh Kong waterfront</li></ul></div></div>
+						
+					<div class="day-card">
+						<div class="day-card-head"><div class="day-number">D3</div><div><h4>Peam Krasaop & Departure</h4><span>Mangrove Finale</span></div></div>
+						<div class="day-card-body"><ul class="activity-list">
+							<li><span class="time">7:00 AM</span><i class="fa-solid fa-sailboat act-icon"></i>Morning boat to Peam Krasaop Wildlife Sanctuary</li>
+							<li><span class="time">8:30 AM</span><i class="fa-solid fa-tree act-icon"></i>Walk the mangrove boardwalk — spot herons & monitor lizards</li>
+							<li><span class="time">10:30 AM</span><i class="fa-solid fa-person-swimming act-icon"></i>Swim at Koh Kong Island — white sand & clear water</li>
+							<li><span class="time">1:00 PM</span><i class="fa-solid fa-shrimp act-icon"></i>Fresh seafood lunch on the island</li>
+							<li><span class="time">3:30 PM</span><i class="fa-solid fa-bus act-icon"></i>Return boat & bus toward Phnom Penh or Sihanoukville</li>
+							<li><span class="time">6:00 PM</span><i class="fa-solid fa-sun act-icon"></i>Watch the sunset from the bus as you leave Koh Kong</li>
+						</ul></div>
+					</div>
+						</div>
+					</div>
+					<div class="tab-content" id="kk-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Quick-dry clothes (always wet!)</li><li>Swimwear for waterfalls</li><li>Sturdy closed-toe shoes</li><li>Long pants for jungle</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-person-hiking"></i> Adventure Gear</h4><ul class="luggage-items"><li>Waterproof dry bag</li><li>Waterproof camera / GoPro</li><li>Strong DEET repellent</li><li>Headlamp for night boat</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-kit-medical"></i> Health</h4><ul class="luggage-items"><li>Malaria prevention (consult doctor)</li><li>Waterproof bandages</li><li>Antiseptic cream (river cuts)</li><li>Rehydration salts</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="kk-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-water"></i></div><div><h4>Float the Tatai River</h4><p>The floating bungalows on the Tatai River are magical — sleeping over water in the jungle with fireflies at night is an unmissable Cambodia experience.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-leaf"></i></div><div><h4>Cardamom Eco-Tourism</h4><p>Book tours with operators that fund rainforest conservation. The Cardamom Mountains have the highest biodiversity in Southeast Asia — protect it.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-road"></i></div><div><h4>Border Crossing</h4><p>Koh Kong sits on the Thai-Cambodia border. The Cham Yeam / Hat Lek crossing is straightforward if entering or exiting Cambodia via Thailand.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-bus"></i></div><div><h4>Getting There</h4><p>4–5 hours from Phnom Penh by bus ($6–10). Buses also run from Sihanoukville (2 hrs). Arrange jungle tours through your guesthouse on arrival.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ KAMPONG THOM (NEW) ============ -->
+				<div class="plan-panel" id="plan-kampong-thom">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/kampong-thom.jpg" alt="Kampong Thom" onerror="this.src='https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-gopuram"></i> &nbsp;Kampong Thom</h2>
+							<p>Home to Sambor Prei Kuk — Cambodia's oldest temple complex, predating Angkor by 500 years, set in serene jungle.</p>
+							<div class="plan-tags"><span class="plan-tag">🏛️ Pre-Angkor History</span><span class="plan-tag">🌿 Jungle Temples</span><span class="plan-tag">🦋 Wildlife</span><span class="plan-tag">2–3 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-sun"></i>
+						<div>
+							<h4>Best Time to Visit Kampong Thom</h4>
+							<p>November to April for dry roads to the temples. October brings lush greenery if you don't mind light rain. Easy stopover on the Phnom Penh–Siem Reap route.</p>
+							<div class="season-badges"><span class="season-badge">🌤 Nov – Apr (Best)</span><span class="season-badge">🍃 Oct (Lush green)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'kth-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kth-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'kth-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="kth-itinerary">
+						<div class="days-grid">
+							<div class="day-card">
+								<div class="day-card-head"><div class="day-number">D1</div><div><h4>Sambor Prei Kuk</h4><span>UNESCO Jungle Temples</span></div></div>
+								<div class="day-card-body"><ul class="activity-list">
+									<li><span class="time">8:00 AM</span><i class="fa-solid fa-bus act-icon"></i>Arrive from Phnom Penh or Siem Reap — check in</li>
+									<li><span class="time">9:30 AM</span><i class="fa-solid fa-gopuram act-icon"></i>North Group — 7th-century Isanapura temples in jungle</li>
+									<li><span class="time">11:00 AM</span><i class="fa-solid fa-gopuram act-icon"></i>Central Group — the iconic circular tower temples</li>
+									<li><span class="time">1:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Lunch at a local restaurant in Kampong Thom town</li>
+									<li><span class="time">3:00 PM</span><i class="fa-solid fa-gopuram act-icon"></i>South Group — shrines with beautiful ancient carvings</li>
+									<li><span class="time">5:30 PM</span><i class="fa-solid fa-person-biking act-icon"></i>Cycle along the Stung Sen river at golden hour</li>
+									<li><span class="time">7:30 PM</span><i class="fa-solid fa-utensils act-icon"></i>Dinner: Khmer countryside cuisine, fresh river fish</li>
+								</ul></div>
+							</div>
+							<div class="day-card">
+								<div class="day-card-head"><div class="day-number">D2</div><div><h4>Villages & Praying Hands</h4><span>Local Life & Culture</span></div></div>
+								<div class="day-card-body"><ul class="activity-list">
+									<li><span class="time">7:00 AM</span><i class="fa-solid fa-coffee act-icon"></i>Breakfast at local market — rice porridge (bobor)</li>
+									<li><span class="time">8:30 AM</span><i class="fa-solid fa-store act-icon"></i>Kampong Thom main market — vibrant and local</li>
+									<li><span class="time">10:00 AM</span><i class="fa-solid fa-person-biking act-icon"></i>Bike to Phnom Santuk — sacred hill temple with Buddha statues</li>
+									<li><span class="time">12:00 PM</span><i class="fa-solid fa-tree act-icon"></i>Picnic lunch at the temple gardens</li>
+									<li><span class="time">2:30 PM</span><i class="fa-solid fa-people-group act-icon"></i>Visit a silk-weaving village on the Stung Sen river</li>
+									<li><span class="time">5:00 PM</span><i class="fa-solid fa-sun act-icon"></i>Sunset at Baray reservoir — peaceful and crowd-free</li>
+									<li><span class="time">7:30 PM</span><i class="fa-solid fa-star act-icon"></i>Night walk along Kampong Thom riverfront promenade</li>
+								</ul></div>
+							</div>
+							<div class="day-card">
+								<div class="day-card-head"><div class="day-number">D3</div><div><h4>Hidden Temples & Departure</h4><span>Deep History</span></div></div>
+								<div class="day-card-body"><ul class="activity-list">
+									<li><span class="time">7:30 AM</span><i class="fa-solid fa-motorcycle act-icon"></i>Motorbike to Prasat Andet — remote brick-tower temple</li>
+									<li><span class="time">9:30 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Trek to Phnom Bayang — hilltop forest sanctuary</li>
+									<li><span class="time">12:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Farewell lunch at Kampong Thom Restaurant</li>
+									<li><span class="time">2:00 PM</span><i class="fa-solid fa-bus act-icon"></i>Bus north to Siem Reap (2 hrs) or south to Phnom Penh</li>
+								</ul></div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content" id="kth-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Modest clothes for temples</li><li>Long pants (jungle insects)</li><li>Sturdy walking shoes</li><li>Sun hat & sunglasses</li><li>Light rain jacket</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-kit-medical"></i> Health</h4><ul class="luggage-items"><li>Insect repellent (essential in jungle)</li><li>Sunscreen SPF 50+</li><li>Antihistamines</li><li>Water bottle (limited cafés at temples)</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-camera"></i> Gear</h4><ul class="luggage-items"><li>Camera with wide angle (jungle shots)</li><li>Power bank</li><li>Offline maps (Sambor Prei Kuk GPS)</li><li>Torch (dark temple interiors)</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-wallet"></i> Essentials</h4><ul class="luggage-items"><li>Cash (limited ATMs)</li><li>Temple entrance fees ~$10</li><li>Bicycle hire budget $3–5/day</li><li>Guesthouse booking (few options)</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="kth-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-gopuram"></i></div><div><h4>UNESCO Hidden Gem</h4><p>Sambor Prei Kuk is UNESCO-listed but sees only a fraction of Angkor's visitors. You may have the entire ancient jungle complex almost to yourself — surreal.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-road"></i></div><div><h4>Perfect Stopover</h4><p>Kampong Thom sits exactly halfway between Phnom Penh and Siem Reap on National Road 6. Most travelers skip it — don't. Break the journey here for 1–2 nights.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-bicycle"></i></div><div><h4>Bicycle to the Temples</h4><p>The temples are 35 km from town, but local guesthouses arrange bicycle or motorbike rentals for $5–15. The countryside ride itself is beautiful.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-bug"></i></div><div><h4>Jungle Insects</h4><p>Sambor Prei Kuk is deep jungle — mosquitoes are active all day, not just at dusk. Apply DEET before entering the temple complex and cover exposed skin.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ============ PREAH VIHEAR (NEW) ============ -->
+				<div class="plan-panel" id="plan-preah-vihear">
+					<div class="plan-header">
+						<img class="plan-hero-img" src="images/preah-vihear.jpg" alt="Preah Vihear" onerror="this.src='https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=400&q=80'">
+						<div class="plan-header-info">
+							<h2><i class="fa-solid fa-mountain"></i> &nbsp;Preah Vihear</h2>
+							<p>A UNESCO World Heritage cliff-top temple perched dramatically on the edge of the Dangrek escarpment — with breathtaking views into Thailand.</p>
+							<div class="plan-tags"><span class="plan-tag">🏔️ Cliff Temple</span><span class="plan-tag">🌅 Panoramic Views</span><span class="plan-tag">🏛️ UNESCO</span><span class="plan-tag">1–2 Days Recommended</span></div>
+						</div>
+					</div>
+					<div class="best-time-banner">
+						<i class="fa-solid fa-sun"></i>
+						<div>
+							<h4>Best Time to Visit Preah Vihear</h4>
+							<p>November to April — dry roads and clear skies. The mountain road can be dangerous during heavy rains. Combine with Kampong Thom for a great northern circuit.</p>
+							<div class="season-badges"><span class="season-badge">🌤 Nov – Apr (Best)</span><span class="season-badge">⚠️ Jun – Oct (Road risk)</span></div>
+						</div>
+					</div>
+					<div class="plan-tabs">
+						<button class="plan-tab-btn active" onclick="switchTab(this, 'pv-itinerary')"><i class="fa-solid fa-calendar-days"></i> Itinerary</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'pv-luggage')"><i class="fa-solid fa-suitcase"></i> What to Pack</button>
+						<button class="plan-tab-btn" onclick="switchTab(this, 'pv-tips')"><i class="fa-solid fa-lightbulb"></i> Local Tips</button>
+					</div>
+					<div class="tab-content active" id="pv-itinerary">
+						<div class="days-grid">
+							<div class="day-card">
+								<div class="day-card-head"><div class="day-number">D1</div><div><h4>Ascent to the Temple</h4><span>Sky-High History</span></div></div>
+								<div class="day-card-body"><ul class="activity-list">
+									<li><span class="time">6:00 AM</span><i class="fa-solid fa-bus act-icon"></i>Early morning transfer from Siem Reap or Kampong Thom</li>
+									<li><span class="time">9:30 AM</span><i class="fa-solid fa-mountain act-icon"></i>Ascend the Dangrek escarpment by 4WD</li>
+									<li><span class="time">10:30 AM</span><i class="fa-solid fa-gopuram act-icon"></i>Enter Prasat Preah Vihear — 9th–12th century Khmer masterpiece</li>
+									<li><span class="time">12:00 PM</span><i class="fa-solid fa-binoculars act-icon"></i>Stand on the clifftop — panoramic view into Thailand 550m below</li>
+									<li><span class="time">1:00 PM</span><i class="fa-solid fa-utensils act-icon"></i>Lunch at hilltop local restaurant — simple Khmer food with a view</li>
+									<li><span class="time">2:30 PM</span><i class="fa-solid fa-camera act-icon"></i>Photography walk — the gopuras and galleries in afternoon light</li>
+									<li><span class="time">4:30 PM</span><i class="fa-solid fa-mountain-sun act-icon"></i>Sunset from the cliff edge — one of Cambodia's most dramatic</li>
+									<li><span class="time">7:00 PM</span><i class="fa-solid fa-bed act-icon"></i>Overnight at a guesthouse in Sra Em town</li>
+								</ul></div>
+							</div>
+							<div class="day-card">
+								<div class="day-card-head"><div class="day-number">D2</div><div><h4>Koh Ker Circuit</h4><span>Pyramid Temples</span></div></div>
+								<div class="day-card-body"><ul class="activity-list">
+									<li><span class="time">7:00 AM</span><i class="fa-solid fa-coffee act-icon"></i>Early breakfast at a local market</li>
+									<li><span class="time">8:30 AM</span><i class="fa-solid fa-gopuram act-icon"></i>Koh Ker temple complex — the 7-tier pyramid Prasat Thom</li>
+									<li><span class="time">10:30 AM</span><i class="fa-solid fa-person-hiking act-icon"></i>Climb the pyramid for panoramic jungle views</li>
+									<li><span class="time">12:00 PM</span><i class="fa-solid fa-bowl-rice act-icon"></i>Picnic lunch among the temple ruins</li>
+									<li><span class="time">2:00 PM</span><i class="fa-solid fa-gopuram act-icon"></i>Prasat Bram & Prasat Krahom — jungle-covered towers</li>
+									<li><span class="time">4:30 PM</span><i class="fa-solid fa-bus act-icon"></i>Return drive to Siem Reap (3 hrs)</li>
+								</ul></div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content" id="pv-luggage">
+						<div class="luggage-grid">
+							<div class="luggage-card"><h4><i class="fa-solid fa-shirt"></i> Clothing</h4><ul class="luggage-items"><li>Covered shoulders & knees (temple dress)</li><li>Sturdy shoes (uneven stone steps)</li><li>Light windbreaker (clifftop is breezy)</li><li>Sun hat essential (no shade at peak)</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-kit-medical"></i> Health & Safety</h4><ul class="luggage-items"><li>Stay back from unfenced cliff edges</li><li>Extra water — very limited vendors</li><li>Sunscreen & lip balm (altitude wind)</li><li>Motion sickness tabs (mountain roads)</li></ul></div>
+							<div class="luggage-card"><h4><i class="fa-solid fa-camera"></i> Gear</h4><ul class="luggage-items"><li>Wide-angle lens for landscape shots</li><li>Fully charged camera & power bank</li><li>Offline map of Preah Vihear province</li><li>Cash only — no ATMs at the temple</li></ul></div>
+						</div>
+					</div>
+					<div class="tab-content" id="pv-tips">
+						<div class="tips-grid">
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-mountain"></i></div><div><h4>The Most Dramatic Temple</h4><p>Preah Vihear sits 525 metres above the plain on a sheer cliff. The views from the top are unlike anything else in Cambodia — don't skip this if you're in the north.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-car"></i></div><div><h4>Hire a Reliable Driver</h4><p>The mountain road requires 4WD and local knowledge. Arrange a trusted driver from Siem Reap ($80–120 for the day). Don't attempt self-drive without local advice.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-route"></i></div><div><h4>Combine with Koh Ker</h4><p>Koh Ker's pyramid temple complex is only 2 hours from Preah Vihear. Combine both into a brilliant 2-day northern temples circuit out of Siem Reap.</p></div></div>
+							<div class="tip-card"><div class="tip-icon"><i class="fa-solid fa-shield"></i></div><div><h4>Check Travel Advisories</h4><p>The border area around Preah Vihear has historically had tensions. Check your government's travel advisory before visiting. It is generally safe for tourists.</p></div></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+	</main>
+
+	<!-- ======================== -->
+	<!-- FOOTER                   -->
+	<!-- ======================== -->
+	<footer>
+		<div class="footer-grid">
+			<div class="footer-brand">
+				<a href="index.html" class="logo"><i class="fa-solid fa-leaf"></i> Wander KH</a>
+				<p>Your trusted guide to exploring the wonders of Cambodia. From ancient temples to pristine islands.</p>
+				<div class="social-links">
+					<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+					<a href="#"><i class="fa-brands fa-instagram"></i></a>
+					<a href="#"><i class="fa-brands fa-tiktok"></i></a>
+					<a href="#"><i class="fa-brands fa-youtube"></i></a>
+				</div>
+			</div>
+			<div class="footer-widget">
+				<h4 class="footer-title">Quick Links</h4>
+				<ul class="footer-links">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="discover.html">Discover</a></li>
+					<li><a href="destinations.html">Destinations</a></li>
+					<li><a href="planning.html">Trip Planner</a></li>
+					<li><a href="contact.html">Contact Us</a></li>
+				</ul>
+			</div>
+			<div class="footer-widget">
+				<h4 class="footer-title">Travel Info</h4>
+				<ul class="footer-links">
+					<li><a href="#">Visa Information</a></li>
+					<li><a href="#">Travel Insurance</a></li>
+					<li><a href="#">Best Time to Visit</a></li>
+					<li><a href="#">FAQ</a></li>
+				</ul>
+			</div>
+			<div class="footer-widget">
+				<h4 class="footer-title">Contact Us</h4>
+				<ul class="contact-info list-none">
+					<li><i class="fa-solid fa-location-dot"></i><span>Phnom Penh, Cambodia</span></li>
+					<li><i class="fa-solid fa-phone"></i><span>+855 12 345 678</span></li>
+					<li><i class="fa-solid fa-envelope"></i><span>hello@wanderkh.com</span></li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; 2026 Wander KH | Designed with passion for Cambodia.</p>
+		</div>
+	</footer>
+
+	<script>
+		// ==================
+		// Header scroll
+		// ==================
+		const header = document.getElementById('header');
+		window.addEventListener('scroll', () => {
+			header.classList.toggle('scrolled', window.scrollY > 50);
+		});
+
+		// ==================
+		// Mobile menu
+		// ==================
+		const mobileBtn = document.getElementById('mobileMenuBtn');
+		const navLinks = document.getElementById('navLinks');
+		mobileBtn.addEventListener('click', () => {
+			navLinks.classList.toggle('active');
+			const icon = mobileBtn.querySelector('i');
+			icon.classList.toggle('fa-bars');
+			icon.classList.toggle('fa-xmark');
+		});
+
+		// ==================
+		// Destination selector
+		// ==================
+		function selectDest(card) {
+			document.querySelectorAll('.dest-select-card').forEach(c => c.classList.remove('active'));
+			card.classList.add('active');
+			const dest = card.getAttribute('data-dest');
+			document.getElementById('empty-state').style.display = 'none';
+			document.querySelectorAll('.plan-panel').forEach(p => p.classList.remove('visible'));
+			const target = document.getElementById('plan-' + dest);
+			if (target) {
+				target.classList.add('visible');
+				setTimeout(() => {
+					document.getElementById('plan-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}, 100);
+			}
+		}
+
+		// ==================
+		// Tab switching
+		// ==================
+		function switchTab(btn, tabId) {
+			const panel = btn.closest('.plan-panel');
+			panel.querySelectorAll('.plan-tab-btn').forEach(b => b.classList.remove('active'));
+			panel.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+			btn.classList.add('active');
+			document.getElementById(tabId).classList.add('active');
+		}
+
+		// ==================
+		// Parallax hero effect
+		// ==================
+		const hero = document.querySelector('.page-hero');
+		window.addEventListener('scroll', () => {
+			const scrolled = window.scrollY;
+			if (scrolled < window.innerHeight) {
+				const heroBg = hero.querySelector(':before');
+				hero.style.setProperty('--parallax-y', `${scrolled * 0.3}px`);
+			}
+		});
+	</script>
+</body>
+</html>
