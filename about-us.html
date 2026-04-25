@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About Us | Wander KH</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;1,800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            :root {
+                --cool-jade: #03695e;
+                --spring-herb: #6daf5f;
+                --spring-herb-light: #8ece80;
+                --spring-herb-pale: #e8f5e4;
+                --sky-aqua: #239dca;
+                --light-blue: #a5c6db;
+                --linen-white: #e7e9d8;
+                --text-dark: #1a2e2c;
+                --text-light: #556b69;
+                --bg-light: #fbfbfa;
+                --bg-soft: #f2f4ec;
+                --white: #ffffff;
+                --shadow-sm: 0 4px 6px rgba(3, 105, 94, 0.08);
+                --shadow-md: 0 10px 25px rgba(3, 105, 94, 0.12);
+                --shadow-hover: 0 15px 35px rgba(3, 105, 94, 0.2);
+                --shadow-green: 0 20px 50px rgba(109, 175, 95, 0.25);
+                --radius: 16px;
+                --radius-lg: 24px;
+                --max-width: 1280px;
+            }
+
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+
+            body {
+                font-family: "Inter", sans-serif;
+                background-color: var(--bg-light);
+                color: var(--text-dark);
+                line-height: 1.7;
+                overflow-x: hidden;
+            }
+
+            h1, h2, h3, h4 {
+                font-family: "Poppins", sans-serif;
+                font-weight: 600;
+                line-height: 1.3;
+            }
+
+            /* ── Animations ── */
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(40px); }
+                to   { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes slideInLeft {
+                from { opacity: 0; transform: translateX(-40px); }
+                to   { opacity: 1; transform: translateX(0); }
+            }
+            @keyframes slideInRight {
+                from { opacity: 0; transform: translateX(40px); }
+                to   { opacity: 1; transform: translateX(0); }
+            }
+            @keyframes floatBob {
+                0%, 100% { transform: translateY(0); }
+                50%       { transform: translateY(-12px); }
+            }
+            @keyframes spinSlow {
+                from { transform: rotate(0deg); }
+                to   { transform: rotate(360deg); }
+            }
+            @keyframes shimmer {
+                0%   { background-position: -200% center; }
+                100% { background-position: 200% center; }
+            }
+            @keyframes countUp {
+                from { opacity: 0; transform: scale(0.5); }
+                to   { opacity: 1; transform: scale(1); }
+            }
+            @keyframes leafDrift {
+                0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+                10%  { opacity: 1; }
+                90%  { opacity: 1; }
+                100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+            }
+
+            /* ── Header (unchanged) ── */
+            header {
+                position: fixed; width: 100%; top: 0; z-index: 1000;
+                transition: all 0.4s ease; background: transparent; padding: 15px 0;
+            }
+            header.scrolled {
+                background: var(--cool-jade); padding: 10px 0;
+                box-shadow: 0 4px 20px rgba(0,0,0,.1);
+            }
+            nav {
+                max-width: var(--max-width); margin: 0 auto; padding: 0 24px;
+                display: flex; justify-content: space-between; align-items: center;
+            }
+            .logo {
+                color: var(--white); font-family: "Poppins", sans-serif;
+                font-size: 28px; font-weight: 700; text-decoration: none;
+                display: flex; align-items: center; gap: 10px;
+            }
+            .logo i { color: var(--spring-herb); }
+            .nav-links { list-style: none; display: flex; gap: 8px; }
+            .nav-links a {
+                text-decoration: none; color: var(--white); font-size: 15px;
+                font-weight: 500; padding: 10px 18px; border-radius: 30px;
+                transition: all .3s ease;
+            }
+            .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,.15); }
+            .mobile-menu-btn {
+                display: none; color: var(--white); font-size: 24px;
+                cursor: pointer; background: none; border: none;
+            }
+
+            /* ── Hero ── */
+            .page-hero {
+                background: linear-gradient(135deg, var(--cool-jade) 0%, #024a42 100%);
+                padding: 140px 24px 80px; text-align: center; position: relative; overflow: hidden;
+            }
+            .page-hero::before {
+                content: ""; position: absolute; inset: 0;
+                background: url("images/phnom-penh.jpg") center/cover; opacity: .15;
+            }
+            .page-hero-content { position: relative; z-index: 2; animation: fadeInUp .8s ease; }
+            .page-hero-tag {
+                color: var(--spring-herb); font-weight: 600; font-size: 14px;
+                text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
+                display: inline-block; background: rgba(109,175,95,.1);
+                padding: 8px 16px; border-radius: 20px;
+            }
+            .page-hero h1 { font-size: 52px; color: var(--white); margin-bottom: 16px; }
+            .page-hero p { color: var(--light-blue); font-size: 18px; max-width: 600px; margin: 0 auto; }
+
+            /* ── Main wrapper ── */
+            main { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+            .section { padding: 90px 0; }
+
+            /* ── Section heading system ── */
+            .section-label {
+                display: inline-flex; align-items: center; gap: 8px;
+                background: var(--spring-herb-pale); color: var(--cool-jade);
+                font-size: 12px; font-weight: 700; letter-spacing: 2px;
+                text-transform: uppercase; padding: 6px 14px; border-radius: 20px;
+                margin-bottom: 14px;
+            }
+            .section-label i { font-size: 11px; color: var(--spring-herb); }
+            .section-title {
+                font-size: 42px; color: var(--text-dark); margin-bottom: 16px;
+                text-align: center; position: relative; display: inline-block; width: 100%;
+            }
+            .section-title span { color: var(--spring-herb); }
+            .section-title::after {
+                content: ""; display: block; width: 60px; height: 3px;
+                background: linear-gradient(90deg, var(--spring-herb), var(--sky-aqua));
+                margin: 12px auto 0; border-radius: 2px;
+            }
+            .section-subtitle {
+                font-size: 17px; color: var(--text-light); text-align: center;
+                margin-bottom: 60px; max-width: 640px;
+                margin-left: auto; margin-right: auto; line-height: 1.8;
+            }
+
+            /* ════════════════════════════════════
+               MISSION  –  split layout
+            ════════════════════════════════════ */
+            .mission-section { padding: 100px 0 80px; }
+
+            .mission-container {
+                display: grid; grid-template-columns: 1fr 1fr;
+                gap: 70px; align-items: center;
+            }
+
+            .mission-text { animation: slideInLeft .9s ease both; }
+
+            .mission-text h2 {
+                font-size: 38px; color: var(--text-dark); margin-bottom: 20px;
+                line-height: 1.2;
+            }
+            .mission-text h2 em {
+                font-style: normal; color: var(--spring-herb);
+                background: linear-gradient(90deg, var(--spring-herb), var(--sky-aqua));
+                -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            }
+
+            .mission-text p {
+                color: var(--text-light); font-size: 15.5px; margin-bottom: 22px; line-height: 1.85;
+            }
+
+            .mission-highlights {
+                display: flex; flex-direction: column; gap: 14px; margin-top: 30px;
+            }
+            .mh-item {
+                display: flex; align-items: flex-start; gap: 14px;
+                background: var(--white); padding: 16px 20px; border-radius: 12px;
+                border-left: 3px solid var(--spring-herb); box-shadow: var(--shadow-sm);
+                transition: transform .25s ease, box-shadow .25s ease;
+            }
+            .mh-item:hover { transform: translateX(6px); box-shadow: var(--shadow-md); }
+            .mh-item i { color: var(--spring-herb); font-size: 18px; margin-top: 2px; flex-shrink: 0; }
+            .mh-item strong { display: block; color: var(--cool-jade); font-size: 14px; margin-bottom: 2px; }
+            .mh-item span { font-size: 13px; color: var(--text-light); }
+
+            /* Decorative visual panel */
+            .mission-visual {
+                position: relative; animation: slideInRight .9s ease both;
+            }
+            .mission-card-main {
+                background: linear-gradient(145deg, var(--spring-herb) 0%, #4a9a3c 50%, var(--cool-jade) 100%);
+                border-radius: var(--radius-lg); padding: 50px 40px;
+                box-shadow: var(--shadow-green); color: var(--white);
+                text-align: center; position: relative; overflow: hidden;
+                min-height: 400px; display: flex; flex-direction: column;
+                align-items: center; justify-content: center; gap: 20px;
+            }
+            .mission-card-main::before {
+                content: ""; position: absolute; top: -40px; right: -40px;
+                width: 200px; height: 200px;
+                background: rgba(255,255,255,.08); border-radius: 50%;
+            }
+            .mission-card-main::after {
+                content: ""; position: absolute; bottom: -60px; left: -30px;
+                width: 250px; height: 250px;
+                background: rgba(255,255,255,.05); border-radius: 50%;
+            }
+            .mission-icon-ring {
+                width: 110px; height: 110px; border-radius: 50%;
+                background: rgba(255,255,255,.15); border: 2px solid rgba(255,255,255,.3);
+                display: flex; align-items: center; justify-content: center;
+                animation: floatBob 4s ease-in-out infinite;
+                position: relative; z-index: 1;
+            }
+            .mission-icon-ring i { font-size: 48px; color: var(--white); }
+            .mission-card-main h3 {
+                font-size: 24px; color: var(--white); position: relative; z-index: 1;
+            }
+            .mission-card-main p {
+                font-size: 14px; color: rgba(255,255,255,.8); max-width: 260px;
+                position: relative; z-index: 1;
+            }
+
+            /* floating badge */
+            .mission-badge {
+                position: absolute; bottom: -20px; right: 170px;
+                background: var(--white); border-radius: 14px;
+                padding: 14px 20px; box-shadow: var(--shadow-hover);
+                display: flex; align-items: center; gap: 12px;
+                animation: fadeInUp 1.2s ease both;
+            }
+            .mission-badge-icon {
+                width: 44px; height: 44px; border-radius: 10px;
+                background: var(--spring-herb-pale);
+                display: flex; align-items: center; justify-content: center;
+            }
+            .mission-badge-icon i { color: var(--spring-herb); font-size: 18px; }
+            .mission-badge strong { display: block; color: var(--text-dark); font-size: 15px; }
+            .mission-badge span { font-size: 12px; color: var(--text-light); }
+
+            /* ════════════════════════════════════
+               VALUES  –  card grid
+            ════════════════════════════════════ */
+            .values-section {
+                background: var(--bg-soft); border-radius: var(--radius-lg);
+                padding: 70px 60px; margin: 0 -10px;
+            }
+
+            .values-grid {
+                display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+            }
+
+            .value-card {
+                background: var(--white); padding: 36px 28px;
+                border-radius: var(--radius); box-shadow: var(--shadow-sm);
+                text-align: center; transition: all .35s ease;
+                position: relative; overflow: hidden; cursor: default;
+                border-bottom: 3px solid transparent;
+            }
+            .value-card::after {
+                content: ""; position: absolute; inset: 0;
+                background: linear-gradient(135deg,
+                    rgba(109,175,95,.06) 0%, rgba(35,157,202,.06) 100%);
+                opacity: 0; transition: opacity .35s ease;
+            }
+            .value-card:hover {
+                transform: translateY(-10px);
+                box-shadow: var(--shadow-green);
+                border-bottom-color: var(--spring-herb);
+            }
+            .value-card:hover::after { opacity: 1; }
+
+            .value-icon-wrap {
+                width: 72px; height: 72px; border-radius: 20px;
+                background: var(--spring-herb-pale);
+                display: flex; align-items: center; justify-content: center;
+                margin: 0 auto 22px; transition: all .35s ease;
+            }
+            .value-card:hover .value-icon-wrap {
+                background: var(--spring-herb); transform: rotate(8deg) scale(1.1);
+            }
+            .value-icon-wrap i {
+                font-size: 28px; color: var(--spring-herb);
+                transition: color .35s ease;
+            }
+            .value-card:hover .value-icon-wrap i { color: var(--white); }
+            .value-card h3 { font-size: 19px; color: var(--cool-jade); margin-bottom: 12px; }
+            .value-card p { color: var(--text-light); font-size: 13.5px; line-height: 1.7; }
+
+            /* ════════════════════════════════════
+               FEATURES  –  alternating layout
+            ════════════════════════════════════ */
+            .features-section { padding: 90px 0; }
+
+            .features-container {
+                display: grid; grid-template-columns: 1fr 1fr;
+                gap: 70px; align-items: center;
+            }
+
+            .features-list { animation: slideInLeft .9s ease both; }
+            .features-list > .section-label { margin-bottom: 8px; }
+            .features-list > h2 {
+                font-size: 36px; color: var(--text-dark); margin-bottom: 36px;
+                line-height: 1.25;
+            }
+            .features-list > h2 span { color: var(--spring-herb); }
+
+            .feature-item {
+                display: flex; gap: 18px; align-items: flex-start;
+                padding: 20px; border-radius: var(--radius);
+                transition: all .3s ease; margin-bottom: 10px;
+                border: 1px solid transparent;
+            }
+            .feature-item:hover {
+                background: var(--white); border-color: var(--spring-herb-pale);
+                box-shadow: var(--shadow-sm); transform: translateX(8px);
+            }
+
+            .feature-number {
+                font-family: "Poppins", sans-serif; font-size: 11px;
+                font-weight: 700; color: var(--spring-herb); background: var(--spring-herb-pale);
+                width: 24px; height: 24px; border-radius: 6px;
+                display: flex; align-items: center; justify-content: center;
+                flex-shrink: 0; margin-top: 14px; letter-spacing: 0;
+            }
+
+            .feature-icon {
+                width: 54px; height: 54px; flex-shrink: 0;
+                background: linear-gradient(135deg, var(--spring-herb) 0%, var(--sky-aqua) 100%);
+                border-radius: 14px; display: flex; align-items: center; justify-content: center;
+                transition: all .3s ease;
+            }
+            .feature-item:hover .feature-icon { transform: scale(1.12) rotate(-5deg); }
+            .feature-icon i { color: var(--white); font-size: 22px; }
+            .feature-text h3 { font-size: 16px; color: var(--cool-jade); margin-bottom: 6px; }
+            .feature-text p { color: var(--text-light); font-size: 13.5px; line-height: 1.65; }
+
+            /* Features visual */
+            .features-visual {
+                position: relative; animation: slideInRight .9s ease both;
+            }
+            .features-card-bg {
+                background: linear-gradient(145deg, var(--sky-aqua) 0%, #1a7fa8 50%, var(--cool-jade) 100%);
+                border-radius: var(--radius-lg); padding: 50px 40px;
+                min-height: 420px; display: flex; flex-direction: column;
+                align-items: center; justify-content: center; gap: 24px;
+                box-shadow: 0 20px 50px rgba(35,157,202,.25);
+                text-align: center; position: relative; overflow: hidden;
+            }
+            .features-card-bg::before {
+                content: ""; position: absolute; top: -50px; left: -50px;
+                width: 200px; height: 200px; background: rgba(255,255,255,.07); border-radius: 50%;
+            }
+            .fv-icon {
+                width: 100px; height: 100px; border-radius: 50%;
+                background: rgba(255,255,255,.15); border: 2px solid rgba(255,255,255,.25);
+                display: flex; align-items: center; justify-content: center;
+                animation: floatBob 5s ease-in-out infinite;
+            }
+            .fv-icon i { font-size: 44px; color: var(--white); }
+            .features-card-bg h3 { font-size: 22px; color: var(--white); }
+            .features-card-bg p { color: rgba(255,255,255,.8); font-size: 14px; max-width: 240px; }
+
+            .fv-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+            .fv-pill {
+                background: rgba(255,255,255,.15); color: var(--white);
+                font-size: 12px; font-weight: 600; padding: 6px 14px;
+                border-radius: 20px; border: 1px solid rgba(255,255,255,.2);
+            }
+
+            /* ════════════════════════════════════
+               STATS  –  bold counter row
+            ════════════════════════════════════ */
+            .stats-section { padding: 20px 0 90px; }
+
+            .stats-wrapper {
+                background: linear-gradient(135deg, var(--cool-jade) 0%, #024a42 100%);
+                border-radius: var(--radius-lg); padding: 70px 60px;
+                box-shadow: var(--shadow-hover); position: relative; overflow: hidden;
+            }
+            .stats-wrapper::before {
+                content: ""; position: absolute; top: -100px; right: -100px;
+                width: 400px; height: 400px; border-radius: 50%;
+                background: rgba(109,175,95,.12);
+            }
+            .stats-wrapper::after {
+                content: ""; position: absolute; bottom: -80px; left: -80px;
+                width: 300px; height: 300px; border-radius: 50%;
+                background: rgba(255,255,255,.04);
+            }
+
+            .stats-header { text-align: center; margin-bottom: 56px; }
+            .stats-header h2 { font-size: 34px; color: var(--white); margin-bottom: 10px; }
+            .stats-header p { color: var(--light-blue); font-size: 16px; }
+
+            .stats-grid {
+                display: grid; grid-template-columns: repeat(4, 1fr);
+                gap: 0; position: relative; z-index: 1;
+            }
+            .stat-item {
+                text-align: center; padding: 20px;
+                border-right: 1px solid rgba(255,255,255,.1);
+                animation: countUp .7s ease both;
+            }
+            .stat-item:last-child { border-right: none; }
+
+            .stat-number {
+                font-family: "Poppins", sans-serif; font-size: 56px; font-weight: 800;
+                color: var(--spring-herb); display: block; line-height: 1;
+                margin-bottom: 10px;
+                background: linear-gradient(135deg, var(--spring-herb) 0%, var(--spring-herb-light) 100%);
+                -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            }
+            .stat-label { color: var(--light-blue); font-size: 15px; font-weight: 500; }
+            .stat-desc { color: rgba(165,198,219,.6); font-size: 12px; margin-top: 4px; }
+
+            /* ════════════════════════════════════
+               TEAM  –  cards
+            ════════════════════════════════════ */
+            .team-section { padding: 0 0 90px; }
+            .team-grid {
+                display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+            }
+            .team-member {
+                background: var(--white); border-radius: var(--radius-lg);
+                overflow: hidden; box-shadow: var(--shadow-sm);
+                transition: all .35s ease; position: relative;
+            }
+            .team-member::after {
+                content: ""; position: absolute; bottom: 0; left: 0; right: 0;
+                height: 3px;
+                background: linear-gradient(90deg, var(--spring-herb), var(--sky-aqua));
+                transform: scaleX(0); transition: transform .35s ease;
+                transform-origin: left;
+            }
+            .team-member:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
+            .team-member:hover::after { transform: scaleX(1); }
+
+            .member-image {
+                height: 220px; position: relative; overflow: hidden;
+                background: linear-gradient(145deg, #e8f5e4 0%, #d4edcb 100%);
+                display: flex; align-items: center; justify-content: center;
+            }
+
+            /* avatar circle */
+            .avatar-circle {
+                width: 100px; height: 100px; border-radius: 50%;
+                background: linear-gradient(135deg, var(--spring-herb) 0%, var(--cool-jade) 100%);
+                display: flex; align-items: center; justify-content: center;
+                box-shadow: 0 8px 24px rgba(109,175,95,.4);
+                transition: transform .35s ease;
+            }
+            .team-member:hover .avatar-circle { transform: scale(1.1); }
+            .avatar-circle i { font-size: 42px; color: var(--white); }
+
+            /* decorative dots in bg */
+            .member-image::before {
+                content: ""; position: absolute; top: 10px; right: 10px;
+                width: 60px; height: 60px; border-radius: 50%;
+                background: rgba(109,175,95,.15);
+            }
+            .member-image::after {
+                content: ""; position: absolute; bottom: 15px; left: 15px;
+                width: 40px; height: 40px; border-radius: 50%;
+                background: rgba(35,157,202,.12);
+            }
+
+            .member-info { padding: 24px 22px 28px; }
+            .member-info h4 { font-size: 18px; color: var(--text-dark); margin-bottom: 4px; }
+            .member-role {
+                display: inline-block; background: var(--spring-herb-pale);
+                color: var(--cool-jade); font-weight: 700; font-size: 11px;
+                letter-spacing: .5px; padding: 4px 10px; border-radius: 6px;
+                margin-bottom: 12px; text-transform: uppercase;
+            }
+            .member-info p { color: var(--text-light); font-size: 13px; line-height: 1.65; }
+
+            .member-social {
+                display: flex; gap: 8px; margin-top: 16px;
+            }
+            .member-social a {
+                width: 32px; height: 32px; border-radius: 8px;
+                background: var(--bg-soft); color: var(--text-light);
+                display: flex; align-items: center; justify-content: center;
+                font-size: 13px; text-decoration: none; transition: all .25s ease;
+            }
+            .member-social a:hover { background: var(--spring-herb); color: var(--white); }
+
+            /* ════════════════════════════════════
+               CTA  –  full-width banner
+            ════════════════════════════════════ */
+            .cta-section {
+                background: linear-gradient(135deg, var(--spring-herb) 0%, #4a9a3c 50%, var(--cool-jade) 100%);
+                padding: 80px 60px; border-radius: var(--radius-lg);
+                text-align: center; margin: 0 0 100px; position: relative; overflow: hidden;
+                box-shadow: var(--shadow-green);
+            }
+            .cta-section::before {
+                content: ""; position: absolute; top: -60px; right: -60px;
+                width: 280px; height: 280px; border-radius: 50%;
+                background: rgba(255,255,255,.08);
+            }
+            .cta-section::after {
+                content: ""; position: absolute; bottom: -80px; left: -40px;
+                width: 300px; height: 300px; border-radius: 50%;
+                background: rgba(255,255,255,.05);
+            }
+            .cta-inner { position: relative; z-index: 2; }
+            .cta-section h2 {
+                font-size: 40px; color: var(--white); margin-bottom: 16px; font-weight: 700;
+            }
+            .cta-section p {
+                font-size: 17px; color: rgba(255,255,255,.85);
+                margin-bottom: 40px; max-width: 520px;
+                margin-left: auto; margin-right: auto;
+            }
+            .btn-group {
+                display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+            }
+            .btn {
+                display: inline-flex; align-items: center; gap: 8px;
+                padding: 14px 34px; border-radius: 50px; text-decoration: none;
+                font-weight: 700; transition: all .3s ease; border: none;
+                cursor: pointer; font-size: 15px; font-family: "Poppins", sans-serif;
+            }
+            .btn-primary {
+                background: var(--white); color: var(--cool-jade);
+            }
+            .btn-primary:hover {
+                background: var(--linen-white); transform: translateY(-4px);
+                box-shadow: 0 12px 30px rgba(0,0,0,.2);
+            }
+            .btn-secondary {
+                background: transparent; color: var(--white);
+                border: 2px solid rgba(255,255,255,.6);
+            }
+            .btn-secondary:hover {
+                background: rgba(255,255,255,.15); transform: translateY(-4px);
+                border-color: var(--white);
+            }
+
+            /* ── Footer (unchanged) ── */
+            		footer {
+			background-color: var(--text-dark);
+			color: var(--linen-white);
+			padding: 80px 24px 30px;
+		}
+
+		.footer-grid {
+			max-width: var(--max-width);
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 2fr 1fr 1fr 1.5fr;
+			gap: 40px;
+			margin-bottom: 60px;
+		}
+
+		.footer-brand .logo {
+			color: var(--white);
+			margin-bottom: 20px;
+			display: inline-block;
+		}
+
+		.footer-brand p {
+			color: #a0b2b0;
+			font-size: 15px;
+			max-width: 300px;
+			margin-bottom: 24px;
+		}
+
+		.social-links {
+			display: flex;
+			gap: 12px;
+		}
+
+		.social-links a {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.1);
+			color: var(--white);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.3s ease;
+			text-decoration: none;
+		}
+
+		.social-links a:hover {
+			background: var(--spring-herb);
+			transform: translateY(-3px);
+		}
+
+		.footer-title {
+			color: var(--white);
+			font-size: 18px;
+			margin-bottom: 24px;
+			position: relative;
+			padding-bottom: 10px;
+		}
+
+		.footer-title::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 40px;
+			height: 2px;
+			background: var(--sky-aqua);
+		}
+
+		.footer-links {
+			list-style: none;
+		}
+
+		.footer-links li {
+			margin-bottom: 12px;
+		}
+
+		.footer-links a {
+			color: #a0b2b0;
+			text-decoration: none;
+			transition: 0.3s;
+			font-size: 15px;
+		}
+
+		.footer-links a:hover {
+			color: var(--spring-herb);
+			padding-left: 5px;
+		}
+
+		.contact-info li {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 16px;
+			color: #a0b2b0;
+			font-size: 15px;
+		}
+
+		.contact-info i {
+			color: var(--sky-aqua);
+			margin-top: 4px;
+		}
+
+		.footer-bottom {
+			max-width: var(--max-width);
+			margin: 0 auto;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			padding-top: 24px;
+			text-align: center;
+			color: #a0b2b0;
+			font-size: 14px;
+		}
+
+
+            /* ── Responsive ── */
+            @media (max-width: 1024px) {
+                .values-grid,
+                .team-grid,
+                .stats-grid { grid-template-columns: repeat(2, 1fr); }
+                .stat-item:nth-child(2) { border-right: none; }
+                .stat-item:nth-child(3) { border-top: 1px solid rgba(255,255,255,.1); }
+            }
+
+            @media (max-width: 768px) {
+                .nav-links { display: none; }
+                .mobile-menu-btn { display: block; }
+                .page-hero { padding: 120px 24px 60px; }
+                .page-hero h1 { font-size: 32px; }
+                .section-title { font-size: 28px; }
+                .mission-container,
+                .features-container { grid-template-columns: 1fr; gap: 40px; }
+                .values-grid,
+                .team-grid,
+                .stats-grid { grid-template-columns: 1fr; }
+                .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
+                .values-section,
+                .stats-wrapper,
+                .cta-section { padding: 40px 24px; }
+                .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+                .cta-section h2 { font-size: 28px; }
+                .mission-badge { display: none; }
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- Header Navigation (unchanged) -->
+        <header id="header">
+            <nav>
+                <a href="index.html" class="logo">
+                    <i class="fa-solid fa-leaf"></i> Wander KH
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="discover.html">Discover</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="planning.html">Trip Planner</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Hero Section (unchanged) -->
+        <section class="page-hero">
+            <div class="page-hero-content">
+                <span class="page-hero-tag">Our Story</span>
+                <h1>About Wander KH</h1>
+                <p>Passionate explorers committed to helping you discover the true essence of Cambodia</p>
+            </div>
+        </section>
+
+        <main>
+
+            <!-- ── MISSION ── -->
+            <section class="section mission-section">
+                <div class="mission-container">
+                    <div class="mission-text">
+                        <div class="section-label"><i class="fa-solid fa-heart"></i> Our Mission</div>
+                        <h2>Travel deeper.<br><em>Connect further.</em></h2>
+                        <p>At Wander KH, we believe that travel is more than just visiting places. It's about connecting with cultures, creating memories, and transforming perspectives. Our mission is to empower travelers to explore Cambodia's incredible destinations with confidence and joy.</p>
+                        <p>Founded in 2020, we started as a small team of travel enthusiasts who fell in love with Cambodia. Today, we're dedicated to providing authentic travel experiences and practical guidance for adventurers of all levels.</p>
+
+                        <div class="mission-highlights">
+                            <div class="mh-item">
+                                <i class="fa-solid fa-seedling"></i>
+                                <div>
+                                    <strong>Rooted in Community</strong>
+                                    <span>We work closely with local homestays and sustainable tourism initiatives.</span>
+                                </div>
+                            </div>
+                            <div class="mh-item">
+                                <i class="fa-solid fa-globe-asia"></i>
+                                <div>
+                                    <strong>Positive Impact</strong>
+                                    <span>Your travel directly contributes to Cambodian communities and heritage preservation.</span>
+                                </div>
+                            </div>
+                            <div class="mh-item">
+                                <i class="fa-solid fa-route"></i>
+                                <div>
+                                    <strong>Beyond the Tourist Trail</strong>
+                                    <span>Discover authentic Cambodia beyond the guide books — hidden, real, unforgettable.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mission-visual">
+                        <div class="mission-card-main">
+                            <div class="mission-icon-ring">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <h3>Passion for Cambodia</h3>
+                            <p>Every destination we share is one we've personally loved and believe in.</p>
+                        </div>
+                        <div class="mission-badge">
+                            <div class="mission-badge-icon"><i class="fa-solid fa-award"></i></div>
+                            <div>
+                                <strong>Est. 2020</strong>
+                                <span>Trusted since day one</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── CORE VALUES ── -->
+            <section class="section" style="padding-top:20px;">
+                <div class="section-label" style="display:flex;margin:0 auto 14px;width:fit-content;">
+                    <i class="fa-solid fa-star"></i> Core Values
+                </div>
+                <h2 class="section-title">What We <span>Stand For</span></h2>
+                <p class="section-subtitle">Four principles that shape every destination we recommend, every partnership we form, and every traveler we serve.</p>
+
+                <div class="values-section">
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <div class="value-icon-wrap"><i class="fa-solid fa-compass"></i></div>
+                            <h3>Authenticity</h3>
+                            <p>We provide genuine, unfiltered information to help you experience Cambodia as it truly is, beyond the tourist trail.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon-wrap"><i class="fa-solid fa-users"></i></div>
+                            <h3>Community First</h3>
+                            <p>We prioritize supporting local communities and ensuring tourism benefits the Khmer people and their heritage.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon-wrap"><i class="fa-solid fa-leaf"></i></div>
+                            <h3>Sustainability</h3>
+                            <p>We promote eco-friendly travel practices to preserve Cambodia's natural beauty for future generations.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon-wrap"><i class="fa-solid fa-lightbulb"></i></div>
+                            <h3>Innovation</h3>
+                            <p>We constantly evolve our services and tools to make travel planning easier and more personalized for you.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── WHY CHOOSE US ── -->
+            <section class="section features-section" style="padding-top:60px;">
+                <div class="features-container">
+                    <div class="features-list">
+                        <div class="section-label"><i class="fa-solid fa-check-circle"></i> Why Us</div>
+                        <h2>The Wander KH<br><span>Difference</span></h2>
+
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fa-solid fa-star"></i></div>
+                            <div class="feature-text">
+                                <h3>Expert Local Knowledge</h3>
+                                <p>Our team has years of experience exploring every corner of Cambodia, from hidden temples to untouched beaches.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fa-solid fa-map"></i></div>
+                            <div class="feature-text">
+                                <h3>Personalized Recommendations</h3>
+                                <p>Our intelligent recommendation engine suggests destinations based on your preferences, budget, and travel style.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fa-solid fa-shield"></i></div>
+                            <div class="feature-text">
+                                <h3>Trusted & Verified</h3>
+                                <p>All partner hotels, restaurants, and tour operators are carefully vetted to ensure quality and authenticity.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
+                            <div class="feature-text">
+                                <h3>24/7 Travel Support</h3>
+                                <p>Have questions before or during your trip? Our support team is always ready to help you.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="features-visual">
+                        <div class="features-card-bg">
+                            <div class="fv-icon"><i class="fa-solid fa-handshake"></i></div>
+                            <h3>Always In Your Corner</h3>
+                            <p>From first click to final destination, we've got you covered every step of the way.</p>
+                            <div class="fv-pills">
+                                <span class="fv-pill">Local Experts</span>
+                                <span class="fv-pill">Verified Partners</span>
+                                <span class="fv-pill">Eco-Conscious</span>
+                                <span class="fv-pill">24/7 Support</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── STATS ── -->
+            <section class="stats-section">
+                <div class="stats-wrapper">
+                    <div class="stats-header">
+                        <h2>Our Impact in Numbers</h2>
+                        <p>Five years of building bridges between travelers and Cambodia's soul</p>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">50K+</span>
+                            <div class="stat-label">Happy Travelers</div>
+                            <div class="stat-desc">And counting every year</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">30+</span>
+                            <div class="stat-label">Destinations Covered</div>
+                            <div class="stat-desc">From Angkor to the coast</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100+</span>
+                            <div class="stat-label">Partner Businesses</div>
+                            <div class="stat-desc">Vetted & community-rooted</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">6+</span>
+                            <div class="stat-label">Years of Experience</div>
+                            <div class="stat-desc">Exploring Cambodia daily</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── TEAM ── -->
+            <section class="team-section">
+                <div class="section-label" style="display:flex;margin:0 auto 14px;width:fit-content;">
+                    <i class="fa-solid fa-people-group"></i> The Team
+                </div>
+                <h2 class="section-title">Meet the <span>Humans</span> Behind the Maps</h2>
+                <p class="section-subtitle">Passionate travel experts dedicated to crafting your unforgettable Cambodian adventure</p>
+
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="avatar-circle"><i class="fa-solid fa-user"></i></div>
+                        </div>
+                        <div class="member-info">
+                            <h4>Pal Sovanna</h4>
+                            <span class="member-role">Founder & CEO</span>
+                            <p>Travel entrepreneur with 15 years of experience exploring Southeast Asia and beyond.</p>
+                            <div class="member-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="avatar-circle"><i class="fa-solid fa-user"></i></div>
+                        </div>
+                        <div class="member-info">
+                            <h4>Chea Vuthearith</h4>
+                            <span class="member-role">Head of Experiences</span>
+                            <p>Expert in crafting authentic cultural experiences and meaningful local connections.</p>
+                            <div class="member-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="avatar-circle"><i class="fa-solid fa-user"></i></div>
+                        </div>
+                        <div class="member-info">
+                            <h4>Seng Sakol</h4>
+                            <span class="member-role">Sustainability Manager</span>
+                            <p>Committed to responsible tourism and environmental conservation across Cambodia.</p>
+                            <div class="member-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="avatar-circle"><i class="fa-solid fa-user"></i></div>
+                        </div>
+                        <div class="member-info">
+                            <h4>Chamnab</h4>
+                            <span class="member-role">Customer Success Lead</span>
+                            <p>Dedicated to ensuring every traveler has the best moment and possible journey with us.</p>
+                            <div class="member-social">
+                                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── CTA ── -->
+            <div class="cta-section">
+                <div class="cta-inner">
+                    <h2>Ready for Your Cambodian Adventure?</h2>
+                    <p>Explore our curated destinations and create memories that will last a lifetime. Your journey begins here.</p>
+                    <div class="btn-group">
+                        <a href="discover.html" class="btn btn-primary">
+                            <i class="fa-solid fa-compass"></i> Discover Destinations
+                        </a>
+                        <a href="planning.html" class="btn btn-secondary">
+                            <i class="fa-solid fa-map"></i> Plan Your Trip
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer (unchanged) -->
+        <footer>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <i class="fa-solid fa-leaf"></i> Wander KH
+                    </a>
+                    <p>Your ultimate guide to exploring the Kingdom of Wonder. We help you discover the hidden gems and famous landmarks of Cambodia.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-widget">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about-us.html">About</a></li>
+                        <li><a href="discover.html">Discover</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="planning.html">Trip Planner</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-widget">
+                    <h4 class="footer-title">Travel Info</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Visa Information</a></li>
+                        <li><a href="#">Travel Insurance</a></li>
+                        <li><a href="#">Best Time to Visit</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-widget">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <ul class="contact-info">
+                        <li><i class="fa-solid fa-location-dot"></i><span>Phnom Penh, Cambodia</span></li>
+                        <li><i class="fa-solid fa-phone"></i><span>+855 12 345 678</span></li>
+                        <li><i class="fa-solid fa-envelope"></i><span>hello@wanderkh.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wander KH | Designed with passion for Cambodia.</p>
+            </div>
+        </footer>
+
+        <script>
+            // Header scroll
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+
+            // Mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                });
+            }
+
+            // Scroll-triggered fade-in for cards
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((e, i) => {
+                    if (e.isIntersecting) {
+                        setTimeout(() => {
+                            e.target.style.opacity = '1';
+                            e.target.style.transform = 'translateY(0)';
+                        }, i * 100);
+                        observer.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.value-card, .team-member, .stat-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        </script>
+    </body>
+</html>
